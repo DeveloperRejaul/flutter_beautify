@@ -59,32 +59,10 @@ flutter_beautify add button
 3. Displays import statement for quick copy-paste
 
 
-### Generated Button Widget
-
-```dart
-import 'package:flutter/material.dart';
-
-class Button extends StatelessWidget {
-  final VoidCallback? onPressed;
-  final Widget? child;
-  final String? title;
-
-  const Button({super.key, this.onPressed, this.child, this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: child ?? Text(title ?? ""),
-    );
-  }
-}
-```
-
 ### Use in Your App
 
 ```dart
-import 'package:your_app/widgets/button.dart';
+import 'package:example/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -94,21 +72,84 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Flutter Beautify Demo')),
-        body: Center(
-          child: Button(
-            title: 'Click Me',
-            onPressed: () => print('Button pressed!'),
-          ),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 10,
+          children: <Widget>[
+            const Text('You have pushed the button this many times:'),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+
+            // apply widgets
+            Button.solid(
+              onPressed: () {
+                _incrementCounter();
+              },
+              color: Colors.deepOrange,
+              leading: Icon(Icons.save, size: 20),
+              child: const Text("data"),
+            ),
+            Button.outline(
+              title: "Click Me",
+              onPressed: () {
+                _incrementCounter();
+              },
+              color: Colors.deepOrange,
+            ),
+            Button.link(
+              title: "Click Me",
+              onPressed: () {
+                _incrementCounter();
+              },
+              color: Colors.deepOrange,
+            )
+          ],
         ),
       ),
     );
   }
 }
+
 ```
 
 ---
@@ -155,7 +196,7 @@ Have questions or found a bug?
 
 - 🐛 **Report Issues:** [GitHub Issues](https://github.com/DeveloperRejaul/flutter_beautify/issues)
 - 💡 **Feature Requests:** Open a new issue with `[Feature Request]` prefix
-- 📧 **Email Support:** [developer.rejaul@example.com](mailto:developer.rejaul@example.com)
+- 📧 **Email Support:** [devrejaul.official@gmail.com](mailto:devrejaul.official@gmail.com)
 
 ---
 

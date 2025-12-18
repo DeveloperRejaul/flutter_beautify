@@ -1,1 +1,10 @@
-flutter publish
+dart analyze
+dart format .
+dart test
+
+
+dart pub login
+
+dart pub publish --dry-run
+
+dart pub publish

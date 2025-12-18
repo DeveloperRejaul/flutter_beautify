@@ -18,7 +18,7 @@ Future<void> createButton(String name) async {
   }
 
   // source template file
-  final templateFile = File('example/lib/widgets/button/button.dart');
+  final templateFile = File('example/lib/widgets/button.dart');
 
   if (!await templateFile.exists()) {
     print('Template file missing: ${templateFile.path}');

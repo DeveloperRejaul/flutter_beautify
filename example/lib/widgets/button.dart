@@ -4,7 +4,7 @@ class Button extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
   final ButtonStyle style;
-  final Icon? leading; 
+  final Icon? leading;
 
   const Button._({
     super.key,
@@ -49,9 +49,7 @@ class Button extends StatelessWidget {
       backgroundColor: color,
       foregroundColor: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
 
     return Button._(
@@ -79,9 +77,7 @@ class Button extends StatelessWidget {
       elevation: 0,
       side: BorderSide(color: color),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
 
     return Button._(
@@ -103,18 +99,19 @@ class Button extends StatelessWidget {
     ButtonStyle? style,
     Icon? leading,
   }) {
-    final base = ElevatedButton.styleFrom(
-      backgroundColor: Colors.transparent,
-      foregroundColor: color,
-      shadowColor: Colors.transparent,
-      elevation: 0,
-      padding: EdgeInsets.zero,
-      minimumSize: Size.zero,
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    ).copyWith(
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
-      elevation: MaterialStateProperty.all(0),
-    );
+    final base =
+        ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: color,
+          shadowColor: Colors.transparent,
+          elevation: 0,
+          padding: EdgeInsets.zero,
+          minimumSize: Size.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ).copyWith(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          elevation: MaterialStateProperty.all(0),
+        );
 
     return Button._(
       key: key,
@@ -126,10 +123,7 @@ class Button extends StatelessWidget {
   }
 
   // -------- STYLE RESOLVER --------
-  static ButtonStyle _resolveStyle(
-    ButtonStyle base,
-    ButtonStyle? override,
-  ) {
+  static ButtonStyle _resolveStyle(ButtonStyle base, ButtonStyle? override) {
     if (override == null) return base;
 
     return base.copyWith(
@@ -156,11 +150,7 @@ class Button extends StatelessWidget {
           ? Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                leading!,
-                const SizedBox(width: 8),
-                child,
-              ],
+              children: [leading!, const SizedBox(width: 8), child],
             )
           : child,
     );
