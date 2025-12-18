@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 10,
           children: <Widget>[
             const Text('You have pushed the button this many times:'),
             Text(
@@ -56,12 +57,28 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             // apply widgets
-            Button(
+            Button.solid(
               onPressed: () {
                 _incrementCounter();
               },
-              title: "Click Me",
+              color: Colors.deepOrange,
+              leading: Icon(Icons.save, size: 20),
+              child: const Text("data"),
             ),
+            Button.outline(
+              title: "Click Me",
+              onPressed: () {
+                _incrementCounter();
+              },
+              color: Colors.deepOrange,
+            ),
+            Button.link(
+              title: "Click Me",
+              onPressed: () {
+                _incrementCounter();
+              },
+              color: Colors.deepOrange,
+            )
           ],
         ),
       ),
