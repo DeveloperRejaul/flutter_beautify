@@ -13,7 +13,9 @@ A powerful CLI tool for Flutter developers to quickly generate beautiful, custom
 - [Quick Features](#quick-features)
 - [Installation](#installation)
 - [Widgets](#widgets)
-  - [Button](#button)
+  - [Form](#form)
+    - [Button](#button)
+    - [Checkbox](#checkbox)
 - [License](#-license)
 
 ---
@@ -46,140 +48,17 @@ flutter_beautify --help
 ---
 
 ### Widgets
-
+### Form
 #### Button
 ```bash
 flutter_beautify add button
 ```
 
-### What It Does
-
-1. Creates `lib/widgets/` directory (if it doesn't exist)
-2. Generates `lib/widgets/button.dart` with a ready-to-use button widget
-3. Displays import statement for quick copy-paste
-
-
-### Use in Your App
-
-```dart
-import 'package:example/widgets/button.dart';
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-
-            // apply widgets
-            Button.solid(
-              onPressed: () {
-                _incrementCounter();
-              },
-              color: Colors.deepOrange,
-              leading: Icon(Icons.save, size: 20),
-              child: const Text("data"),
-            ),
-            Button.outline(
-              title: "Click Me",
-              onPressed: () {
-                _incrementCounter();
-              },
-              color: Colors.deepOrange,
-            ),
-            Button.link(
-              title: "Click Me",
-              onPressed: () {
-                _incrementCounter();
-              },
-              color: Colors.deepOrange,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
+#### Checkbox
+```bash
+flutter_beautify add checkbox
 ```
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
-
-**DeveloperRejaul**
-
-- GitHub: [@DeveloperRejaul](https://github.com/DeveloperRejaul)
-- Email: [devrejaul.official@gmail.com](mailto:devrejaul.official@gmail.com)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
 
 ## 📚 Related Libraries & Resources
 

@@ -1,3 +1,5 @@
+import 'package:example/demo/button_example.dart';
+import 'package:example/demo/checkbox_example.dart';
 import 'package:example/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +32,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,42 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-
-            // apply widgets
-            Button.solid(
-              onPressed: () {
-                _incrementCounter();
-              },
-              color: Colors.deepOrange,
-              leading: Icon(Icons.save, size: 20),
-              child: const Text("data"),
-            ),
-            Button.outline(
-              title: "Click Me",
-              onPressed: () {
-                _incrementCounter();
-              },
-              color: Colors.deepOrange,
-            ),
-            Button.link(
-              title: "Click Me",
-              onPressed: () {
-                _incrementCounter();
-              },
-              color: Colors.deepOrange,
-            ),
-          ],
-        ),
-      ),
+        child:  CheckboxExample(),
+      )
     );
   }
 }

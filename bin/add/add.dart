@@ -1,10 +1,12 @@
 import 'dart:io';
-import './button.dart';
+import '../utils/create.dart';
+
+final Create create = Create();
+
 
 Future<void> handleAdd(List<String> args) async {
   if (args.isEmpty) {
     print('Usage: flutter_beautify add [name]');
-    print('Available: button');
     exit(1);
   }
 
@@ -12,11 +14,13 @@ Future<void> handleAdd(List<String> args) async {
 
   switch (name) {
     case 'button':
-      await createButton(name);
+      await create.widget(name);
+      break;
+    case 'checkbox':
+      await create.widget(name);
       break;
     default:
       print('Unknown add target: $name');
-      print('Available: button');
       exit(1);
   }
 }

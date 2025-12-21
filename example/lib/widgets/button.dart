@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class FBButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
   final ButtonStyle style;
   final Icon? leading;
 
-  const Button._({
+  const FBButton._({
     super.key,
     required this.onPressed,
     required this.child,
@@ -15,7 +15,7 @@ class Button extends StatelessWidget {
   });
 
   // Default → solid
-  factory Button({
+  factory FBButton({
     Key? key,
     required VoidCallback? onPressed,
     String? title,
@@ -24,19 +24,19 @@ class Button extends StatelessWidget {
     ButtonStyle? style,
     Icon? leading,
   }) {
-    return Button.solid(
+    return FBButton.solid(
       key: key,
       onPressed: onPressed,
       title: title,
-      child: child,
       color: color,
       style: style,
       leading: leading,
+      child: child,
     );
   }
 
   // -------- SOLID --------
-  factory Button.solid({
+  factory FBButton.solid({
     Key? key,
     required VoidCallback? onPressed,
     String? title,
@@ -52,7 +52,7 @@ class Button extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
 
-    return Button._(
+    return FBButton._(
       key: key,
       onPressed: onPressed,
       style: _resolveStyle(base, style),
@@ -62,7 +62,7 @@ class Button extends StatelessWidget {
   }
 
   // -------- OUTLINE --------
-  factory Button.outline({
+  factory FBButton.outline({
     Key? key,
     required VoidCallback? onPressed,
     String? title,
@@ -80,7 +80,7 @@ class Button extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
 
-    return Button._(
+    return FBButton._(
       key: key,
       onPressed: onPressed,
       style: _resolveStyle(base, style),
@@ -90,7 +90,7 @@ class Button extends StatelessWidget {
   }
 
   // -------- LINK --------
-  factory Button.link({
+  factory FBButton.link({
     Key? key,
     required VoidCallback? onPressed,
     String? title,
@@ -113,7 +113,7 @@ class Button extends StatelessWidget {
           elevation: MaterialStateProperty.all(0),
         );
 
-    return Button._(
+    return FBButton._(
       key: key,
       onPressed: onPressed,
       style: _resolveStyle(base, style),
