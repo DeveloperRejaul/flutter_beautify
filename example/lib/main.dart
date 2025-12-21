@@ -1,6 +1,4 @@
-import 'package:example/demo/button_example.dart';
 import 'package:example/demo/checkbox_example.dart';
-import 'package:example/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child:  CheckboxExample(),
-      )
+      body: Center(child: CheckboxExample()),
     );
   }
 }

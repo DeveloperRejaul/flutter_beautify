@@ -3,7 +3,6 @@ import '../utils/create.dart';
 
 final Create create = Create();
 
-
 Future<void> handleAdd(List<String> args) async {
   if (args.isEmpty) {
     print('Usage: flutter_beautify add [name]');

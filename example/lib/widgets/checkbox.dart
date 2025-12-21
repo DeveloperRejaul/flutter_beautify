@@ -7,22 +7,21 @@ class FBCheckbox extends StatelessWidget {
   final Color? boxColor;
   final Color? checkColor;
   final Color? errorCheckColor;
-  final  Color? focusColor;
-  final  Color? hoverColor;
-  final  Color? errorBoxColor;
-  final  WidgetStateProperty<Color?>? overlayColor;
-  final  double? splashRadius;
-  final  MaterialTapTargetSize? materialTapTargetSize;
-  final  VisualDensity? visualDensity;
-  final  FocusNode? focusNode;
-  final  bool? autofocus;
-  final  OutlinedBorder? shape;
-  final  BorderSide? side;
-  final  bool? isError;
-  final  String? semanticLabel;
-  final  TextStyle? labelStyle;
+  final Color? focusColor;
+  final Color? hoverColor;
+  final Color? errorBoxColor;
+  final WidgetStateProperty<Color?>? overlayColor;
+  final double? splashRadius;
+  final MaterialTapTargetSize? materialTapTargetSize;
+  final VisualDensity? visualDensity;
+  final FocusNode? focusNode;
+  final bool? autofocus;
+  final OutlinedBorder? shape;
+  final BorderSide? side;
+  final bool? isError;
+  final String? semanticLabel;
+  final TextStyle? labelStyle;
   final bool? disable;
-
 
   const FBCheckbox({
     super.key,
@@ -59,10 +58,10 @@ class FBCheckbox extends StatelessWidget {
         Checkbox(
           value: value,
           onChanged: (v) {
-            if(!isFBDisable) onChanged(v);
+            if (!isFBDisable) onChanged(v);
           },
-          activeColor: isFBError ? errorBoxColor?? Colors.red : boxColor,
-          checkColor: isFBError ? errorCheckColor?? Colors.white : checkColor,
+          activeColor: isFBError ? errorBoxColor ?? Colors.red : boxColor,
+          checkColor: isFBError ? errorCheckColor ?? Colors.white : checkColor,
           focusColor: focusColor,
           hoverColor: hoverColor,
           overlayColor: overlayColor,
@@ -76,9 +75,15 @@ class FBCheckbox extends StatelessWidget {
           semanticLabel: semanticLabel,
           isError: isError ?? false,
         ),
-        if (label != null ) Text(label ?? "", style: labelStyle ?? TextStyle(
-          color: isFBError ? (errorBoxColor ?? Colors.red) : null,
-        )),
+        if (label != null)
+          Text(
+            label ?? "",
+            style:
+                labelStyle ??
+                TextStyle(
+                  color: isFBError ? (errorBoxColor ?? Colors.red) : null,
+                ),
+          ),
       ],
     );
   }
