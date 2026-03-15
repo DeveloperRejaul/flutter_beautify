@@ -1,4 +1,27 @@
+import 'package:example/demo/accordion_example.dart';
+import 'package:example/demo/avatar_example.dart';
+import 'package:example/demo/badge_example.dart';
+import 'package:example/demo/bottom_navigation_bar_example.dart';
+import 'package:example/demo/bottom_sheet_example.dart';
+import 'package:example/demo/breadcrumb_example.dart';
+import 'package:example/demo/button_example.dart';
+import 'package:example/demo/calendar_example.dart';
+import 'package:example/demo/card_example.dart';
 import 'package:example/demo/checkbox_example.dart';
+import 'package:example/demo/date_picker_example.dart';
+import 'package:example/demo/dialog_example.dart';
+import 'package:example/demo/dropdown_example.dart';
+import 'package:example/demo/pagination_example.dart';
+import 'package:example/demo/progress_example.dart';
+import 'package:example/demo/radio_button_example.dart';
+import 'package:example/demo/sidebar_example.dart';
+import 'package:example/demo/slider_example.dart';
+import 'package:example/demo/snackbar_example.dart';
+import 'package:example/demo/switch_example.dart';
+import 'package:example/demo/tabs_example.dart';
+import 'package:example/demo/textfield_example.dart';
+import 'package:example/demo/toast_example.dart';
+import 'package:example/demo/tooltip_example.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -37,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(child: CheckboxExample()),
+      body: Center(child: SidebarExample()),
     );
   }
 }

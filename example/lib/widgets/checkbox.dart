@@ -23,7 +23,7 @@ class FBCheckbox extends StatelessWidget {
   final TextStyle? labelStyle;
   final bool? disable;
 
-  const FBCheckbox({
+  const FBCheckbox._({
     super.key,
     required this.value,
     required this.onChanged,
@@ -47,6 +47,57 @@ class FBCheckbox extends StatelessWidget {
     this.labelStyle,
     this.disable,
   });
+
+  // Default constructor
+  factory FBCheckbox({
+    Key? key,
+    required bool value,
+    required ValueChanged<bool?> onChanged,
+    String? label,
+    Color? boxColor,
+    Color? checkColor,
+    Color? focusColor,
+    Color? hoverColor,
+    WidgetStateProperty<Color?>? overlayColor,
+    double? splashRadius,
+    MaterialTapTargetSize? materialTapTargetSize,
+    VisualDensity? visualDensity,
+    FocusNode? focusNode,
+    bool? autofocus,
+    OutlinedBorder? shape,
+    BorderSide? side,
+    bool? isError,
+    String? semanticLabel,
+    Color? errorBoxColor,
+    Color? errorCheckColor,
+    TextStyle? labelStyle,
+    bool? disable,
+  }) {
+    return FBCheckbox._(
+      key: key,
+      value: value,
+      onChanged: onChanged,
+      label: label,
+      boxColor: boxColor,
+      checkColor: checkColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: splashRadius,
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus,
+      shape: shape,
+      side: side,
+      isError: isError,
+      semanticLabel: semanticLabel,
+      errorBoxColor: errorBoxColor,
+      errorCheckColor: errorCheckColor,
+      labelStyle: labelStyle,
+      disable: disable,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +129,7 @@ class FBCheckbox extends StatelessWidget {
         if (label != null)
           Text(
             label ?? "",
-            style:
-                labelStyle ??
+            style: labelStyle ??
                 TextStyle(
                   color: isFBError ? (errorBoxColor ?? Colors.red) : null,
                 ),

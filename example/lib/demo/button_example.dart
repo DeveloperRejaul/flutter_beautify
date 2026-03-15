@@ -32,18 +32,18 @@ class _ButtonExampleState extends State<ButtonExample> {
             _incrementCounter();
           },
           color: Colors.deepOrange,
-          leading: Icon(Icons.save, size: 20),
-          child: const Text("data"),
+          leading: const Icon(Icons.save, size: 20),
+          child: const Text("Solid Button"),
         ),
         FBButton.outline(
-          title: "Click Me",
+          title: "Outline Button",
           onPressed: () {
             _incrementCounter();
           },
           color: Colors.deepOrange,
         ),
         FBButton.link(
-          title: "Click Me",
+          title: "Link Button",
           onPressed: () {
             _incrementCounter();
           },
