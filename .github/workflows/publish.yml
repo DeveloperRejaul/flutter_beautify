@@ -105,8 +105,6 @@ jobs:
   publish-to-pubdev:
     needs: create-release
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
 
     steps:
       - name: Checkout code
@@ -123,6 +121,8 @@ jobs:
 
       - name: Publish to pub.dev
         run: dart pub publish --force
+        env:
+          PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
 
       - name: Publishing Status
-        run: echo "✅ Published to pub.dev from tag ${{ github.ref_name }}"
+        run: echo "✅ Published to pub.dev"
