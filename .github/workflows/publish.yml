@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*.*.*'
 
 jobs:
   # Job 1: Build, Test, and Analyze (on main branch push)
@@ -101,9 +99,9 @@ jobs:
       - name: Log creation
         run: echo "✅ Created tag ${{ needs.build-and-test.outputs.tag }} and release"
 
-  # Job 3: Publish to pub.dev (ONLY on tag push, not on branch push)
+  # Job 3: Publish to pub.dev (after tag is created)
   publish-to-pubdev:
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: create-release
     runs-on: ubuntu-latest
     permissions:
       id-token: write
