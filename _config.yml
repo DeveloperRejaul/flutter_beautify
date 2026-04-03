@@ -1,0 +1,37 @@
+site: Flutter Beautify
+title: Flutter Beautify - Production UI Widgets CLI
+description: A command-line interface tool for scaffolding 26+ pre-built, customizable Flutter UI components with Material Design 3 compliance.
+url: https://DeveloperRejaul.github.io/flutter_beautify
+baseurl: /flutter_beautify
+repository: DeveloperRejaul/flutter_beautify
+
+# Theme
+theme: just-the-docs
+logo: "/assets/logo.png"
+favicon_ico: "/assets/favicon.ico"
+
+# Navigation
+aux_links:
+  "GitHub": https://github.com/DeveloperRejaul/flutter_beautify
+  "Pub.dev": https://pub.dev/packages/flutter_beautify
+
+# Search
+search_enabled: true
+
+# Color scheme
+color_scheme: dark
+
+# Footer
+footer_content: "Built with ❤️ by DeveloperRejaul | MIT License"
+
+# Analytics (optional)
+# google_analytics_id: G-XXXXXXXXXXXX
+
+# Enable collections
+collections:
+  guides:
+    output: true
+    permalink: /:collection/:path/
+
+plugins:
+  - search
