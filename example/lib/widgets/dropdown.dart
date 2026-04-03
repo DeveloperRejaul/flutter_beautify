@@ -173,7 +173,7 @@ class _FBDropdownState<T> extends State<FBDropdown<T>> {
     return SizedBox(
       width: widget.width ?? double.infinity,
       child: DropdownButtonFormField<T>(
-        value: _selectedValue,
+        initialValue: _selectedValue,
         items: widget.items,
         onChanged: (T? newValue) {
           setState(() {

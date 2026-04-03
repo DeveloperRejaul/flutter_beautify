@@ -117,9 +117,10 @@ class _FBRadioButtonState<T> extends State<FBRadioButton<T>> {
             height: widget.size,
             child: Radio<T>(
               value: widget.value,
+              // ignore: deprecated_member_use
               groupValue: widget.groupValue,
+              // ignore: deprecated_member_use
               onChanged: widget.onChanged,
-              activeColor: widget.activeColor ?? Colors.blue,
               fillColor: WidgetStateProperty.resolveWith<Color?>((states) {
                 if (states.contains(WidgetState.selected)) {
                   return widget.activeColor ?? Colors.blue;

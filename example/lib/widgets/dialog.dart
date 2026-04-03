@@ -97,7 +97,7 @@ class FBDialog {
   }
 
   // Deprecated: Use alert() instead
-  @deprecated
+  @Deprecated('Use alert() instead')
   static Future<T?> show<T>({
     required BuildContext context,
     required String title,
@@ -140,7 +140,7 @@ class FBDialog {
   }
 
   // Deprecated: Use custom() instead
-  @deprecated
+  @Deprecated('Use custom() instead')
   static Future<T?> showCustom<T>({
     required BuildContext context,
     required Widget title,

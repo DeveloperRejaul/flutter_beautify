@@ -1,6 +1,3 @@
-import 'package:example/demo/accordion_example.dart';
-import 'package:example/demo/appbar_example.dart';
-import 'package:example/demo/avatar_example.dart';
 import 'package:example/demo/badge_example.dart';
 import 'package:example/utils/theme.dart';
 import 'package:flutter/material.dart';

@@ -72,7 +72,7 @@ class FBSwitch extends StatefulWidget {
       labelStyle: labelStyle,
       activeColor: activeColor ?? Colors.blue,
       inactiveColor: Colors.grey.shade400,
-      trackActiveColor: (activeColor ?? Colors.blue).withOpacity(0.5),
+      trackActiveColor: (activeColor ?? Colors.blue).withValues(alpha: 0.5),
       trackInactiveColor: Colors.grey.shade300,
       enabled: true,
     );
@@ -99,7 +99,7 @@ class FBSwitch extends StatefulWidget {
       subtitleStyle: subtitleStyle,
       activeColor: activeColor ?? Colors.blue,
       inactiveColor: Colors.grey.shade400,
-      trackActiveColor: (activeColor ?? Colors.blue).withOpacity(0.5),
+      trackActiveColor: (activeColor ?? Colors.blue).withValues(alpha: 0.5),
       trackInactiveColor: Colors.grey.shade300,
       padding: const EdgeInsets.all(12.0),
       alignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +126,7 @@ class FBSwitch extends StatefulWidget {
       labelStyle: labelStyle,
       activeColor: activeColor ?? Colors.green,
       inactiveColor: Colors.grey.shade500,
-      trackActiveColor: (activeColor ?? Colors.green).withOpacity(0.6),
+      trackActiveColor: (activeColor ?? Colors.green).withValues(alpha: 0.6),
       trackInactiveColor: Colors.grey.shade400,
       enabled: true,
     );
@@ -196,7 +196,6 @@ class _FBSwitchState extends State<FBSwitch> {
                     widget.onChanged?.call(newValue);
                   }
                 : null,
-            activeColor: widget.activeColor ?? Colors.blue,
             inactiveThumbColor: widget.inactiveColor ?? Colors.grey.shade400,
             activeTrackColor: widget.trackActiveColor,
             inactiveTrackColor: widget.trackInactiveColor,

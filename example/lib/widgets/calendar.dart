@@ -214,7 +214,7 @@ class _FBCalendarState extends State<FBCalendar> {
                     color: isSelected
                         ? widget.selectedColor
                         : isToday
-                        ? widget.todayColor.withOpacity(0.2)
+                        ? widget.todayColor.withValues(alpha: 0.2)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                   ),

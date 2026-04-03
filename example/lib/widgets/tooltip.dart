@@ -27,7 +27,7 @@ class FBTooltip extends StatefulWidget {
     required Widget child,
     required String message,
   }) {
-    return FBTooltip.standard(key: key, child: child, message: message);
+    return FBTooltip.standard(key: key, message: message, child: child);
   }
 
   // -------- STANDARD --------
@@ -38,10 +38,10 @@ class FBTooltip extends StatefulWidget {
   }) {
     return FBTooltip._(
       key: key,
-      child: child,
       message: message,
       backgroundColor: Colors.grey.shade800,
       textStyle: const TextStyle(color: Colors.white, fontSize: 12),
+      child: child,
     );
   }
 
@@ -53,10 +53,10 @@ class FBTooltip extends StatefulWidget {
   }) {
     return FBTooltip._(
       key: key,
-      child: child,
       message: message,
       backgroundColor: Colors.black87,
       textStyle: const TextStyle(color: Colors.white, fontSize: 12),
+      child: child,
     );
   }
 

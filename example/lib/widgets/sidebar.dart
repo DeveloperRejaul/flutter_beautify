@@ -157,7 +157,7 @@ class _FBSidebarState extends State<FBSidebar> {
                   },
                   child: Container(
                     color: isSelected
-                        ? widget.activeColor.withOpacity(0.1)
+                        ? widget.activeColor.withValues(alpha: 0.1)
                         : null,
                     padding: const EdgeInsets.symmetric(
                       vertical: 12,

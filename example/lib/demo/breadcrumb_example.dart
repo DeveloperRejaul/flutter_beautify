@@ -44,15 +44,15 @@ class BreadcrumbExample extends StatelessWidget {
               items: [
                 BreadcrumbItem(
                   label: 'Home',
-                  onTap: () => print('Home tapped'),
+                  onTap: () => debugPrint('Home tapped'),
                 ),
                 BreadcrumbItem(
                   label: 'Products',
-                  onTap: () => print('Products tapped'),
+                  onTap: () => debugPrint('Products tapped'),
                 ),
                 BreadcrumbItem(
                   label: 'Electronics',
-                  onTap: () => print('Electronics tapped'),
+                  onTap: () => debugPrint('Electronics tapped'),
                 ),
                 BreadcrumbItem(label: 'Phones'),
               ],

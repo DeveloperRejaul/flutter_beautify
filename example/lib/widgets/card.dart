@@ -43,7 +43,6 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard.elevated(
       key: key,
-      child: child,
       backgroundColor: backgroundColor,
       elevation: elevation,
       padding: padding,
@@ -52,6 +51,7 @@ class FBCard extends StatelessWidget {
       onTap: onTap,
       width: width,
       height: height,
+      child: child,
     );
   }
 
@@ -70,7 +70,6 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard._(
       key: key,
-      child: child,
       backgroundColor: backgroundColor,
       elevation: elevation,
       padding: padding,
@@ -79,6 +78,7 @@ class FBCard extends StatelessWidget {
       onTap: onTap,
       width: width,
       height: height,
+      child: child,
     );
   }
 
@@ -98,7 +98,6 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard._(
       key: key,
-      child: child,
       backgroundColor: backgroundColor,
       elevation: 0,
       padding: padding,
@@ -108,6 +107,7 @@ class FBCard extends StatelessWidget {
       onTap: onTap,
       width: width,
       height: height,
+      child: child,
     );
   }
 
@@ -125,7 +125,6 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard._(
       key: key,
-      child: child,
       backgroundColor: backgroundColor,
       elevation: 0,
       padding: padding,
@@ -134,6 +133,7 @@ class FBCard extends StatelessWidget {
       onTap: onTap,
       width: width,
       height: height,
+      child: child,
     );
   }
 
