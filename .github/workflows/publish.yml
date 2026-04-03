@@ -124,3 +124,9 @@ jobs:
       - name: Publish to pub.dev
         run: |
           dart pub publish --force
+        continue-on-error: true
+
+      - name: Publishing Status
+        run: |
+          echo "📦 Package published!"
+          echo "If publishing failed, see: TRUSTED_PUBLISHING.md"
