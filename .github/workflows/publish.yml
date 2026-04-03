@@ -4,13 +4,10 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'
 
 jobs:
-  # Job 1: Build & Test (runs only on main)
+  # Job 1: Build & Test
   build-and-test:
-    if: startsWith(github.ref, 'refs/heads/main')
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
@@ -54,13 +51,16 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
-  # Job 2: Create Tag & GitHub Release
+  # Job 2: Create Tag & Release
   create-release:
     needs: build-and-test
     if: needs.build-and-test.outputs.tag_exists == 'false'
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
+    outputs:
+      released: 'true'
 
     steps:
       - name: Checkout code
@@ -86,9 +86,10 @@ jobs:
           draft: false
           prerelease: false
 
-  # Job 3: Publish to pub.dev (runs ONLY on tag push)
+  # Job 3: Publish to pub.dev (FIXED)
   publish-to-pubdev:
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: create-release
+    if: needs.create-release.result == 'success'
     runs-on: ubuntu-latest
 
     steps:
@@ -113,4 +114,4 @@ jobs:
         run: dart pub publish --force
 
       - name: Done
-        run: echo "✅ Package published to pub.dev"
+        run: echo "✅ Published to pub.dev"
