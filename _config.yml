@@ -1,56 +1,37 @@
-# Site Information
+site: Flutter Beautify
 title: Flutter Beautify - Production UI Widgets CLI
 description: A command-line interface tool for scaffolding 26+ pre-built, customizable Flutter UI components with Material Design 3 compliance.
-url: https://DeveloperRejaul.github.io
+url: https://DeveloperRejaul.github.io/flutter_beautify
 baseurl: /flutter_beautify
 repository: DeveloperRejaul/flutter_beautify
 
-# Theme Configuration
+# Theme
 theme: just-the-docs
-remote_theme: just-the-docs/just-the-docs
-
-# Build Settings
-markdown: kramdown
-highlighter: rouge
-exclude: [Gemfile, Gemfile.lock, node_modules, vendor, .gitignore, .github, CHANGELOG.md, LICENSE, README.md, CONTACT.md, CONTRIBUTING.md, note.txt, DEV.md]
-keep_files: [.git, CNAME]
-
-# Navigation & Links
-aux_links:
-  "GitHub": https://github.com/DeveloperRejaul/flutter_beautify
-  "Pub.dev": https://pub.dev/packages/flutter_beautify
-  "Report Issue": https://github.com/DeveloperRejaul/flutter_beautify/issues
-
-# Search Configuration
-search_enabled: true
-search:
-  heading_level: 2
-  previews: 3
-  preview_words_before: 5
-  preview_words_after: 10
-
-# Styling
-color_scheme: dark
-back_to_top: true
-back_to_top_text: "Back to top"
-
-# Footer
-footer_content: "© 2026 Flutter Beautify. Built with ❤️ by <a href='https://github.com/DeveloperRejaul'>DeveloperRejaul</a> | <a href='https://github.com/DeveloperRejaul/flutter_beautify/blob/main/LICENSE'>MIT License</a>"
-
-# Branding
 logo: "/assets/logo.png"
 favicon_ico: "/assets/favicon.ico"
 
-# Collections
+# Navigation
+aux_links:
+  "GitHub": https://github.com/DeveloperRejaul/flutter_beautify
+  "Pub.dev": https://pub.dev/packages/flutter_beautify
+
+# Search
+search_enabled: true
+
+# Color scheme
+color_scheme: dark
+
+# Footer
+footer_content: "Built with ❤️ by DeveloperRejaul | MIT License"
+
+# Analytics (optional)
+# google_analytics_id: G-XXXXXXXXXXXX
+
+# Enable collections
 collections:
   guides:
     output: true
     permalink: /:collection/:path/
 
-# Plugins
 plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-default-layouts
-  - jekyll-include-cache
+  - search
