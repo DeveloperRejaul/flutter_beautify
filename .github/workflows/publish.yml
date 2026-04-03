@@ -103,7 +103,7 @@ jobs:
 
   # Job 3: Publish to pub.dev (ONLY on tag push, not on branch push)
   publish-to-pubdev:
-    if: 'false'  # DISABLED - Skip this job
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       id-token: write
