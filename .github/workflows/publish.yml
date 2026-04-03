@@ -125,7 +125,7 @@ jobs:
           echo "${{ secrets.PUB_TOKEN }}" > ~/.config/dart/pub-credentials.json
 
       - name: Publish to pub.dev
-        run: dart pub publish --force --skip-confirmation
+        run: dart pub publish --force
 
       - name: Publishing Status
         run: echo "✅ Published to pub.dev"

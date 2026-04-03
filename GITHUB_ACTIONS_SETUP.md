@@ -76,7 +76,8 @@ The workflow now:
 
 3. **Publish** (after tag created)
    - Sets up credentials in `~/.config/dart/pub-credentials.json`
-   - Runs: `dart pub publish --force --skip-confirmation`
+   - Runs: `dart pub publish --force`
+   - `--force` skips confirmation if there are no errors
    - **No browser authorization needed!**
 
 ---
