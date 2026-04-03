@@ -1,6 +1,6 @@
 name: flutter_beautify
 description: A beautiful custom widget cli for Flutter.
-version: 1.1.5
+version: 1.1.6
 
 environment:
   sdk: ^3.9.2
