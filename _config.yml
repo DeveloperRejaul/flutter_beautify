@@ -21,33 +21,47 @@ safe: true
 logo: "/assets/logo.png"
 favicon_ico: "/assets/favicon.ico"
 
+# Site navigation with left sidebar (like Discord)
+nav_order: 1
+
+# Navigation - Enable left sidebar menu
+just_the_docs:
+  # Enable search
+  search_enabled: true
+  
+  # Collections for organizing docs
+  collections:
+    guides:
+      name: Guides
+      nav_order: 1
+
 # Navigation
 aux_links:
   "GitHub": https://github.com/DeveloperRejaul/flutter_beautify
   "Pub.dev": https://pub.dev/packages/flutter_beautify
   "Report Issue": https://github.com/DeveloperRejaul/flutter_beautify/issues
+  "Discord": https://discord.gg/flutter
 
 # Search configuration
 search_enabled: true
 search:
   heading_level: 2
 
-# Color scheme
+# Color scheme (dark for awesome look)
 color_scheme: dark
 back_to_top: true
 
 # Footer
-footer_content: "© 2026 Flutter Beautify | MIT License"
+footer_content: "© 2026 Flutter Beautify | Built with ❤️ by <a href='https://github.com/DeveloperRejaul'>DeveloperRejaul</a> | <a href='https://github.com/DeveloperRejaul/flutter_beautify/blob/main/LICENSE'>MIT License</a>"
 
-# Collections
+# Collections for organizing documents
 collections:
+  docs:
+    output: true
+    permalink: /docs/:path/
   guides:
     output: true
-    permalink: /:collection/:path/
-
-# Plugins - GitHub Pages auto-enables these
-# (no need to list them - GitHub Pages handles it)
-# Just use remote_theme for just-the-docs
+    permalink: /guides/:path/
 
 # Exclude files from build
 exclude:
@@ -62,3 +76,4 @@ exclude:
   - note.txt
   - DEV.md
   - .jekyll-metadata
+  - "*.gemspec"
