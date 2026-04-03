@@ -41,6 +41,7 @@ jobs:
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
+          fi
 
   # Job 2: Create Tag & Release
   create-release:
