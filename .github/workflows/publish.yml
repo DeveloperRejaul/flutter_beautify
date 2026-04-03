@@ -1,21 +1,24 @@
-name: Publish to pub.dev
+name: Build, Test, Release & Publish
 
 on:
   push:
     branches:
       - main
-    tags:
-      - 'v*.*.*'
 
 jobs:
-  publish:
+  # Job 1: Build, Test, and Analyze
+  build-and-test:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      tag_exists: ${{ steps.tag_check.outputs.exists }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
@@ -32,19 +35,93 @@ jobs:
       - name: Format check
         run: dart format --set-exit-if-changed .
 
-      - name: Verify tag matches pubspec version
+      - name: Extract version from pubspec.yaml
+        id: version
         run: |
-          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
-            TAG_VERSION="${{ github.ref_name }}"
-            PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
-            if [[ "$TAG_VERSION" != "v$PUBSPEC_VERSION" ]]; then
-              echo "Tag version ($TAG_VERSION) does not match pubspec version (v$PUBSPEC_VERSION)"
-              exit 1
-            fi
+          VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "tag=v${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Check if tag already exists
+        id: tag_check
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
+  # Job 2: Create Tag and Release
+  create-release:
+    needs: build-and-test
+    if: needs.build-and-test.outputs.tag_exists == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create git tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a "${{ needs.build-and-test.outputs.tag }}" -m "Release version ${{ needs.build-and-test.outputs.version }}"
+          git push origin "${{ needs.build-and-test.outputs.tag }}"
+
+      - name: Get changelog entry
+        id: changelog
+        run: |
+          if [ -f CHANGELOG.md ]; then
+            CHANGELOG=$(sed -n '/^## /,/^## /p' CHANGELOG.md | head -n -1)
+            echo "body<<EOF" >> $GITHUB_OUTPUT
+            echo "$CHANGELOG" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "body=Release version ${{ needs.build-and-test.outputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.build-and-test.outputs.tag }}
+          release_name: Release ${{ needs.build-and-test.outputs.version }}
+          body: ${{ steps.changelog.outputs.body }}
+          draft: false
+          prerelease: false
+
+      - name: Log creation
+        run: echo "✅ Created tag ${{ needs.build-and-test.outputs.tag }} and release"
+
+  # Job 3: Publish to pub.dev (only when tag is created)
+  publish-to-pubdev:
+    needs: [build-and-test, create-release]
+    if: needs.build-and-test.outputs.tag_exists == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.build-and-test.outputs.tag }}
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+
+      - name: Get dependencies
+        run: dart pub get
+
       - name: Publish to pub.dev
-        if: startsWith(github.ref, 'refs/tags/v')
         run: dart pub publish --force
         env:
           PUB_CREDENTIAL_JSON: ${{ secrets.PUB_CREDENTIAL_JSON }}
