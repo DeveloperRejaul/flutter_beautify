@@ -51,16 +51,13 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
-  # Job 2: Create Tag & Release
+  # Job 2: Create Tag & GitHub Release
   create-release:
     needs: build-and-test
     if: needs.build-and-test.outputs.tag_exists == 'false'
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
-    outputs:
-      released: 'true'
 
     steps:
       - name: Checkout code
@@ -86,7 +83,7 @@ jobs:
           draft: false
           prerelease: false
 
-  # Job 3: Publish to pub.dev (FIXED)
+  # Job 3: Publish to pub.dev
   publish-to-pubdev:
     needs: create-release
     if: needs.create-release.result == 'success'
@@ -108,7 +105,7 @@ jobs:
       - name: Setup pub.dev credentials
         run: |
           mkdir -p ~/.config/dart
-          echo '${{ secrets.PUB_TOKEN }}' > ~/.config/dart/pub-credentials.json
+          echo '${{ secrets.PUB_CREDENTIAL_JSON }}' > ~/.config/dart/pub-credentials.json
 
       - name: Publish to pub.dev
         run: dart pub publish --force
