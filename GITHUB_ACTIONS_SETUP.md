@@ -1,95 +1,135 @@
-# ⚙️ GitHub Actions Publishing Setup - Manual Token Method
+# ⚙️ GitHub Actions Publishing Setup - Automatic Non-Interactive
 
 ## Setup Steps (One Time Only)
 
-### Step 1: Get Your pub.dev Token
+### Step 1: Get pub.dev Credentials
 
+**Option A: From pub.dev Website**
 1. Go to https://pub.dev/account
-2. Click **"Account Settings"**
-3. Navigate to **"API Tokens"** or **"Publishing Tokens"**
-4. Create a new token:
-   - Name: `GitHub Actions`
-   - Click **"Generate"**
-5. **Copy the token** (you'll only see it once!)
+2. Look for **"API Tokens"** section
+3. Click **"Generate Token"** 
+4. Copy the token
 
-### Step 2: Add Token to GitHub Secrets
+**Option B: From Local Machine**
+1. Run locally first:
+   ```bash
+   dart pub publish --dry-run
+   ```
+2. Copy your credentials:
+   ```bash
+   cat ~/.config/dart/pub-credentials.json
+   ```
 
-1. Go to your GitHub repo: https://github.com/DeveloperRejaul/flutter_beautify
-2. Click **Settings** (top menu)
-3. Left sidebar: **Secrets and variables** → **Actions**
-4. Click **"New repository secret"**
-5. Fill in:
-   - **Name**: `PUB_TOKEN`
-   - **Secret**: Paste your token from Step 1
-6. Click **"Add secret"**
+### Step 2: Add to GitHub Secrets
+
+1. Go to your repo: https://github.com/DeveloperRejaul/flutter_beautify/settings/secrets/actions
+2. Click **"New repository secret"**
+3. **Name**: `PUB_TOKEN`
+4. **Value**: Paste token or credentials JSON
+5. Click **"Add secret"**
 
 ### Step 3: Done! ✅
 
-Your workflow now has access to publish!
-
 ---
 
-## How It Works
+## How It Now Works
 
-When you push to main with a version bump:
+**Automatic Non-Interactive Publishing:**
+
+✅ No browser popup needed
+✅ No manual confirmation required  
+✅ Fully automated with `--skip-confirmation`
+
+When you push to main:
 
 ```bash
 # Update version
-version: 1.0.5
+version: 1.0.6
 
 # Push
 git add pubspec.yaml CHANGELOG.md
-git commit -m "Bump version"
+git commit -m "Bump version to 1.0.6"
 git push origin main
+
+# Workflow automatically runs:
+# ✅ Tests code
+# ✅ Creates tag v1.0.6
+# ✅ Creates GitHub Release
+# ✅ PUBLISHES TO PUB.DEV (no interaction!)
 ```
 
-Workflow automatically:
-1. ✅ Tests code
-2. ✅ Creates tag `v1.0.5`
-3. ✅ Creates GitHub Release
-4. ✅ **Publishes to pub.dev** (using PUB_TOKEN from secrets)
+---
+
+## Workflow Automation
+
+The workflow now:
+
+1. **Build & Test** (on main push)
+   - Analyzes code
+   - Extracts version from pubspec.yaml
+   - Checks if tag already exists
+
+2. **Create Tag & Release** (if new version)
+   - Creates git tag (e.g., v1.0.6)
+   - Pushes tag to GitHub
+   - Creates GitHub Release with CHANGELOG
+
+3. **Publish** (after tag created)
+   - Sets up credentials in `~/.config/dart/pub-credentials.json`
+   - Runs: `dart pub publish --force --skip-confirmation`
+   - **No browser authorization needed!**
+
+---
+
+## Key Changes
+
+- ✅ Uses `pub-credentials.json` instead of tokens
+- ✅ Uses `--skip-confirmation` flag
+- ✅ Non-interactive workflow
+- ✅ Credentials stored safely in GitHub Secrets
 
 ---
 
 ## Troubleshooting
 
-### Still Getting Auth Error?
+### Still Getting Browser Prompt?
 
-1. **Verify token is correct:**
-   - Token should start with something like `eyJ...`
-   - Make sure you copied the entire token
+Check:
+1. Secret name is exactly `PUB_TOKEN`
+2. Credentials are correctly formatted
+3. Version is incremented in pubspec.yaml
+4. CHANGELOG.md is updated
 
-2. **Check GitHub Secrets:**
-   - Go to Settings → Secrets → Actions
-   - Verify `PUB_TOKEN` is there
+### "Previous version is X.X.X"?
 
-3. **Test locally first:**
-   ```bash
-   dart pub token add https://pub.dev
-   # Paste your token when prompted
-   dart pub publish --dry-run
-   ```
+You must increment the version:
+- Patch: `1.0.5` → `1.0.6`
+- Minor: `1.0.5` → `1.1.0`
+- Major: `1.0.5` → `2.0.0`
 
-### Token Expires?
+Update `pubspec.yaml` and `CHANGELOG.md`, then push again.
 
-pub.dev tokens don't expire, but if you need a new one:
-1. Go to pub.dev → Account Settings → API Tokens
-2. Revoke old token
-3. Create new token
-4. Update GitHub Secret with new token
+### Test Locally
+
+```bash
+dart pub login https://pub.dev
+dart pub publish --dry-run
+```
+
+If it works locally without prompts, it will work in GitHub Actions!
 
 ---
 
-## Security Note
+## Security
 
-✅ Tokens stored in GitHub Secrets are encrypted
-✅ Tokens are only used during workflow execution
-✅ Never commit tokens to git
-✅ Only visible to repo maintainers
+✅ Credentials encrypted in GitHub Secrets
+✅ Only visible to repo admins
+✅ Used only during workflow execution
+✅ Never committed or logged
 
 ---
 
 ## Reference
 
-- [pub.dev Publishing](https://dart.dev/tools/pub/publishing)
+- [Dart Pub Publishing](https://dart.dev/tools/pub/publishing)
 - [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)

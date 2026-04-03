@@ -119,10 +119,13 @@ jobs:
       - name: Get dependencies
         run: dart pub get
 
+      - name: Setup pub.dev credentials
+        run: |
+          mkdir -p ~/.config/dart
+          echo "${{ secrets.PUB_TOKEN }}" > ~/.config/dart/pub-credentials.json
+
       - name: Publish to pub.dev
-        run: dart pub publish --force
-        env:
-          PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
+        run: dart pub publish --force --skip-confirmation
 
       - name: Publishing Status
         run: echo "✅ Published to pub.dev"
