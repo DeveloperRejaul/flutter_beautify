@@ -5,15 +5,17 @@ url: https://DeveloperRejaul.github.io
 baseurl: /flutter_beautify
 repository: DeveloperRejaul/flutter_beautify
 
-# Theme - MUST use remote_theme for GitHub Pages
-remote_theme: just-the-docs/just-the-docs
-
-# Fallback theme if remote fails
-theme: just-the-docs
+# IMPORTANT: Use remote_theme instead of theme for GitHub Pages
+# GitHub Pages only supports specific themes - remote_theme is the workaround
+remote_theme: just-the-docs/just-the-docs@v0.7.0
 
 # Build settings
 markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
 highlighter: rouge
+lsi: false
+safe: true
 
 # Logo and favicon
 logo: "/assets/logo.png"
@@ -43,13 +45,9 @@ collections:
     output: true
     permalink: /:collection/:path/
 
-# Plugins for GitHub Pages
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-default-layouts
-  - jekyll-include-cache
+# Plugins - GitHub Pages auto-enables these
+# (no need to list them - GitHub Pages handles it)
+# Just use remote_theme for just-the-docs
 
 # Exclude files from build
 exclude:
@@ -63,3 +61,4 @@ exclude:
   - LICENSE
   - note.txt
   - DEV.md
+  - .jekyll-metadata
