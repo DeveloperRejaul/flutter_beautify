@@ -16,9 +16,7 @@ class _RadioButtonExampleState extends State<RadioButtonExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBRadioButton Example'),
-      ),
+      appBar: AppBar(title: const Text('FBRadioButton Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

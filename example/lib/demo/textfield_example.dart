@@ -55,10 +55,7 @@ class _TextfieldExampleState extends State<TextfieldExample> {
             prefixIcon: const Icon(Icons.phone),
             validator: FBValidators.validatePhone,
           ),
-          FBTextField(
-            label: 'Disabled Field',
-            hint: 'This field is disabled',
-          ),
+          FBTextField(label: 'Disabled Field', hint: 'This field is disabled'),
         ],
       ),
     );

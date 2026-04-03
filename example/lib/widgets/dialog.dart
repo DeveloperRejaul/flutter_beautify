@@ -83,11 +83,15 @@ class FBDialog {
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) => AlertDialog(
-        shape: shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape:
+            shape ??
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         title: title,
         content: content,
         actions: actions ?? [],
-        insetPadding: insetPadding ?? const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+        insetPadding:
+            insetPadding ??
+            const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
       ),
     );
   }
@@ -150,11 +154,15 @@ class FBDialog {
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) => AlertDialog(
-        shape: shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape:
+            shape ??
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         title: title,
         content: content,
         actions: actions ?? [],
-        insetPadding: insetPadding ?? const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+        insetPadding:
+            insetPadding ??
+            const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
       ),
     );
   }

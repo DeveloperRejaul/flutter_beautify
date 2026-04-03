@@ -26,11 +26,7 @@ class FBLinearProgress extends StatelessWidget {
     required double value,
     double height = 6,
   }) {
-    return FBLinearProgress.standard(
-      key: key,
-      value: value,
-      height: height,
-    );
+    return FBLinearProgress.standard(key: key, value: value, height: height);
   }
 
   // -------- STANDARD --------
@@ -100,7 +96,10 @@ class FBLinearProgress extends StatelessWidget {
               children: [
                 Text(
                   label!,
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 if (showValue)
                   Text(

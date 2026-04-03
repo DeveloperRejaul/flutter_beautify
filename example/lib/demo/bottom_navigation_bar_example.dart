@@ -10,7 +10,8 @@ class BottomNavigationBarExample extends StatefulWidget {
       _BottomNavigationBarExampleState();
 }
 
-class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample> {
+class _BottomNavigationBarExampleState
+    extends State<BottomNavigationBarExample> {
   int _selectedIndex = 0;
 
   final _pages = [
@@ -23,28 +24,14 @@ class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBBottomNavigationBar Example'),
-      ),
+      appBar: AppBar(title: const Text('FBBottomNavigationBar Example')),
       body: _pages[_selectedIndex],
       bottomNavigationBar: FBBottomNavigationBar(
         items: [
-          BottomNavItem(
-            icon: const Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavItem(
-            icon: const Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavItem(
-            icon: const Icon(Icons.add),
-            label: 'Add',
-          ),
-          BottomNavItem(
-            icon: const Icon(Icons.person),
-            label: 'Profile',
-          ),
+          BottomNavItem(icon: const Icon(Icons.home), label: 'Home'),
+          BottomNavItem(icon: const Icon(Icons.search), label: 'Search'),
+          BottomNavItem(icon: const Icon(Icons.add), label: 'Add'),
+          BottomNavItem(icon: const Icon(Icons.person), label: 'Profile'),
         ],
         selectedIndex: _selectedIndex,
         onItemSelected: (index) {

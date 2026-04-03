@@ -156,29 +156,42 @@ class _FBSidebarState extends State<FBSidebar> {
                     widget.onItemSelected?.call(index);
                   },
                   child: Container(
-                    color: isSelected ? widget.activeColor.withOpacity(0.1) : null,
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                    color: isSelected
+                        ? widget.activeColor.withOpacity(0.1)
+                        : null,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 8,
+                    ),
                     child: _isCollapsed
                         ? Tooltip(
                             message: item.label,
                             child: Icon(
                               item.icon,
-                              color: isSelected ? widget.activeColor : widget.inactiveColor,
+                              color: isSelected
+                                  ? widget.activeColor
+                                  : widget.inactiveColor,
                             ),
                           )
                         : Row(
                             children: [
                               Icon(
                                 item.icon,
-                                color: isSelected ? widget.activeColor : widget.inactiveColor,
+                                color: isSelected
+                                    ? widget.activeColor
+                                    : widget.inactiveColor,
                               ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   item.label,
                                   style: TextStyle(
-                                    color: isSelected ? widget.activeColor : widget.inactiveColor,
-                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    color: isSelected
+                                        ? widget.activeColor
+                                        : widget.inactiveColor,
+                                    fontWeight: isSelected
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
                                   ),
                                 ),
                               ),
@@ -200,9 +213,5 @@ class SidebarItem {
   final String label;
   final VoidCallback? onTap;
 
-  SidebarItem({
-    required this.icon,
-    required this.label,
-    this.onTap,
-  });
+  SidebarItem({required this.icon, required this.label, this.onTap});
 }

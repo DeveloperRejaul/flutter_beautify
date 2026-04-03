@@ -152,20 +152,13 @@ class FBCard extends StatelessWidget {
         width: width,
         height: height,
         padding: padding,
-        decoration: BoxDecoration(
-          border: border,
-          borderRadius: borderRadius,
-        ),
+        decoration: BoxDecoration(border: border, borderRadius: borderRadius),
         child: child,
       ),
     );
 
     if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        borderRadius: borderRadius,
-        child: card,
-      );
+      return InkWell(onTap: onTap, borderRadius: borderRadius, child: card);
     }
 
     return card;

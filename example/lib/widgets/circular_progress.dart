@@ -19,8 +19,7 @@ class FBCircularProgress extends StatefulWidget {
     this.label,
     this.labelStyle,
     this.isIndeterminate = false,
-  })
-    : backgroundColor = const Color(0xFFE0E0E0);
+  }) : backgroundColor = const Color(0xFFE0E0E0);
 
   // Default → standard
   factory FBCircularProgress({
@@ -28,11 +27,7 @@ class FBCircularProgress extends StatefulWidget {
     required double value,
     double size = 80,
   }) {
-    return FBCircularProgress.standard(
-      key: key,
-      value: value,
-      size: size,
-    );
+    return FBCircularProgress.standard(key: key, value: value, size: size);
   }
 
   // -------- STANDARD --------
@@ -65,10 +60,7 @@ class FBCircularProgress extends StatefulWidget {
       strokeWidth: 5,
       valueColor: valueColor,
       label: '${(value * 100).toStringAsFixed(0)}%',
-      labelStyle: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-      ),
+      labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     );
   }
 
@@ -130,18 +122,15 @@ class _FBCircularProgressState extends State<FBCircularProgress>
               child: CircularProgressIndicator(
                 strokeWidth: widget.strokeWidth,
                 backgroundColor: widget.backgroundColor,
-                valueColor:
-                    AlwaysStoppedAnimation<Color>(widget.valueColor),
+                valueColor: AlwaysStoppedAnimation<Color>(widget.valueColor),
               ),
             ),
             if (widget.label != null)
               Text(
                 widget.label!,
-                style: widget.labelStyle ??
-                    const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                style:
+                    widget.labelStyle ??
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
           ],
         ),
@@ -163,11 +152,9 @@ class _FBCircularProgressState extends State<FBCircularProgress>
           if (widget.label != null)
             Text(
               widget.label!,
-              style: widget.labelStyle ??
-                  const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
+              style:
+                  widget.labelStyle ??
+                  const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
         ],
       ),

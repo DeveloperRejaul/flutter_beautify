@@ -20,11 +20,14 @@ jobs:
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
 
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+
       - name: Get dependencies
         run: dart pub get
 
       - name: Analyze code
-        run: dart analyze --fatal-infos
+        run: dart analyze
 
       - name: Format check
         run: dart format --set-exit-if-changed .

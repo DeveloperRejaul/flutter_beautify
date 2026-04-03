@@ -167,7 +167,8 @@ class _FBSwitchState extends State<FBSwitch> {
                 children: [
                   Text(
                     widget.label,
-                    style: widget.labelStyle ??
+                    style:
+                        widget.labelStyle ??
                         const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -177,11 +178,9 @@ class _FBSwitchState extends State<FBSwitch> {
                     const SizedBox(height: 4),
                     Text(
                       widget.subtitle!,
-                      style: widget.subtitleStyle ??
-                          TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey.shade600,
-                          ),
+                      style:
+                          widget.subtitleStyle ??
+                          TextStyle(fontSize: 12, color: Colors.grey.shade600),
                     ),
                   ],
                 ],

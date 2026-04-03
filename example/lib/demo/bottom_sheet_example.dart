@@ -8,9 +8,7 @@ class BottomSheetExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBBottomSheet Example'),
-      ),
+      appBar: AppBar(title: const Text('FBBottomSheet Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -8,9 +8,7 @@ class BadgeExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBBadge Example'),
-      ),
+      appBar: AppBar(title: const Text('FBBadge Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -26,14 +24,8 @@ class BadgeExample extends StatelessWidget {
               runSpacing: 12,
               children: [
                 FBBadge(label: 'New'),
-                FBBadge(
-                  label: 'Hot',
-                  backgroundColor: Colors.orange,
-                ),
-                FBBadge(
-                  label: 'Sale',
-                  backgroundColor: Colors.red,
-                ),
+                FBBadge(label: 'Hot', backgroundColor: Colors.orange),
+                FBBadge(label: 'Sale', backgroundColor: Colors.red),
               ],
             ),
             const SizedBox(height: 32),
@@ -62,10 +54,7 @@ class BadgeExample extends StatelessWidget {
               runSpacing: 12,
               children: [
                 FBBadge.large(label: 'Premium'),
-                FBBadge.large(
-                  label: 'Featured',
-                  backgroundColor: Colors.blue,
-                ),
+                FBBadge.large(label: 'Featured', backgroundColor: Colors.blue),
                 FBBadge.large(
                   label: 'Trending',
                   backgroundColor: Colors.purple,

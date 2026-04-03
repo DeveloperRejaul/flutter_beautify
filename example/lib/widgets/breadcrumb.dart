@@ -13,18 +13,11 @@ class FBBreadcrumb extends StatelessWidget {
     required this.separator,
     this.textStyle,
     this.activeTextStyle,
-  })
-    : padding = const EdgeInsets.symmetric(vertical: 12);
+  }) : padding = const EdgeInsets.symmetric(vertical: 12);
 
   // Default → standard
-  factory FBBreadcrumb({
-    Key? key,
-    required List<BreadcrumbItem> items,
-  }) {
-    return FBBreadcrumb.standard(
-      key: key,
-      items: items,
-    );
+  factory FBBreadcrumb({Key? key, required List<BreadcrumbItem> items}) {
+    return FBBreadcrumb.standard(key: key, items: items);
   }
 
   // -------- STANDARD --------
@@ -46,14 +39,15 @@ class FBBreadcrumb extends StatelessWidget {
   }
 
   // -------- ARROW --------
-  factory FBBreadcrumb.arrow({
-    Key? key,
-    required List<BreadcrumbItem> items,
-  }) {
+  factory FBBreadcrumb.arrow({Key? key, required List<BreadcrumbItem> items}) {
     return FBBreadcrumb._(
       key: key,
       items: items,
-      separator: const Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
+      separator: const Icon(
+        Icons.arrow_forward_ios,
+        size: 12,
+        color: Colors.grey,
+      ),
       textStyle: const TextStyle(color: Colors.grey, fontSize: 12),
       activeTextStyle: const TextStyle(
         color: Colors.blue,

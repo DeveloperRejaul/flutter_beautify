@@ -17,9 +17,7 @@ class _SliderExampleState extends State<SliderExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBSlider Example'),
-      ),
+      appBar: AppBar(title: const Text('FBSlider Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

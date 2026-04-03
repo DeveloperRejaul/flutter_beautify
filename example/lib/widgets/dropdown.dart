@@ -29,7 +29,10 @@ class FBDropdown<T> extends StatefulWidget {
     this.width,
     this.borderColor = Colors.grey,
     this.borderWidth = 1.0,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 12,
+      vertical: 16,
+    ),
   });
 
   // Default → outlined
@@ -84,9 +87,7 @@ class FBDropdown<T> extends StatefulWidget {
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText.isEmpty ? null : labelText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.grey, width: 1),
@@ -95,7 +96,10 @@ class FBDropdown<T> extends StatefulWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.blue, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 16,
+        ),
       ),
       isExpanded: isExpanded,
       width: width,
@@ -141,7 +145,10 @@ class FBDropdown<T> extends StatefulWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.blue, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 16,
+        ),
       ),
       isExpanded: isExpanded,
       width: width,

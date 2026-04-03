@@ -15,9 +15,7 @@ class _DropdownExampleState extends State<DropdownExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBDropdown Example'),
-      ),
+      appBar: AppBar(title: const Text('FBDropdown Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -35,10 +33,7 @@ class _DropdownExampleState extends State<DropdownExample> {
                   value: 'flutter',
                   child: Text('Flutter'),
                 ),
-                const DropdownMenuItem(
-                  value: 'dart',
-                  child: Text('Dart'),
-                ),
+                const DropdownMenuItem(value: 'dart', child: Text('Dart')),
                 const DropdownMenuItem(
                   value: 'javascript',
                   child: Text('JavaScript'),

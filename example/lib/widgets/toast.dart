@@ -11,7 +11,10 @@ class FBToast {
     Color backgroundColor = const Color(0xFF333333),
     Color textColor = Colors.white,
     double fontSize = 14,
-    EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    EdgeInsets padding = const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8)),
     double? maxWidth,
   }) {
@@ -30,7 +33,9 @@ class FBToast {
             duration: duration,
             onDismiss: () => _overlayEntry?.remove(),
             child: Container(
-              constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
+              constraints: BoxConstraints(
+                maxWidth: maxWidth ?? double.infinity,
+              ),
               padding: padding,
               decoration: BoxDecoration(
                 color: backgroundColor,
@@ -39,10 +44,7 @@ class FBToast {
               child: Text(
                 message,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: fontSize,
-                ),
+                style: TextStyle(color: textColor, fontSize: fontSize),
               ),
             ),
           ),
@@ -129,9 +131,10 @@ class _FadeInOutToastState extends State<FadeInOutToast>
       vsync: this,
     );
 
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     _controller.forward();
 
@@ -152,9 +155,6 @@ class _FadeInOutToastState extends State<FadeInOutToast>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animation,
-      child: widget.child,
-    );
+    return FadeTransition(opacity: _animation, child: widget.child);
   }
 }

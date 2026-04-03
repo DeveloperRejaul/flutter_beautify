@@ -41,10 +41,7 @@ class _SnackbarExampleState extends State<SnackbarExample> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () {
-                  FBSnackbar.error(
-                    context,
-                    message: 'An error occurred! ✗',
-                  );
+                  FBSnackbar.error(context, message: 'An error occurred! ✗');
                 },
                 child: const Text('Error Snackbar'),
               ),
@@ -75,10 +72,7 @@ class _SnackbarExampleState extends State<SnackbarExample> {
                     message: 'Snackbar with action',
                     actionLabel: 'Undo',
                     onAction: () {
-                      FBSnackbar.show(
-                        context,
-                        message: 'Action was undone',
-                      );
+                      FBSnackbar.show(context, message: 'Action was undone');
                     },
                   );
                 },

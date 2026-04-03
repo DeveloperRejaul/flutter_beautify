@@ -20,7 +20,7 @@ class AccordionExample extends StatelessWidget {
       ),
       AccordionItem(
         title: const Text(
-          'What is Dart?' ,
+          'What is Dart?',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
         content: const Text(
@@ -41,9 +41,7 @@ class AccordionExample extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBAccordion Example'),
-      ),
+      appBar: AppBar(title: const Text('FBAccordion Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

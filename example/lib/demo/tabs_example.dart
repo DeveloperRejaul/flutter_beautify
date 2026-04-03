@@ -29,18 +29,9 @@ class TabsExample extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBTabs Example'),
-      ),
+      appBar: AppBar(title: const Text('FBTabs Example')),
       body: Column(
-        children: [
-          Expanded(
-            child: FBTabs(
-              tabs: tabs,
-              initialIndex: 0,
-            ),
-          ),
-        ],
+        children: [Expanded(child: FBTabs(tabs: tabs, initialIndex: 0))],
       ),
     );
   }

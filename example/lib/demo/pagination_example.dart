@@ -15,9 +15,7 @@ class _PaginationExampleState extends State<PaginationExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBPagination Example'),
-      ),
+      appBar: AppBar(title: const Text('FBPagination Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

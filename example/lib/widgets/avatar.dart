@@ -72,9 +72,7 @@ class FBAvatar extends StatelessWidget {
       initials: initials,
       size: size,
       backgroundColor: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       onTap: onTap,
     );
   }
@@ -94,9 +92,7 @@ class FBAvatar extends StatelessWidget {
       initials: initials,
       size: size,
       backgroundColor: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       onTap: onTap,
     );
   }
@@ -119,10 +115,7 @@ class FBAvatar extends StatelessWidget {
 
   Widget _buildInitials() {
     return Container(
-      decoration: ShapeDecoration(
-        color: backgroundColor,
-        shape: shape,
-      ),
+      decoration: ShapeDecoration(color: backgroundColor, shape: shape),
       child: Center(
         child: Text(
           initials ?? '?',
@@ -138,18 +131,10 @@ class FBAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widget = SizedBox(
-      width: size,
-      height: size,
-      child: _buildContent(),
-    );
+    final widget = SizedBox(width: size, height: size, child: _buildContent());
 
     if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        customBorder: shape,
-        child: widget,
-      );
+      return InkWell(onTap: onTap, customBorder: shape, child: widget);
     }
 
     return widget;

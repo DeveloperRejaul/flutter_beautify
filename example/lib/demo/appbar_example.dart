@@ -20,9 +20,9 @@ class _AppbarExampleState extends State<AppbarExample> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Search tapped')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Search tapped')));
             },
           ),
           IconButton(
@@ -54,7 +54,10 @@ class _AppbarExampleState extends State<AppbarExample> {
                     children: [
                       Text(
                         'FBAppBar Features:',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                       SizedBox(height: 8),
                       Text('✓ Customizable title and background'),

@@ -16,9 +16,8 @@ class FBTabs extends StatefulWidget {
     this.position = TabBarPosition.top,
     this.activeColor = Colors.blue,
     this.isScrollable = false,
-  })
-    : inactiveColor = Colors.grey,
-      backgroundColor = Colors.white;
+  }) : inactiveColor = Colors.grey,
+       backgroundColor = Colors.white;
 
   // Default → standard
   factory FBTabs({
@@ -26,11 +25,7 @@ class FBTabs extends StatefulWidget {
     required List<TabItem> tabs,
     int initialIndex = 0,
   }) {
-    return FBTabs.standard(
-      key: key,
-      tabs: tabs,
-      initialIndex: initialIndex,
-    );
+    return FBTabs.standard(key: key, tabs: tabs, initialIndex: initialIndex);
   }
 
   // -------- STANDARD --------

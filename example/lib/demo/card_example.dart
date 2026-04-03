@@ -52,9 +52,9 @@ class _CardExampleState extends State<CardExample> {
         FBCard(
           elevation: 4,
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Card tapped!')),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('Card tapped!')));
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

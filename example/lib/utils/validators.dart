@@ -4,7 +4,9 @@ class FBValidators {
     if (value == null || value.isEmpty) {
       return 'Email is required';
     }
-    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
     if (!emailRegex.hasMatch(value)) {
       return 'Please enter a valid email address';
     }
@@ -36,7 +38,9 @@ class FBValidators {
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
     }
-    final phoneRegex = RegExp(r'^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$');
+    final phoneRegex = RegExp(
+      r'^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$',
+    );
     if (!phoneRegex.hasMatch(value)) {
       return 'Please enter a valid phone number';
     }
@@ -58,7 +62,10 @@ class FBValidators {
   }
 
   /// Validate required field
-  static String? validateRequired(String? value, {String fieldName = 'This field'}) {
+  static String? validateRequired(
+    String? value, {
+    String fieldName = 'This field',
+  }) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required';
     }

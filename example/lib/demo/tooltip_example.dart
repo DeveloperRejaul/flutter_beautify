@@ -8,9 +8,7 @@ class TooltipExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBTooltip Example'),
-      ),
+      appBar: AppBar(title: const Text('FBTooltip Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

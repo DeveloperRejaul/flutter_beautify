@@ -20,9 +20,8 @@ class FBCalendar extends StatefulWidget {
     this.selectedColor = Colors.blue,
     this.todayColor = Colors.green,
     this.backgroundColor = Colors.white,
-  })
-    : selectedTextStyle = null,
-      showWeekdays = true;
+  }) : selectedTextStyle = null,
+       showWeekdays = true;
 
   // Default → standard
   factory FBCalendar({
@@ -109,7 +108,11 @@ class _FBCalendarState extends State<FBCalendar> {
   @override
   Widget build(BuildContext context) {
     final firstDayOfMonth = DateTime(_currentDate.year, _currentDate.month, 1);
-    final lastDayOfMonth = DateTime(_currentDate.year, _currentDate.month + 1, 0);
+    final lastDayOfMonth = DateTime(
+      _currentDate.year,
+      _currentDate.month + 1,
+      0,
+    );
     final daysInMonth = lastDayOfMonth.day;
     final startingWeekday = firstDayOfMonth.weekday;
 
@@ -125,7 +128,7 @@ class _FBCalendarState extends State<FBCalendar> {
       'September',
       'October',
       'November',
-      'December'
+      'December',
     ];
 
     final weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -162,17 +165,19 @@ class _FBCalendarState extends State<FBCalendar> {
           if (widget.showWeekdays)
             Row(
               children: weekdays
-                  .map((day) => Expanded(
-                        child: Center(
-                          child: Text(
-                            day,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
+                  .map(
+                    (day) => Expanded(
+                      child: Center(
+                        child: Text(
+                          day,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
                           ),
                         ),
-                      ))
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           const SizedBox(height: 8),
@@ -181,56 +186,57 @@ class _FBCalendarState extends State<FBCalendar> {
             crossAxisCount: 7,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            children: List.generate(
-              startingWeekday - 1 + daysInMonth,
-              (index) {
-                if (index < startingWeekday - 1) {
-                  return const SizedBox();
-                }
+            children: List.generate(startingWeekday - 1 + daysInMonth, (index) {
+              if (index < startingWeekday - 1) {
+                return const SizedBox();
+              }
 
-                final day = index - (startingWeekday - 1) + 1;
-                final date = DateTime(_currentDate.year, _currentDate.month, day);
-                final isSelected = _selectedDate?.year == date.year &&
-                    _selectedDate?.month == date.month &&
-                    _selectedDate?.day == date.day;
-                final isToday = DateTime.now().year == date.year &&
-                    DateTime.now().month == date.month &&
-                    DateTime.now().day == date.day;
+              final day = index - (startingWeekday - 1) + 1;
+              final date = DateTime(_currentDate.year, _currentDate.month, day);
+              final isSelected =
+                  _selectedDate?.year == date.year &&
+                  _selectedDate?.month == date.month &&
+                  _selectedDate?.day == date.day;
+              final isToday =
+                  DateTime.now().year == date.year &&
+                  DateTime.now().month == date.month &&
+                  DateTime.now().day == date.day;
 
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedDate = date;
-                    });
-                    widget.onDateChanged?.call(date);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? widget.selectedColor
-                          : isToday
-                              ? widget.todayColor.withOpacity(0.2)
-                              : Colors.transparent,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Center(
-                      child: Text(
-                        day.toString(),
-                        style: isSelected
-                            ? widget.selectedTextStyle ??
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _selectedDate = date;
+                  });
+                  widget.onDateChanged?.call(date);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? widget.selectedColor
+                        : isToday
+                        ? widget.todayColor.withOpacity(0.2)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      day.toString(),
+                      style: isSelected
+                          ? widget.selectedTextStyle ??
                                 const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 )
-                            : TextStyle(
-                                color: isToday ? widget.todayColor : Colors.black87,
-                              ),
-                      ),
+                          : TextStyle(
+                              color: isToday
+                                  ? widget.todayColor
+                                  : Colors.black87,
+                            ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            }),
           ),
         ],
       ),

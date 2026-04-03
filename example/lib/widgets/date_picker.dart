@@ -72,9 +72,7 @@ class FBDatePicker extends StatefulWidget {
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText.isEmpty ? null : labelText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.grey, width: 1),
@@ -84,7 +82,10 @@ class FBDatePicker extends StatefulWidget {
           borderSide: const BorderSide(color: Colors.blue, width: 2),
         ),
         suffixIcon: const Icon(Icons.calendar_today),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 16,
+        ),
       ),
       showTime: showTime,
       width: width,
@@ -129,7 +130,10 @@ class FBDatePicker extends StatefulWidget {
           borderSide: const BorderSide(color: Colors.blue, width: 2),
         ),
         suffixIcon: const Icon(Icons.calendar_today),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 16,
+        ),
       ),
       showTime: showTime,
       width: width,

@@ -15,9 +15,7 @@ class BreadcrumbExample extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBBreadcrumb Example'),
-      ),
+      appBar: AppBar(title: const Text('FBBreadcrumb Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -28,18 +26,14 @@ class BreadcrumbExample extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            FBBreadcrumb(
-              items: breadcrumbs,
-            ),
+            FBBreadcrumb(items: breadcrumbs),
             const SizedBox(height: 32),
             const Text(
               'Arrow Breadcrumb',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            FBBreadcrumb.arrow(
-              items: breadcrumbs,
-            ),
+            FBBreadcrumb.arrow(items: breadcrumbs),
             const SizedBox(height: 32),
             const Text(
               'Breadcrumb with Actions',

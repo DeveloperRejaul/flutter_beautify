@@ -16,11 +16,10 @@ class FBTooltip extends StatefulWidget {
     required this.message,
     this.textStyle,
     this.backgroundColor = Colors.grey,
-  })
-    : offset = const Offset(0, -40),
-      showDuration = const Duration(milliseconds: 1500),
-      borderRadius = const BorderRadius.all(Radius.circular(8)),
-      padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4);
+  }) : offset = const Offset(0, -40),
+       showDuration = const Duration(milliseconds: 1500),
+       borderRadius = const BorderRadius.all(Radius.circular(8)),
+       padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4);
 
   // Default → standard
   factory FBTooltip({
@@ -28,11 +27,7 @@ class FBTooltip extends StatefulWidget {
     required Widget child,
     required String message,
   }) {
-    return FBTooltip.standard(
-      key: key,
-      child: child,
-      message: message,
-    );
+    return FBTooltip.standard(key: key, child: child, message: message);
   }
 
   // -------- STANDARD --------

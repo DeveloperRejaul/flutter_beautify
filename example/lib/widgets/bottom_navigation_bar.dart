@@ -16,9 +16,8 @@ class FBBottomNavigationBar extends StatefulWidget {
     this.onItemSelected,
     this.activeColor = Colors.blue,
     this.elevation = 8,
-  })
-    : inactiveColor = Colors.grey,
-      backgroundColor = Colors.white;
+  }) : inactiveColor = Colors.grey,
+       backgroundColor = Colors.white;
 
   // Default → standard
   factory FBBottomNavigationBar({
@@ -113,9 +112,5 @@ class BottomNavItem {
   final Widget? activeIcon;
   final String label;
 
-  BottomNavItem({
-    required this.icon,
-    this.activeIcon,
-    required this.label,
-  });
+  BottomNavItem({required this.icon, this.activeIcon, required this.label});
 }

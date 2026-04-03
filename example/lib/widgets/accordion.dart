@@ -73,7 +73,10 @@ class _FBAccordionState extends State<FBAccordion> {
   void initState() {
     super.initState();
     _isExpanded = List<bool>.filled(widget.items.length, false);
-    _controllers = List.generate(widget.items.length, (index) => ExpansibleController());
+    _controllers = List.generate(
+      widget.items.length,
+      (index) => ExpansibleController(),
+    );
   }
 
   @override
@@ -85,11 +88,11 @@ class _FBAccordionState extends State<FBAccordion> {
 
         return Container(
           decoration: BoxDecoration(
-            color: isExpanded ? widget.expandedBackgroundColor : widget.backgroundColor,
+            color: isExpanded
+                ? widget.expandedBackgroundColor
+                : widget.backgroundColor,
             borderRadius: widget.borderRadius,
-            border: Border(
-              bottom: BorderSide(color: Colors.grey.shade300),
-            ),
+            border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
           ),
           child: Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -112,10 +115,7 @@ class _FBAccordionState extends State<FBAccordion> {
                 });
               },
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: item.content,
-                ),
+                Padding(padding: const EdgeInsets.all(16), child: item.content),
               ],
             ),
           ),

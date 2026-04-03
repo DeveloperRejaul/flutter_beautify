@@ -16,9 +16,8 @@ class FBPagination extends StatefulWidget {
     this.onPageChanged,
     this.visiblePages = 5,
     this.pageSize = 40,
-  })
-    : activeColor = Colors.blue,
-      inactiveColor = Colors.grey;
+  }) : activeColor = Colors.blue,
+       inactiveColor = Colors.grey;
 
   // Default → standard
   factory FBPagination({
@@ -92,24 +91,20 @@ class _FBPaginationState extends State<FBPagination> {
       children: [
         // Previous button
         if (_currentPage > 1)
-          _buildPageButton(
-            label: 'Prev',
-            page: _currentPage - 1,
-          ),
+          _buildPageButton(label: 'Prev', page: _currentPage - 1),
 
         // Page numbers
-        ...pageNumbers.map((page) => _buildPageButton(
-              label: page.toString(),
-              page: page,
-              isActive: page == _currentPage,
-            )),
+        ...pageNumbers.map(
+          (page) => _buildPageButton(
+            label: page.toString(),
+            page: page,
+            isActive: page == _currentPage,
+          ),
+        ),
 
         // Next button
         if (_currentPage < widget.totalPages)
-          _buildPageButton(
-            label: 'Next',
-            page: _currentPage + 1,
-          ),
+          _buildPageButton(label: 'Next', page: _currentPage + 1),
       ],
     );
   }

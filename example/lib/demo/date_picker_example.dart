@@ -15,9 +15,7 @@ class _DatePickerExampleState extends State<DatePickerExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBDatePicker Example'),
-      ),
+      appBar: AppBar(title: const Text('FBDatePicker Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

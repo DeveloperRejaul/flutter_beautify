@@ -17,9 +17,7 @@ class _ProgressExampleState extends State<ProgressExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBProgress Example'),
-      ),
+      appBar: AppBar(title: const Text('FBProgress Example')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -35,14 +33,8 @@ class _ProgressExampleState extends State<ProgressExample> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    FBCircularProgress(
-                      value: 0.35,
-                      size: 80,
-                    ),
-                    FBCircularProgress(
-                      value: 0.65,
-                      size: 100,
-                    ),
+                    FBCircularProgress(value: 0.35, size: 80),
+                    FBCircularProgress(value: 0.65, size: 100),
                     FBCircularProgress.withLabel(
                       value: _circularProgress,
                       size: 120,
@@ -58,7 +50,10 @@ class _ProgressExampleState extends State<ProgressExample> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        _circularProgress = (_circularProgress + 0.1).clamp(0.0, 1.0);
+                        _circularProgress = (_circularProgress + 0.1).clamp(
+                          0.0,
+                          1.0,
+                        );
                       });
                     },
                     child: const Text('Increase'),
@@ -67,7 +62,10 @@ class _ProgressExampleState extends State<ProgressExample> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        _circularProgress = (_circularProgress - 0.1).clamp(0.0, 1.0);
+                        _circularProgress = (_circularProgress - 0.1).clamp(
+                          0.0,
+                          1.0,
+                        );
                       });
                     },
                     child: const Text('Decrease'),
@@ -84,9 +82,7 @@ class _ProgressExampleState extends State<ProgressExample> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    FBCircularProgress.spinner(
-                      size: 60,
-                    ),
+                    FBCircularProgress.spinner(size: 60),
                     FBCircularProgress.spinner(
                       size: 80,
                       valueColor: Colors.green,
@@ -105,10 +101,7 @@ class _ProgressExampleState extends State<ProgressExample> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
-              FBLinearProgress.standard(
-                value: 0.3,
-                height: 6,
-              ),
+              FBLinearProgress.standard(value: 0.3, height: 6),
               const SizedBox(height: 24),
               FBLinearProgress.withLabel(
                 value: _linearProgress,
@@ -116,10 +109,7 @@ class _ProgressExampleState extends State<ProgressExample> {
                 height: 8,
               ),
               const SizedBox(height: 24),
-              FBLinearProgress.striped(
-                value: 0.75,
-                height: 8,
-              ),
+              FBLinearProgress.striped(value: 0.75, height: 8),
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +117,10 @@ class _ProgressExampleState extends State<ProgressExample> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        _linearProgress = (_linearProgress + 0.1).clamp(0.0, 1.0);
+                        _linearProgress = (_linearProgress + 0.1).clamp(
+                          0.0,
+                          1.0,
+                        );
                       });
                     },
                     child: const Text('Progress'),

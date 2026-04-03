@@ -15,10 +15,7 @@ class FBSnackbar {
     SnackBarBehavior behavior = SnackBarBehavior.fixed,
   }) {
     final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(color: textColor),
-      ),
+      content: Text(message, style: TextStyle(color: textColor)),
       duration: duration,
       backgroundColor: backgroundColor,
       action: actionLabel != null

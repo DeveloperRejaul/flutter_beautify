@@ -24,33 +24,16 @@ class _SidebarExampleState extends State<SidebarExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FBSidebar Example'),
-      ),
+      appBar: AppBar(title: const Text('FBSidebar Example')),
       body: Row(
         children: [
           FBSidebar.collapsible(
             items: [
-              SidebarItem(
-                icon: Icons.dashboard,
-                label: 'Dashboard',
-              ),
-              SidebarItem(
-                icon: Icons.people,
-                label: 'Users',
-              ),
-              SidebarItem(
-                icon: Icons.shopping_bag,
-                label: 'Products',
-              ),
-              SidebarItem(
-                icon: Icons.assessment,
-                label: 'Reports',
-              ),
-              SidebarItem(
-                icon: Icons.settings,
-                label: 'Settings',
-              ),
+              SidebarItem(icon: Icons.dashboard, label: 'Dashboard'),
+              SidebarItem(icon: Icons.people, label: 'Users'),
+              SidebarItem(icon: Icons.shopping_bag, label: 'Products'),
+              SidebarItem(icon: Icons.assessment, label: 'Reports'),
+              SidebarItem(icon: Icons.settings, label: 'Settings'),
             ],
             selectedIndex: _selectedIndex,
             onItemSelected: (index) {
@@ -65,9 +48,7 @@ class _SidebarExampleState extends State<SidebarExample> {
               });
             },
           ),
-          Expanded(
-            child: _pages[_selectedIndex],
-          ),
+          Expanded(child: _pages[_selectedIndex]),
         ],
       ),
     );

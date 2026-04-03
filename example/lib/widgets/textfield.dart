@@ -45,7 +45,10 @@ class FBTextField extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.validator,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.borderColor = Colors.grey,
     this.focusedBorderColor = Colors.blue,
@@ -59,10 +62,10 @@ class FBTextField extends StatefulWidget {
     this.isError = false,
     this.inputFormatters,
     InputDecoration? decoration,
-  })  : labelStyle = labelStyle,
-        hintStyle = hintStyle,
-        readOnly = readOnly,
-        decoration = decoration;
+  }) : labelStyle = labelStyle,
+       hintStyle = hintStyle,
+       readOnly = readOnly,
+       decoration = decoration;
 
   // -------- OUTLINE (Default) --------
   factory FBTextField({
@@ -80,7 +83,10 @@ class FBTextField extends StatefulWidget {
     Widget? prefixIcon,
     Widget? suffixIcon,
     String? Function(String?)? validator,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    EdgeInsets contentPadding = const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8)),
     Color borderColor = Colors.grey,
     Color focusedBorderColor = Colors.blue,
@@ -131,7 +137,10 @@ class FBTextField extends StatefulWidget {
     Widget? prefixIcon,
     Widget? suffixIcon,
     String? Function(String?)? validator,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    EdgeInsets contentPadding = const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8)),
     Color borderColor = Colors.grey,
     Color focusedBorderColor = Colors.blue,
@@ -184,7 +193,10 @@ class FBTextField extends StatefulWidget {
     Widget? prefixIcon,
     Widget? suffixIcon,
     String? Function(String?)? validator,
-    EdgeInsets contentPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    EdgeInsets contentPadding = const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
     Color fillColor = const Color(0xFFF5F5F5),
     Color focusedBorderColor = Colors.blue,
     Color errorBorderColor = Colors.red,

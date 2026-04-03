@@ -15,7 +15,8 @@ class FBFormatters {
   static TextInputFormatter phoneNumberFormatter() => PhoneNumberFormatter();
 
   /// Allow only digits
-  static TextInputFormatter digitsOnly() => FilteringTextInputFormatter.digitsOnly;
+  static TextInputFormatter digitsOnly() =>
+      FilteringTextInputFormatter.digitsOnly;
 
   /// Allow only letters
   static TextInputFormatter lettersOnly() => LettersOnlyFormatter();
@@ -30,7 +31,10 @@ class FBFormatters {
 
 class UppercaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     return newValue.copyWith(
       text: newValue.text.toUpperCase(),
       selection: newValue.selection,
@@ -40,7 +44,10 @@ class UppercaseTextFormatter extends TextInputFormatter {
 
 class LowercaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     return newValue.copyWith(
       text: newValue.text.toLowerCase(),
       selection: newValue.selection,
@@ -54,7 +61,10 @@ class CurrencyTextFormatter extends TextInputFormatter {
   CurrencyTextFormatter({required this.symbol});
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final value = newValue.text.replaceAll(RegExp(r'[^\d]'), '');
     if (value.isEmpty) {
       return newValue.copyWith(text: '');
@@ -70,7 +80,10 @@ class CurrencyTextFormatter extends TextInputFormatter {
 
 class PhoneNumberFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final value = newValue.text.replaceAll(RegExp(r'[^\d]'), '');
     if (value.isEmpty) {
       return newValue.copyWith(text: '');
@@ -78,7 +91,9 @@ class PhoneNumberFormatter extends TextInputFormatter {
     if (value.length <= 3) {
       return newValue.copyWith(text: value);
     } else if (value.length <= 6) {
-      return newValue.copyWith(text: '(${value.substring(0, 3)}) ${value.substring(3)}');
+      return newValue.copyWith(
+        text: '(${value.substring(0, 3)}) ${value.substring(3)}',
+      );
     } else {
       return newValue.copyWith(
         text:
@@ -92,7 +107,10 @@ class PhoneNumberFormatter extends TextInputFormatter {
 
 class LettersOnlyFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final filtered = newValue.text.replaceAll(RegExp(r'[^a-zA-Z\s]'), '');
     return newValue.copyWith(
       text: filtered,
@@ -103,7 +121,10 @@ class LettersOnlyFormatter extends TextInputFormatter {
 
 class DateTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final value = newValue.text.replaceAll(RegExp(r'[^\d]'), '');
     if (value.isEmpty) {
       return newValue.copyWith(text: '');
@@ -111,7 +132,9 @@ class DateTextFormatter extends TextInputFormatter {
     if (value.length <= 2) {
       return newValue.copyWith(text: value);
     } else if (value.length <= 4) {
-      return newValue.copyWith(text: '${value.substring(0, 2)}/${value.substring(2)}');
+      return newValue.copyWith(
+        text: '${value.substring(0, 2)}/${value.substring(2)}',
+      );
     } else {
       return newValue.copyWith(
         text:

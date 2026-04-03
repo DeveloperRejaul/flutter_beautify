@@ -195,9 +195,7 @@ class _FBSliderState extends State<FBSlider> {
               enabledThumbRadius: 10.0,
               elevation: 4.0,
             ),
-            overlayShape: RoundSliderOverlayShape(
-              overlayRadius: 16.0,
-            ),
+            overlayShape: RoundSliderOverlayShape(overlayRadius: 16.0),
           ),
           child: Slider(
             value: _currentValue,
