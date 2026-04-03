@@ -1,0 +1,47 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+
+      - name: Get dependencies
+        run: dart pub get
+
+      - name: Analyze code
+        run: dart analyze --fatal-infos
+
+      - name: Format check
+        run: dart format --set-exit-if-changed .
+
+      - name: Verify tag matches pubspec version
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG_VERSION="${{ github.ref_name }}"
+            PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+            if [[ "$TAG_VERSION" != "v$PUBSPEC_VERSION" ]]; then
+              echo "Tag version ($TAG_VERSION) does not match pubspec version (v$PUBSPEC_VERSION)"
+              exit 1
+            fi
+          fi
+
+      - name: Publish to pub.dev
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: dart pub publish --force
+        env:
+          PUB_CREDENTIAL_JSON: ${{ secrets.PUB_CREDENTIAL_JSON }}
