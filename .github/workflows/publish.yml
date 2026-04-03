@@ -1,3 +1,4 @@
+
 name: Build, Test, Release & Publish
 
 on:
@@ -15,25 +16,16 @@ jobs:
       tag_exists: ${{ steps.tag_check.outputs.exists }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
 
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Analyze code
-        run: dart analyze
-
-      - name: Format check
-        run: dart format --set-exit-if-changed .
+      - run: dart pub get
+      - run: dart analyze
+      - run: dart format --set-exit-if-changed .
 
       - name: Extract version
         id: version
@@ -49,9 +41,8 @@ jobs:
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
-          fi
 
-  # Job 2: Create Tag & GitHub Release
+  # Job 2: Create Tag & Release
   create-release:
     needs: build-and-test
     if: needs.build-and-test.outputs.tag_exists == 'false'
@@ -60,8 +51,7 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -83,24 +73,19 @@ jobs:
           draft: false
           prerelease: false
 
-  # Job 3: Publish to pub.dev
+  # Job 3: Publish to pub.dev (Fully Automatic)
   publish-to-pubdev:
     needs: create-release
     if: needs.create-release.result == 'success'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
 
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-
-      - name: Install dependencies
-        run: dart pub get
+      - run: dart pub get
 
       - name: Setup pub.dev credentials
         run: |
@@ -110,5 +95,4 @@ jobs:
       - name: Publish to pub.dev
         run: dart pub publish --force
 
-      - name: Done
-        run: echo "✅ Published to pub.dev"
+      - run: echo "✅ Package successfully published to pub.dev"
