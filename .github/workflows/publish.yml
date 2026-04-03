@@ -122,6 +122,5 @@ jobs:
         run: dart pub get
 
       - name: Publish to pub.dev
-        run: dart pub publish --force
-        env:
-          PUB_CREDENTIAL_JSON: ${{ secrets.PUB_CREDENTIAL_JSON }}
+        run: |
+          dart pub publish --force
