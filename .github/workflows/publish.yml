@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  # Job 1: Build, Test, and Analyze
+  # Job 1: Build, Test, and Analyze (on main branch push)
   build-and-test:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
@@ -51,7 +54,7 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
-  # Job 2: Create Tag and Release
+  # Job 2: Create Tag and Release (on main branch push, if new version)
   create-release:
     needs: build-and-test
     if: needs.build-and-test.outputs.tag_exists == 'false'
@@ -98,10 +101,9 @@ jobs:
       - name: Log creation
         run: echo "✅ Created tag ${{ needs.build-and-test.outputs.tag }} and release"
 
-  # Job 3: Publish to pub.dev (only when tag is created)
+  # Job 3: Publish to pub.dev (ONLY on tag push, not on branch push)
   publish-to-pubdev:
-    needs: [build-and-test, create-release]
-    if: needs.build-and-test.outputs.tag_exists == 'false'
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -109,8 +111,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.build-and-test.outputs.tag }}
 
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1
@@ -122,11 +122,7 @@ jobs:
         run: dart pub get
 
       - name: Publish to pub.dev
-        run: |
-          dart pub publish --force
-        continue-on-error: true
+        run: dart pub publish --force
 
       - name: Publishing Status
-        run: |
-          echo "📦 Package published!"
-          echo "If publishing failed, see: TRUSTED_PUBLISHING.md"
+        run: echo "✅ Published to pub.dev from tag ${{ github.ref_name }}"
