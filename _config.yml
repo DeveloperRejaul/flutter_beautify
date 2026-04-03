@@ -1,12 +1,21 @@
-site: Flutter Beautify
+# Site Information
 title: Flutter Beautify - Production UI Widgets CLI
 description: A command-line interface tool for scaffolding 26+ pre-built, customizable Flutter UI components with Material Design 3 compliance.
-url: https://DeveloperRejaul.github.io/flutter_beautify
+url: https://DeveloperRejaul.github.io
 baseurl: /flutter_beautify
 repository: DeveloperRejaul/flutter_beautify
 
-# Theme
+# Theme - MUST use remote_theme for GitHub Pages
+remote_theme: just-the-docs/just-the-docs
+
+# Fallback theme if remote fails
 theme: just-the-docs
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Logo and favicon
 logo: "/assets/logo.png"
 favicon_ico: "/assets/favicon.ico"
 
@@ -14,24 +23,43 @@ favicon_ico: "/assets/favicon.ico"
 aux_links:
   "GitHub": https://github.com/DeveloperRejaul/flutter_beautify
   "Pub.dev": https://pub.dev/packages/flutter_beautify
+  "Report Issue": https://github.com/DeveloperRejaul/flutter_beautify/issues
 
-# Search
+# Search configuration
 search_enabled: true
+search:
+  heading_level: 2
 
 # Color scheme
 color_scheme: dark
+back_to_top: true
 
 # Footer
-footer_content: "Built with ❤️ by DeveloperRejaul | MIT License"
+footer_content: "© 2026 Flutter Beautify | MIT License"
 
-# Analytics (optional)
-# google_analytics_id: G-XXXXXXXXXXXX
-
-# Enable collections
+# Collections
 collections:
   guides:
     output: true
     permalink: /:collection/:path/
 
+# Plugins for GitHub Pages
 plugins:
-  - search
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-default-layouts
+  - jekyll-include-cache
+
+# Exclude files from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .gitignore
+  - .github
+  - CHANGELOG.md
+  - LICENSE
+  - note.txt
+  - DEV.md
