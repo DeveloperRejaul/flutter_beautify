@@ -11,7 +11,7 @@ class FBAccordion extends StatefulWidget {
     super.key,
     required this.items,
     this.allowMultipleOpen = false,
-    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.borderRadius = BorderRadius.zero,
     this.backgroundColor = Colors.white,
     this.expandedBackgroundColor = const Color(0xFFF5F5F5),
   });
@@ -41,6 +41,7 @@ class FBAccordion extends StatefulWidget {
       allowMultipleOpen: allowMultipleOpen,
       backgroundColor: Colors.white,
       expandedBackgroundColor: const Color(0xFFF5F5F5),
+      borderRadius: BorderRadius.zero,
     );
   }
 
@@ -56,7 +57,7 @@ class FBAccordion extends StatefulWidget {
       allowMultipleOpen: allowMultipleOpen,
       backgroundColor: Colors.transparent,
       expandedBackgroundColor: Colors.blue.shade50,
-      borderRadius: const BorderRadius.all(Radius.circular(8)),
+      borderRadius: BorderRadius.zero,
     );
   }
 
@@ -66,11 +67,13 @@ class FBAccordion extends StatefulWidget {
 
 class _FBAccordionState extends State<FBAccordion> {
   late List<bool> _isExpanded;
+  late List<ExpansibleController> _controllers;
 
   @override
   void initState() {
     super.initState();
     _isExpanded = List<bool>.filled(widget.items.length, false);
+    _controllers = List.generate(widget.items.length, (index) => ExpansibleController());
   }
 
   @override
@@ -81,34 +84,40 @@ class _FBAccordionState extends State<FBAccordion> {
         final isExpanded = _isExpanded[index];
 
         return Container(
-          margin: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             color: isExpanded ? widget.expandedBackgroundColor : widget.backgroundColor,
             borderRadius: widget.borderRadius,
-            border: Border.all(color: Colors.grey.shade300),
-          ),
-          child: ExpansionTile(
-            title: Text(
-              item.title,
-              style: const TextStyle(fontWeight: FontWeight.w600),
+            border: Border(
+              bottom: BorderSide(color: Colors.grey.shade300),
             ),
-            onExpansionChanged: (expanded) {
-              setState(() {
-                if (!widget.allowMultipleOpen) {
-                  for (int i = 0; i < _isExpanded.length; i++) {
-                    _isExpanded[i] = i == index && expanded;
-                  }
-                } else {
+          ),
+          child: Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              controller: _controllers[index],
+              shape: const Border(),
+              collapsedShape: const Border(),
+              title: item.title,
+              onExpansionChanged: (expanded) {
+                setState(() {
                   _isExpanded[index] = expanded;
-                }
-              });
-            },
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: item.content,
-              ),
-            ],
+                  if (expanded && !widget.allowMultipleOpen) {
+                    for (int i = 0; i < _isExpanded.length; i++) {
+                      if (i != index && _isExpanded[i]) {
+                        _controllers[i].collapse();
+                        _isExpanded[i] = false;
+                      }
+                    }
+                  }
+                });
+              },
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: item.content,
+                ),
+              ],
+            ),
           ),
         );
       }),
@@ -117,7 +126,7 @@ class _FBAccordionState extends State<FBAccordion> {
 }
 
 class AccordionItem {
-  final String title;
+  final Widget title;
   final Widget content;
 
   AccordionItem({required this.title, required this.content});

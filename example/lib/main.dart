@@ -1,3 +1,7 @@
+import 'package:example/demo/accordion_example.dart';
+import 'package:example/demo/appbar_example.dart';
+import 'package:example/demo/avatar_example.dart';
+import 'package:example/demo/badge_example.dart';
 import 'package:example/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -40,18 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
-            fit: BoxFit.cover, 
-          ),
-        ),
-        child: Center(
-          child: Text("Hello world"),
-        ),
-      ),
-    );
+    return BadgeExample();
   }
 }
