@@ -3,7 +3,7 @@ layout: default
 title: Components
 nav_order: 5
 parent: Documentation
-permalink: /docs/components
+permalink: /doc/components
 ---
 
 # Components Reference

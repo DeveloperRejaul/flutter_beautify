@@ -5,9 +5,7 @@ String toSnakeCase(String input) {
 }
 
 String toPascalCase(String input) {
-  final parts = input
-      .split(RegExp(r'[_\-\s]+'))
-      .where((p) => p.isNotEmpty)
-      .toList();
+  final parts =
+      input.split(RegExp(r'[_\-\s]+')).where((p) => p.isNotEmpty).toList();
   return parts.map((p) => p[0].toUpperCase() + p.substring(1)).join();
 }

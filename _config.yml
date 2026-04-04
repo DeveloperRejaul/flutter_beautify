@@ -58,7 +58,7 @@ footer_content: "© 2026 Flutter Beautify | Built with ❤️ by <a href='https:
 collections:
   docs:
     output: true
-    permalink: /docs/:path/
+    permalink: /doc/:path/
   guides:
     output: true
     permalink: /guides/:path/

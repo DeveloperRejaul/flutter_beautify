@@ -142,17 +142,17 @@ FBButton.solid(
 
 ## 🚀 Next Steps
 
-1. **[Installation Guide](./docs/installation)** - Step-by-step setup
-2. **[Quick Start Tutorial](./docs/quick-start)** - Build your first component
-3. **[Component Reference](./docs/components)** - Explore all 26 widgets
-4. **[CLI Commands](./docs/cli-commands)** - Master the command-line
-5. **[Contributing](./docs/contributing)** - Help improve Flutter Beautify
+1. **[Installation Guide](./doc/installation)** - Step-by-step setup
+2. **[Quick Start Tutorial](./doc/quick-start)** - Build your first component
+3. **[Component Reference](./doc/components)** - Explore all 26 widgets
+4. **[CLI Commands](./doc/cli-commands)** - Master the command-line
+5. **[Contributing](./doc/contributing)** - Help improve Flutter Beautify
 
 ---
 
 ## 📞 Support
 
-- 📚 **Documentation**: [Full Docs](./docs)
+- 📚 **Documentation**: [Full Docs](./doc)
 - 🐛 **Report Issues**: [GitHub Issues](https://github.com/DeveloperRejaul/flutter_beautify/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/DeveloperRejaul/flutter_beautify/discussions)
 - 📧 **Contact**: [Contact Info](./CONTACT.md)

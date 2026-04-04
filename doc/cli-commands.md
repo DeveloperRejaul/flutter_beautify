@@ -3,7 +3,7 @@ layout: default
 title: CLI Commands
 nav_order: 4
 parent: Documentation
-permalink: /docs/cli-commands
+permalink: /doc/cli-commands
 ---
 
 # CLI Commands Reference

@@ -3,7 +3,7 @@ layout: default
 title: Installation
 nav_order: 2
 parent: Documentation
-permalink: /docs/installation
+permalink: /doc/installation
 ---
 
 # Installation Guide

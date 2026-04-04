@@ -3,7 +3,7 @@ layout: default
 title: Examples
 nav_order: 6
 parent: Documentation
-permalink: /docs/examples
+permalink: /doc/examples
 ---
 
 # Real-World Examples
