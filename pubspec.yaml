@@ -1,19 +1,13 @@
 name: flutter_beautify
 description: A beautiful custom widget cli for Flutter.
-version: 1.2.4
+version: 1.2.5
 
 environment:
   sdk: ">=2.19.0 <4.0.0"
 
-dependencies:
-  flutter:
-    sdk: flutter
 
 dev_dependencies:
-  cupertino_icons: ^1.0.8
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
+  lints: ^6.0.0
 
 homepage: https://github.com/DeveloperRejaul/flutter_beautify
 repository: https://github.com/DeveloperRejaul/flutter_beautify

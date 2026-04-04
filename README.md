@@ -42,13 +42,17 @@
 Install globally from pub.dev:
 
 ```bash
-dart pub global activate flutter_beautify
+git clone https://github.com/DeveloperRejaul/flutter_beautify.git
+dart pub global activate --source path .
 ```
 
 ### Uninstall
 
 ```bash
+which flutter_beautify
 dart pub global deactivate flutter_beautify
+# can also delete project using path
+rm -rf path_of_project
 ```
 
 ---
