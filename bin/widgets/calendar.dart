@@ -20,8 +20,8 @@ class FBCalendar extends StatefulWidget {
     this.selectedColor = Colors.blue,
     this.todayColor = Colors.green,
     this.backgroundColor = Colors.white,
-  }) : selectedTextStyle = null,
-       showWeekdays = true;
+  })  : selectedTextStyle = null,
+        showWeekdays = true;
 
   // Default → standard
   factory FBCalendar({
@@ -193,12 +193,10 @@ class _FBCalendarState extends State<FBCalendar> {
 
               final day = index - (startingWeekday - 1) + 1;
               final date = DateTime(_currentDate.year, _currentDate.month, day);
-              final isSelected =
-                  _selectedDate?.year == date.year &&
+              final isSelected = _selectedDate?.year == date.year &&
                   _selectedDate?.month == date.month &&
                   _selectedDate?.day == date.day;
-              final isToday =
-                  DateTime.now().year == date.year &&
+              final isToday = DateTime.now().year == date.year &&
                   DateTime.now().month == date.month &&
                   DateTime.now().day == date.day;
 
@@ -214,8 +212,8 @@ class _FBCalendarState extends State<FBCalendar> {
                     color: isSelected
                         ? widget.selectedColor
                         : isToday
-                        ? widget.todayColor.withValues(alpha: 0.2)
-                        : Colors.transparent,
+                            ? widget.todayColor.withValues(alpha: 0.2)
+                            : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
@@ -223,14 +221,13 @@ class _FBCalendarState extends State<FBCalendar> {
                       day.toString(),
                       style: isSelected
                           ? widget.selectedTextStyle ??
-                                const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                )
+                              const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              )
                           : TextStyle(
-                              color: isToday
-                                  ? widget.todayColor
-                                  : Colors.black87,
+                              color:
+                                  isToday ? widget.todayColor : Colors.black87,
                             ),
                     ),
                   ),

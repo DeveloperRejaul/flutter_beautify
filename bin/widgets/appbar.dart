@@ -39,12 +39,10 @@ class FBAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:
-          titleWidget ??
+      title: titleWidget ??
           Text(
             title,
-            style:
-                titleStyle ??
+            style: titleStyle ??
                 TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -54,8 +52,7 @@ class FBAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
       elevation: elevation,
-      leading:
-          leading ??
+      leading: leading ??
           (showBackButton
               ? BackButton(
                   onPressed: onBackPressed ?? () => Navigator.of(context).pop(),

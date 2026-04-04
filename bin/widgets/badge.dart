@@ -18,8 +18,8 @@ class FBBadge extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     this.textStyle,
     this.size = BadgeSize.medium,
-  }) : borderRadius = 12,
-       icon = null;
+  })  : borderRadius = 12,
+        icon = null;
 
   // Default → standard
   factory FBBadge({
@@ -121,8 +121,7 @@ class FBBadge extends StatelessWidget {
           ],
           Text(
             label,
-            style:
-                textStyle ??
+            style: textStyle ??
                 TextStyle(
                   color: textColor,
                   fontSize: 12,

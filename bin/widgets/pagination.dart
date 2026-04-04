@@ -16,8 +16,8 @@ class FBPagination extends StatefulWidget {
     this.onPageChanged,
     this.visiblePages = 5,
     this.pageSize = 40,
-  }) : activeColor = Colors.blue,
-       inactiveColor = Colors.grey;
+  })  : activeColor = Colors.blue,
+        inactiveColor = Colors.grey;
 
   // Default → standard
   factory FBPagination({

@@ -129,8 +129,7 @@ class FBCheckbox extends StatelessWidget {
         if (label != null)
           Text(
             label ?? "",
-            style:
-                labelStyle ??
+            style: labelStyle ??
                 TextStyle(
                   color: isFBError ? (errorBoxColor ?? Colors.red) : null,
                 ),

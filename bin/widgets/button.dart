@@ -99,19 +99,18 @@ class FBButton extends StatelessWidget {
     ButtonStyle? style,
     Icon? leading,
   }) {
-    final base =
-        ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: color,
-          shadowColor: Colors.transparent,
-          elevation: 0,
-          padding: EdgeInsets.zero,
-          minimumSize: Size.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ).copyWith(
-          overlayColor: WidgetStateProperty.all(Colors.transparent),
-          elevation: WidgetStateProperty.all(0),
-        );
+    final base = ElevatedButton.styleFrom(
+      backgroundColor: Colors.transparent,
+      foregroundColor: color,
+      shadowColor: Colors.transparent,
+      elevation: 0,
+      padding: EdgeInsets.zero,
+      minimumSize: Size.zero,
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    ).copyWith(
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
+      elevation: WidgetStateProperty.all(0),
+    );
 
     return FBButton._(
       key: key,

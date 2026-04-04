@@ -128,8 +128,7 @@ class _FBCircularProgressState extends State<FBCircularProgress>
             if (widget.label != null)
               Text(
                 widget.label!,
-                style:
-                    widget.labelStyle ??
+                style: widget.labelStyle ??
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
           ],
@@ -152,8 +151,7 @@ class _FBCircularProgressState extends State<FBCircularProgress>
           if (widget.label != null)
             Text(
               widget.label!,
-              style:
-                  widget.labelStyle ??
+              style: widget.labelStyle ??
                   const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
         ],

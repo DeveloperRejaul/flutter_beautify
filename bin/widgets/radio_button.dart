@@ -136,8 +136,7 @@ class _FBRadioButtonState<T> extends State<FBRadioButton<T>> {
                 onTap: () => widget.onChanged?.call(widget.value),
                 child: Text(
                   widget.label,
-                  style:
-                      widget.labelStyle ??
+                  style: widget.labelStyle ??
                       TextStyle(
                         fontSize: 14,
                         color: isSelected ? Colors.black87 : Colors.black54,

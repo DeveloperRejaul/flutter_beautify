@@ -63,10 +63,10 @@ class FBTextField extends StatefulWidget {
     this.isError = false,
     this.inputFormatters,
     InputDecoration? decoration,
-  }) : labelStyle = labelStyle,
-       hintStyle = hintStyle,
-       readOnly = readOnly,
-       decoration = decoration;
+  })  : labelStyle = labelStyle,
+        hintStyle = hintStyle,
+        readOnly = readOnly,
+        decoration = decoration;
 
   // -------- OUTLINE (Default) --------
   factory FBTextField({
