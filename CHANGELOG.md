@@ -1,11 +1,14 @@
 # Changelog
 
 * Latest version
+## 1.2.3
+
+* Previous update
 ## 1.2.2
 
 ## 1.2.1
 
-* Latest version
+* Previous update
 
 ## 1.2.0
 
