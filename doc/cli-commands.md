@@ -1,9 +1,7 @@
 ---
 layout: default
-title: CLI Commands
-nav_order: 4
-parent: Documentation
-permalink: /doc/cli-commands
+title: CLI Commands Reference
+nav_order: 5
 ---
 
 # CLI Commands Reference
@@ -344,10 +342,10 @@ bash add_components.sh
 
 ## Next Steps
 
-- 🚀 [Quick Start](./quick-start.md) - Get started guide
-- 📚 [Components](./components.md) - See all components
-- 📖 [Examples](./examples.md) - Real-world examples
+- 🚀 [Quick Start](./quick-start.html) - Get started guide
+- 📚 [Components](./widgets/index.html) - See all components
+- 📖 [Examples](./examples.html) - Real-world examples
 
 ---
 
-[← Quick Start](./quick-start.md) | [Components →](./components.md)
+[← Quick Start](./quick-start.html) | [Components →](./widgets/index.html)

@@ -15,3 +15,9 @@ git push origin v1.1.6
 
 dart pub global activate --source path .
 which flutter_beautify
+
+// run dev server of doc
+bundle exec jekyll serve --config _config.local.yml --livereload
+
+// kill all server 
+pkill -f jekyll; pkill -f bundle; sleep 1; echo "All servers killed"

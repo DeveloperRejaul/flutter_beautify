@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting Started
-nav_order: 2
+nav_order: 3
 description: "Complete guide to get started with Flutter Beautify"
 ---
 
@@ -427,10 +427,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 ## Next Steps
 
-1. **[Installation Guide](./installation.md)** - Detailed setup instructions
-2. **[Component Reference](./components.md)** - All 26 components documented
-3. **[Real-World Examples](./examples.md)** - Copy-paste examples
-4. **[CLI Commands](./cli-commands.md)** - Command line reference
+1. **[Installation Guide](./installation.html)** - Detailed setup instructions
+2. **[Component Reference](./widgets/index.html)** - All 26 components documented
+3. **[Real-World Examples](./examples.html)** - Copy-paste examples
+4. **[CLI Commands](./cli-commands.html)** - Command line reference
 
 ---
 
@@ -513,4 +513,4 @@ Theme(
 
 **Ready to build beautiful UIs faster?** Let's get started! 🚀
 
-[→ Next: Installation Guide](./installation.md)
+[→ Next: Installation Guide](./installation.html)

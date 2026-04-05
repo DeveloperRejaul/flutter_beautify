@@ -1,14 +1,12 @@
 ---
 layout: default
-title: Examples
-nav_order: 6
-parent: Documentation
-permalink: /doc/examples
+title: Examples & Demos
+nav_order: 7
 ---
 
-# Real-World Examples
+# Examples & Demos
 
-Practical examples showing how to use Flutter Beautify components.
+Complete working examples showing how to use Flutter Beautify components in real applications.
 
 ## Table of Contents
 
@@ -784,9 +782,9 @@ class _SettingsTile extends StatelessWidget {
 
 ## Next Steps
 
-- 💡 [Components](./components.md) - Detailed component documentation
-- 🔧 [CLI Commands](./cli-commands.md) - Command reference
+- 💡 [Components](./widgets/index.html) - Detailed component documentation
+- 🔧 [CLI Commands](./cli-commands.html) - Command reference
 
 ---
 
-[← Components](./components.md) | [Back to Docs](/)
+[← Components](./widgets/index.html) | [Back to Docs](/)

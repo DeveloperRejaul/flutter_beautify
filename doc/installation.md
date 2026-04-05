@@ -2,8 +2,6 @@
 layout: default
 title: Installation
 nav_order: 2
-parent: Documentation
-permalink: /doc/installation
 ---
 
 # Installation Guide
@@ -106,4 +104,4 @@ sudo dart pub global activate flutter_beautify
 
 ---
 
-[← Back to Home](/) | [Next: Quick Start →](./quick-start.md)
+[← Back to Home](/) | [Next: Quick Start →](./quick-start.html)

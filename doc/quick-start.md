@@ -1,9 +1,7 @@
 ---
 layout: default
-title: Quick Start
-nav_order: 3
-parent: Documentation
-permalink: /doc/quick-start
+title: Quick Start Guide
+nav_order: 4
 ---
 
 # Quick Start Guide
@@ -161,10 +159,10 @@ flutter_beautify help add
 
 ## Next Steps
 
-- 📚 [Explore Components](./components.md) - See all 26 widgets
-- 🔧 [CLI Commands](./cli-commands.md) - Master the command-line
-- 📖 [Component Reference](./components.md) - Detailed component docs
+- 📚 [Explore Components](./widgets/00-index.html) - See all 26 widgets
+- 🔧 [CLI Commands](./cli-commands.html) - Master the command-line
+- 📖 [Component Reference](./widgets/00-index.html) - Detailed component docs
 
 ---
 
-[← Installation](./installation.md) | [Components →](./components.md)
+[← Installation](./installation.html) | [Components →](./widgets/00-index.html)
