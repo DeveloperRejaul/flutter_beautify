@@ -3,6 +3,7 @@ layout: default
 title: Widgets
 nav_order: 6
 has_children: true
+parent: null
 ---
 
 # All Widgets
