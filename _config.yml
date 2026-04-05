@@ -17,8 +17,8 @@ lsi: false
 safe: true
 
 # Logo and favicon
-logo: "/assets/logo.jpg"
-favicon_ico: "/assets/favicon.ico"
+logo: "assets/logo.jpg"
+favicon_ico: "assets/favicon.ico"
 
 # Just the Docs theme configuration
 just_the_docs:
@@ -26,6 +26,7 @@ just_the_docs:
   search:
     button: true
     heading_level: 2
+  aux_links_new_tab: false
   version: "1.2.7"
   mermaid:
     version: "9.1.6"

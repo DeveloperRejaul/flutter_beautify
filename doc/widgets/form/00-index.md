@@ -3,6 +3,7 @@ layout: default
 title: Form Components
 parent: Widgets
 nav_order: 1
+has_children: true
 ---
 
 # Form Components

@@ -3,6 +3,7 @@ layout: default
 title: Navigation Components
 parent: Widgets
 nav_order: 4
+has_children: true
 ---
 
 # Navigation Components

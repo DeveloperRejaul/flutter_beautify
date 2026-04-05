@@ -3,6 +3,7 @@ layout: default
 title: Button Components
 parent: Widgets
 nav_order: 2
+has_children: true
 ---
 
 # Button Components

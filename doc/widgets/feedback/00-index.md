@@ -3,6 +3,7 @@ layout: default
 title: Feedback & Status
 parent: Widgets
 nav_order: 6
+has_children: true
 ---
 
 # Feedback & Status

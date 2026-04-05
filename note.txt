@@ -16,6 +16,9 @@ git push origin v1.1.6
 dart pub global activate --source path .
 which flutter_beautify
 
+// build doc 
+bundle exec jekyll clean && bundle exec jekyll build --config _config.local.yml 2>&1 | tail -10
+
 // run dev server of doc
 bundle exec jekyll serve --config _config.local.yml --livereload
 

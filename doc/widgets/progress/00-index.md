@@ -3,6 +3,7 @@ layout: default
 title: Progress & Loading
 parent: Widgets
 nav_order: 5
+has_children: true
 ---
 
 # Progress & Loading
