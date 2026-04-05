@@ -47,7 +47,7 @@ class Create {
 
   Future<bool> _isDataExists(String name) async {
     // source template file
-    final templateFile = File('widgets/$name.dart');
+    final templateFile = File('example/lib/widgets/$name.dart');
 
     if (!await templateFile.exists()) {
       print('Template file missing: ${templateFile.path}');
@@ -57,7 +57,7 @@ class Create {
   }
 
   Future<String> _read(String name) async {
-    final templateFile = File('widgets/$name.dart');
+    final templateFile = File('example/lib/widgets/$name.dart');
     return await templateFile.readAsString();
   }
 
