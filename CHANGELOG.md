@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.8
+
+* Fix `add` failing when globally activated and run from another project (templates were looked up relative to the CLI's working directory instead of the package's own install location)
+* Fix `add` failing for multi-word components (`date-picker`, `bottom-navigation-bar`, etc.) due to a dash-case/snake-case filename mismatch
+* `add` now honors the `widgetPath` saved by `init`/`config` instead of always writing to `lib/widgets`
+* Removed an invalid `include:` key from `pubspec.yaml`
+
 * Latest version
 ## 1.2.7
 
