@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.9
+
+* Apply `dart format` to fix the CI format-check step
+* Add AGENTS.md/CLAUDE.md for contributor and agent guidance
+
 ## 1.2.8
 
 * Fix `add` failing when globally activated and run from another project (templates were looked up relative to the CLI's working directory instead of the package's own install location)

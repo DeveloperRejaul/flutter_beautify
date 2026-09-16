@@ -34,11 +34,11 @@ class Create {
     final content = await templateFile.readAsString();
     await newFile.writeAsString(content);
 
-    final importPath = widgetPath.startsWith('lib/')
-        ? widgetPath.substring(4)
-        : widgetPath;
+    final importPath =
+        widgetPath.startsWith('lib/') ? widgetPath.substring(4) : widgetPath;
 
     print('Created $fileName widget from template: ${newFile.path}');
-    print("Import it: import 'package:your_package/$importPath/$fileName.dart';");
+    print(
+        "Import it: import 'package:your_package/$importPath/$fileName.dart';");
   }
 }
