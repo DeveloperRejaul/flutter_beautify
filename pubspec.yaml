@@ -9,9 +9,6 @@ environment:
 dev_dependencies:
   lints: ^6.0.0
 
-include:
-  - example/lib/widgets
-
 homepage: https://github.com/DeveloperRejaul/flutter_beautify
 repository: https://github.com/DeveloperRejaul/flutter_beautify
 

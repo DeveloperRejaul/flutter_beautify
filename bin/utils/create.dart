@@ -1,69 +1,44 @@
 import 'dart:io';
+import 'package:flutter_beautify/src/resource_locator.dart';
+import 'string.dart';
+import '../init/init.dart';
 
 class Create {
-  final dir = Directory('lib/widgets');
-
   Future<void> widget(String name) async {
-    // crate directory if not exists
-    if (!await _isDirExists()) {
+    final fileName = toSnakeCase(name);
+
+    final config = await ConfigManager().loadConfig();
+    final widgetPath = (config['widgetPath'] as String?) ?? 'lib/widgets';
+    final dir = Directory(widgetPath);
+
+    if (!await dir.exists()) {
       await dir.create(recursive: true);
       print('Created directory: ${dir.path}');
     }
 
-    // Create a new file in the widget directory
-    if (await _isWidgetExists(name)) {
-      return;
-    }
-
-    // Create a new file in the widget directory
-    if (!await _isDataExists(name)) {
-      return;
-    }
-
-    // read template content
-    String content = await _read(name);
-    await _write(name, content);
-
-    print('Created $name widget from template: ${dir.path}/$name.dart');
-    print("Import it: import 'package:your_package/widgets/$name.dart';");
-  }
-
-  Future<bool> _isDirExists() async {
-    return await dir.exists();
-  }
-
-  Future<bool> _isWidgetExists(String name) async {
-    final filename = '$name.dart';
-    final newFile = File('${dir.path}/$filename');
-
+    final newFile = File('${dir.path}/$fileName.dart');
     if (await newFile.exists()) {
       print('File already exists: ${newFile.path}');
       print('Aborting. Remove the file if you want to overwrite.');
-      return true;
+      return;
     }
 
-    return false;
-  }
-
-  Future<bool> _isDataExists(String name) async {
-    // source template file
-    final templateFile = File('example/lib/widgets/$name.dart');
-
+    final templateFile = File(
+      '${(await templatesDir()).path}/$fileName.dart',
+    );
     if (!await templateFile.exists()) {
       print('Template file missing: ${templateFile.path}');
-      return false;
+      exit(1);
     }
-    return true;
-  }
 
-  Future<String> _read(String name) async {
-    final templateFile = File('example/lib/widgets/$name.dart');
-    return await templateFile.readAsString();
-  }
-
-  Future<void> _write(String name, String content) async {
-    final filename = '$name.dart';
-    final newFile = File('${dir.path}/$filename');
+    final content = await templateFile.readAsString();
     await newFile.writeAsString(content);
+
+    final importPath = widgetPath.startsWith('lib/')
+        ? widgetPath.substring(4)
+        : widgetPath;
+
+    print('Created $fileName widget from template: ${newFile.path}');
+    print("Import it: import 'package:your_package/$importPath/$fileName.dart';");
   }
 }

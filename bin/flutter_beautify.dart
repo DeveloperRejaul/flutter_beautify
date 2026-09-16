@@ -49,19 +49,11 @@ Usage: flutter_beautify <command> [args]
 Available Commands:
   init                     Initialize Flutter Beautify configuration
   config                   Show current configuration
-  add <component> [name]   Add a component to your project
+  add <component>          Add a component to your project
   version                  Print version
   help                     Show this message
 
-Available Components:
-  • button                 Beautiful button widget
-  • checkbox               Customizable checkbox widget
-  • textfield              Text input field widget
-  • card                   Card container widget
-  • dialog                 Dialog widget
-  • snackbar               Snackbar notification widget
-  • toast                  Toast notification widget
-  • appbar                 Custom app bar widget
+Run "flutter_beautify add" with no component to see the full list.
 
 Examples:
   flutter_beautify init
