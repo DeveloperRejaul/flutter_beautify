@@ -103,6 +103,7 @@ class FBCheckbox extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFBError = isError ?? false;
     final isFBDisable = disable ?? false;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
       children: [
@@ -111,8 +112,12 @@ class FBCheckbox extends StatelessWidget {
           onChanged: (v) {
             if (!isFBDisable) onChanged(v);
           },
-          activeColor: isFBError ? errorBoxColor ?? Colors.red : boxColor,
-          checkColor: isFBError ? errorCheckColor ?? Colors.white : checkColor,
+          activeColor: isFBError
+              ? errorBoxColor ?? colorScheme.error
+              : boxColor,
+          checkColor: isFBError
+              ? errorCheckColor ?? colorScheme.onError
+              : checkColor,
           focusColor: focusColor,
           hoverColor: hoverColor,
           overlayColor: overlayColor,
@@ -132,7 +137,9 @@ class FBCheckbox extends StatelessWidget {
             style:
                 labelStyle ??
                 TextStyle(
-                  color: isFBError ? (errorBoxColor ?? Colors.red) : null,
+                  color: isFBError
+                      ? (errorBoxColor ?? colorScheme.error)
+                      : null,
                 ),
           ),
       ],

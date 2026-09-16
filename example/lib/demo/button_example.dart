@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/button.dart';
+import '../widgets/theme.dart';
 
 class ButtonExample extends StatefulWidget {
   const ButtonExample({super.key});
@@ -26,28 +27,30 @@ class _ButtonExampleState extends State<ButtonExample> {
         const Text('You have pushed the button this many times:'),
         Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
 
-        // apply widgets
+        // No `color` passed → picks up the ambient Theme's primary color
+        // automatically (FBTheme.lightTheme()/darkTheme() if you're using it).
         FBButton.solid(
           onPressed: () {
             _incrementCounter();
           },
-          color: Colors.deepOrange,
           leading: const Icon(Icons.save, size: 20),
           child: const Text("Solid Button"),
         ),
+        // Pass `color` to override per-button — use FBColors instead of a
+        // raw Material color so it stays in sync with your palette.
         FBButton.outline(
           title: "Outline Button",
           onPressed: () {
             _incrementCounter();
           },
-          color: Colors.deepOrange,
+          color: FBColors.accent,
         ),
         FBButton.link(
           title: "Link Button",
           onPressed: () {
             _incrementCounter();
           },
-          color: Colors.deepOrange,
+          color: FBColors.accent,
         ),
       ],
     );

@@ -8,10 +8,12 @@ class FBDropdown<T> extends StatefulWidget {
   final String labelText;
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
-  final InputDecoration decoration;
   final bool isExpanded;
   final double? width;
-  final Color borderColor;
+  final bool filled;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
+  final Color? fillColor;
   final double borderWidth;
   final EdgeInsetsGeometry contentPadding;
 
@@ -24,10 +26,12 @@ class FBDropdown<T> extends StatefulWidget {
     this.labelText = '',
     this.hintStyle,
     this.labelStyle,
-    required this.decoration,
     this.isExpanded = true,
     this.width,
-    this.borderColor = Colors.grey,
+    this.filled = false,
+    this.borderColor,
+    this.focusedBorderColor,
+    this.fillColor,
     this.borderWidth = 1.0,
     this.contentPadding = const EdgeInsets.symmetric(
       horizontal: 12,
@@ -84,23 +88,6 @@ class FBDropdown<T> extends StatefulWidget {
       labelText: labelText,
       hintStyle: hintStyle,
       labelStyle: labelStyle,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText.isEmpty ? null : labelText,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.grey, width: 1),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.blue, width: 2),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 16,
-        ),
-      ),
       isExpanded: isExpanded,
       width: width,
     );
@@ -128,30 +115,9 @@ class FBDropdown<T> extends StatefulWidget {
       labelText: labelText,
       hintStyle: hintStyle,
       labelStyle: labelStyle,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText.isEmpty ? null : labelText,
-        filled: true,
-        fillColor: const Color(0xFFF5F5F5),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.blue, width: 2),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 16,
-        ),
-      ),
       isExpanded: isExpanded,
       width: width,
+      filled: true,
     );
   }
 
@@ -170,6 +136,39 @@ class _FBDropdownState<T> extends State<FBDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final borderColor = widget.borderColor ?? colorScheme.outline;
+    final focusedColor = widget.focusedBorderColor ?? colorScheme.primary;
+    final fillColor = widget.filled
+        ? (widget.fillColor ?? colorScheme.surfaceContainerHighest)
+        : null;
+
+    final decoration = InputDecoration(
+      hintText: widget.hintText,
+      hintStyle: widget.hintStyle,
+      labelText: widget.labelText.isEmpty ? null : widget.labelText,
+      labelStyle: widget.labelStyle,
+      filled: widget.filled,
+      fillColor: fillColor,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: widget.filled
+            ? BorderSide.none
+            : BorderSide(color: borderColor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: widget.filled
+            ? BorderSide.none
+            : BorderSide(color: borderColor, width: widget.borderWidth),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: focusedColor, width: 2),
+      ),
+      contentPadding: widget.contentPadding,
+    );
+
     return SizedBox(
       width: widget.width ?? double.infinity,
       child: DropdownButtonFormField<T>(
@@ -181,7 +180,7 @@ class _FBDropdownState<T> extends State<FBDropdown<T>> {
           });
           widget.onChanged?.call(newValue);
         },
-        decoration: widget.decoration,
+        decoration: decoration,
         isExpanded: widget.isExpanded,
       ),
     );

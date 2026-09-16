@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class FBLinearProgress extends StatelessWidget {
   final double value; // 0.0 to 1.0
   final double height;
-  final Color backgroundColor;
-  final Color valueColor;
+  final Color? backgroundColor;
+  final Color? valueColor;
   final BorderRadius borderRadius;
   final String? label;
   final bool showValue;
@@ -13,8 +13,8 @@ class FBLinearProgress extends StatelessWidget {
     super.key,
     required this.value,
     this.height = 6,
-    required this.backgroundColor,
-    required this.valueColor,
+    this.backgroundColor,
+    this.valueColor,
     required this.borderRadius,
     this.label,
     this.showValue = false,
@@ -34,14 +34,15 @@ class FBLinearProgress extends StatelessWidget {
     Key? key,
     required double value,
     double height = 6,
-    Color valueColor = Colors.blue,
+    Color? valueColor,
+    Color? backgroundColor,
   }) {
     return FBLinearProgress._(
       key: key,
       value: value,
       height: height,
-      backgroundColor: Colors.grey.shade300,
       valueColor: valueColor,
+      backgroundColor: backgroundColor,
       borderRadius: BorderRadius.circular(3),
     );
   }
@@ -52,13 +53,12 @@ class FBLinearProgress extends StatelessWidget {
     required double value,
     String? label,
     double height = 8,
-    Color valueColor = Colors.blue,
+    Color? valueColor,
   }) {
     return FBLinearProgress._(
       key: key,
       value: value,
       height: height,
-      backgroundColor: Colors.grey.shade300,
       valueColor: valueColor,
       borderRadius: BorderRadius.circular(4),
       label: label,
@@ -71,13 +71,12 @@ class FBLinearProgress extends StatelessWidget {
     Key? key,
     required double value,
     double height = 8,
-    Color valueColor = Colors.blue,
+    Color? valueColor,
   }) {
     return FBLinearProgress._(
       key: key,
       value: value,
       height: height,
-      backgroundColor: Colors.grey.shade200,
       valueColor: valueColor,
       borderRadius: BorderRadius.circular(4),
     );
@@ -85,6 +84,11 @@ class FBLinearProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedValueColor = valueColor ?? colorScheme.primary;
+    final resolvedBackground =
+        backgroundColor ?? colorScheme.surfaceContainerHighest;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -96,18 +100,16 @@ class FBLinearProgress extends StatelessWidget {
               children: [
                 Text(
                   label!,
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 if (showValue)
                   Text(
                     '${(value * 100).toStringAsFixed(0)}%',
-                    style: const TextStyle(
-                      fontSize: 12,
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: Colors.blue,
+                      color: resolvedValueColor,
                     ),
                   ),
               ],
@@ -118,8 +120,8 @@ class FBLinearProgress extends StatelessWidget {
           child: LinearProgressIndicator(
             value: value,
             minHeight: height,
-            backgroundColor: backgroundColor,
-            valueColor: AlwaysStoppedAnimation<Color>(valueColor),
+            backgroundColor: resolvedBackground,
+            valueColor: AlwaysStoppedAnimation<Color>(resolvedValueColor),
           ),
         ),
       ],

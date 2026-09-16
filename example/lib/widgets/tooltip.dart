@@ -6,7 +6,7 @@ class FBTooltip extends StatefulWidget {
   final Offset offset;
   final Duration showDuration;
   final TextStyle? textStyle;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final BorderRadius borderRadius;
   final EdgeInsetsGeometry padding;
 
@@ -15,7 +15,7 @@ class FBTooltip extends StatefulWidget {
     required this.child,
     required this.message,
     this.textStyle,
-    this.backgroundColor = Colors.grey,
+    this.backgroundColor,
   }) : offset = const Offset(0, -40),
        showDuration = const Duration(milliseconds: 1500),
        borderRadius = const BorderRadius.all(Radius.circular(8)),
@@ -30,22 +30,16 @@ class FBTooltip extends StatefulWidget {
     return FBTooltip.standard(key: key, message: message, child: child);
   }
 
-  // -------- STANDARD --------
+  // -------- STANDARD (follows the ambient Theme's inverse surface) --------
   factory FBTooltip.standard({
     Key? key,
     required Widget child,
     required String message,
   }) {
-    return FBTooltip._(
-      key: key,
-      message: message,
-      backgroundColor: Colors.grey.shade800,
-      textStyle: const TextStyle(color: Colors.white, fontSize: 12),
-      child: child,
-    );
+    return FBTooltip._(key: key, message: message, child: child);
   }
 
-  // -------- DARK --------
+  // -------- DARK (deliberately always-dark, regardless of app theme) --------
   factory FBTooltip.dark({
     Key? key,
     required Widget child,
@@ -67,14 +61,21 @@ class FBTooltip extends StatefulWidget {
 class _FBTooltipState extends State<FBTooltip> {
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedBackground =
+        widget.backgroundColor ?? colorScheme.inverseSurface;
+    final resolvedTextStyle =
+        widget.textStyle ??
+        TextStyle(color: colorScheme.onInverseSurface, fontSize: 12);
+
     return Tooltip(
       message: widget.message,
       showDuration: widget.showDuration,
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
+        color: resolvedBackground,
         borderRadius: widget.borderRadius,
       ),
-      textStyle: widget.textStyle ?? const TextStyle(color: Colors.white),
+      textStyle: resolvedTextStyle,
       padding: widget.padding,
       child: widget.child,
     );

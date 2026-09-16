@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 
 class FBBadge extends StatelessWidget {
   final String label;
-  final Color backgroundColor;
-  final Color textColor;
+  final Color? backgroundColor;
+  final Color? textColor;
   final EdgeInsetsGeometry padding;
   final double borderRadius;
   final TextStyle? textStyle;
   final Widget? icon;
   final BadgeSize size;
+  final bool outlined;
 
   const FBBadge._({
     super.key,
     required this.label,
-    this.backgroundColor = Colors.red,
-    this.textColor = Colors.white,
+    this.backgroundColor,
+    this.textColor,
     this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     this.textStyle,
     this.size = BadgeSize.medium,
+    this.outlined = false,
   }) : borderRadius = 12,
        icon = null;
 
@@ -25,8 +27,8 @@ class FBBadge extends StatelessWidget {
   factory FBBadge({
     Key? key,
     required String label,
-    Color backgroundColor = Colors.red,
-    Color textColor = Colors.white,
+    Color? backgroundColor,
+    Color? textColor,
   }) {
     return FBBadge.standard(
       key: key,
@@ -40,8 +42,8 @@ class FBBadge extends StatelessWidget {
   factory FBBadge.standard({
     Key? key,
     required String label,
-    Color backgroundColor = Colors.red,
-    Color textColor = Colors.white,
+    Color? backgroundColor,
+    Color? textColor,
   }) {
     return FBBadge._(
       key: key,
@@ -56,7 +58,7 @@ class FBBadge extends StatelessWidget {
   factory FBBadge.small({
     Key? key,
     required String label,
-    Color backgroundColor = Colors.red,
+    Color? backgroundColor,
   }) {
     return FBBadge._(
       key: key,
@@ -72,7 +74,7 @@ class FBBadge extends StatelessWidget {
   factory FBBadge.large({
     Key? key,
     required String label,
-    Color backgroundColor = Colors.red,
+    Color? backgroundColor,
   }) {
     return FBBadge._(
       key: key,
@@ -88,29 +90,34 @@ class FBBadge extends StatelessWidget {
   factory FBBadge.outlined({
     Key? key,
     required String label,
-    Color borderColor = Colors.red,
-    Color textColor = Colors.red,
+    Color? borderColor,
+    Color? textColor,
   }) {
     return FBBadge._(
       key: key,
       label: label,
-      backgroundColor: Colors.transparent,
-      textColor: textColor,
+      backgroundColor: borderColor,
+      textColor: textColor ?? borderColor,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       size: BadgeSize.medium,
+      outlined: true,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedColor = backgroundColor ?? colorScheme.error;
+    final resolvedTextColor = outlined
+        ? (textColor ?? resolvedColor)
+        : (textColor ?? colorScheme.onError);
+
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: outlined ? Colors.transparent : resolvedColor,
         borderRadius: BorderRadius.circular(borderRadius),
-        border: backgroundColor == Colors.transparent
-            ? Border.all(color: textColor, width: 1)
-            : null,
+        border: outlined ? Border.all(color: resolvedColor, width: 1) : null,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -124,7 +131,7 @@ class FBBadge extends StatelessWidget {
             style:
                 textStyle ??
                 TextStyle(
-                  color: textColor,
+                  color: resolvedTextColor,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),

@@ -1,42 +1,46 @@
 import 'package:flutter/material.dart';
 
+enum _FBCardVariant { elevated, outlined, flat }
+
 class FBCard extends StatelessWidget {
   final Widget child;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final double elevation;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
   final BorderRadius borderRadius;
-  final Border? border;
+  final Color? borderColor;
+  final double borderWidth;
   final VoidCallback? onTap;
   final double? width;
   final double? height;
+  final _FBCardVariant _variant;
 
   const FBCard._({
     super.key,
     required this.child,
-    this.backgroundColor = Colors.white,
+    required _FBCardVariant variant,
+    this.backgroundColor,
     this.elevation = 2.0,
     this.padding = const EdgeInsets.all(16),
     this.margin = const EdgeInsets.all(8),
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
-    this.border,
+    this.borderColor,
+    this.borderWidth = 1,
     this.onTap,
     this.width,
     this.height,
-  });
+  }) : _variant = variant;
 
   // Default → elevated
   factory FBCard({
     Key? key,
     required Widget child,
-    Color backgroundColor = Colors.white,
-    Color shadowColor = Colors.grey,
+    Color? backgroundColor,
     double elevation = 2.0,
     EdgeInsetsGeometry padding = const EdgeInsets.all(16),
     EdgeInsetsGeometry margin = const EdgeInsets.all(8),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(12)),
-    Border? border,
     VoidCallback? onTap,
     double? width,
     double? height,
@@ -59,7 +63,7 @@ class FBCard extends StatelessWidget {
   factory FBCard.elevated({
     Key? key,
     required Widget child,
-    Color backgroundColor = Colors.white,
+    Color? backgroundColor,
     double elevation = 4.0,
     EdgeInsetsGeometry padding = const EdgeInsets.all(16),
     EdgeInsetsGeometry margin = const EdgeInsets.all(8),
@@ -70,6 +74,7 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard._(
       key: key,
+      variant: _FBCardVariant.elevated,
       backgroundColor: backgroundColor,
       elevation: elevation,
       padding: padding,
@@ -86,8 +91,8 @@ class FBCard extends StatelessWidget {
   factory FBCard.outlined({
     Key? key,
     required Widget child,
-    Color backgroundColor = Colors.white,
-    Color borderColor = Colors.grey,
+    Color? backgroundColor,
+    Color? borderColor,
     double borderWidth = 1,
     EdgeInsetsGeometry padding = const EdgeInsets.all(16),
     EdgeInsetsGeometry margin = const EdgeInsets.all(8),
@@ -98,12 +103,14 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard._(
       key: key,
+      variant: _FBCardVariant.outlined,
       backgroundColor: backgroundColor,
       elevation: 0,
       padding: padding,
       margin: margin,
       borderRadius: borderRadius,
-      border: Border.all(color: borderColor, width: borderWidth),
+      borderColor: borderColor,
+      borderWidth: borderWidth,
       onTap: onTap,
       width: width,
       height: height,
@@ -115,7 +122,7 @@ class FBCard extends StatelessWidget {
   factory FBCard.flat({
     Key? key,
     required Widget child,
-    Color backgroundColor = const Color(0xFFF5F5F5),
+    Color? backgroundColor,
     EdgeInsetsGeometry padding = const EdgeInsets.all(16),
     EdgeInsetsGeometry margin = const EdgeInsets.all(8),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8)),
@@ -125,6 +132,7 @@ class FBCard extends StatelessWidget {
   }) {
     return FBCard._(
       key: key,
+      variant: _FBCardVariant.flat,
       backgroundColor: backgroundColor,
       elevation: 0,
       padding: padding,
@@ -139,20 +147,36 @@ class FBCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedBackground =
+        backgroundColor ??
+        (_variant == _FBCardVariant.flat
+            ? colorScheme.surfaceContainerHighest
+            : colorScheme.surface);
+    final resolvedBorder = _variant == _FBCardVariant.outlined
+        ? Border.all(
+            color: borderColor ?? colorScheme.outline,
+            width: borderWidth,
+          )
+        : null;
+
     final card = Card(
-      color: backgroundColor,
+      color: resolvedBackground,
       elevation: elevation,
       margin: margin,
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
-        side: border?.bottom ?? BorderSide.none,
+        side: resolvedBorder?.bottom ?? BorderSide.none,
       ),
       clipBehavior: Clip.antiAlias,
       child: Container(
         width: width,
         height: height,
         padding: padding,
-        decoration: BoxDecoration(border: border, borderRadius: borderRadius),
+        decoration: BoxDecoration(
+          border: resolvedBorder,
+          borderRadius: borderRadius,
+        ),
         child: child,
       ),
     );

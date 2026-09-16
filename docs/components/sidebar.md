@@ -34,7 +34,7 @@ Install this component into your project:
 | `items` | `List<SidebarItem>` | required |
 | `selectedIndex` | `int` | `0` |
 | `onItemSelected` | `ValueChanged<int>?` | — |
-| `activeColor` | `Color` | `Colors.blue` |
+| `activeColor` | `Color?` | ambient `colorScheme.primary` |
 | `isCollapsed` / `onCollapsedChanged` | `bool` / `ValueChanged<bool>?` | (`.collapsible()` only) |
 
 ## Usage

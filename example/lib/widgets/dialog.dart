@@ -54,7 +54,9 @@ class FBDialog {
             },
             child: Text(
               negativeButtonText,
-              style: const TextStyle(color: Colors.grey),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
           TextButton(
@@ -123,7 +125,9 @@ class FBDialog {
               },
               child: Text(
                 negativeButtonText,
-                style: const TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             ),
           if (positiveButtonText != null)

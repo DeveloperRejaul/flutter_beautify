@@ -5,8 +5,8 @@ class FBAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? titleWidget;
   final List<Widget>? actions;
   final VoidCallback? onBackPressed;
-  final Color backgroundColor;
-  final Color foregroundColor;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
   final double elevation;
   final bool showBackButton;
   final Widget? leading;
@@ -23,8 +23,8 @@ class FBAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleWidget,
     this.actions,
     this.onBackPressed,
-    this.backgroundColor = Colors.blue,
-    this.foregroundColor = Colors.white,
+    this.backgroundColor,
+    this.foregroundColor,
     this.elevation = 0.0,
     this.showBackButton = true,
     this.leading,
@@ -38,6 +38,10 @@ class FBAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedBackground = backgroundColor ?? colorScheme.primary;
+    final resolvedForeground = foregroundColor ?? colorScheme.onPrimary;
+
     return AppBar(
       title:
           titleWidget ??
@@ -48,11 +52,11 @@ class FBAppBar extends StatelessWidget implements PreferredSizeWidget {
                 TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: foregroundColor,
+                  color: resolvedForeground,
                 ),
           ),
-      backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
+      backgroundColor: resolvedBackground,
+      foregroundColor: resolvedForeground,
       elevation: elevation,
       leading:
           leading ??

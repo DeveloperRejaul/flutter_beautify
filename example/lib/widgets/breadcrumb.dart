@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+enum _FBBreadcrumbSeparator { slash, arrow }
+
 class FBBreadcrumb extends StatelessWidget {
   final List<BreadcrumbItem> items;
-  final Widget separator;
+  final _FBBreadcrumbSeparator _separator;
   final TextStyle? textStyle;
   final TextStyle? activeTextStyle;
   final EdgeInsetsGeometry padding;
@@ -10,10 +12,11 @@ class FBBreadcrumb extends StatelessWidget {
   const FBBreadcrumb._({
     super.key,
     required this.items,
-    required this.separator,
+    required _FBBreadcrumbSeparator separator,
     this.textStyle,
     this.activeTextStyle,
-  }) : padding = const EdgeInsets.symmetric(vertical: 12);
+  }) : _separator = separator,
+       padding = const EdgeInsets.symmetric(vertical: 12);
 
   // Default → standard
   factory FBBreadcrumb({Key? key, required List<BreadcrumbItem> items}) {
@@ -24,41 +27,55 @@ class FBBreadcrumb extends StatelessWidget {
   factory FBBreadcrumb.standard({
     Key? key,
     required List<BreadcrumbItem> items,
+    TextStyle? textStyle,
+    TextStyle? activeTextStyle,
   }) {
     return FBBreadcrumb._(
       key: key,
       items: items,
-      separator: const Text(' / ', style: TextStyle(color: Colors.grey)),
-      textStyle: const TextStyle(color: Colors.grey, fontSize: 12),
-      activeTextStyle: const TextStyle(
-        color: Colors.blue,
-        fontSize: 12,
-        fontWeight: FontWeight.w600,
-      ),
+      separator: _FBBreadcrumbSeparator.slash,
+      textStyle: textStyle,
+      activeTextStyle: activeTextStyle,
     );
   }
 
   // -------- ARROW --------
-  factory FBBreadcrumb.arrow({Key? key, required List<BreadcrumbItem> items}) {
+  factory FBBreadcrumb.arrow({
+    Key? key,
+    required List<BreadcrumbItem> items,
+    TextStyle? textStyle,
+    TextStyle? activeTextStyle,
+  }) {
     return FBBreadcrumb._(
       key: key,
       items: items,
-      separator: const Icon(
-        Icons.arrow_forward_ios,
-        size: 12,
-        color: Colors.grey,
-      ),
-      textStyle: const TextStyle(color: Colors.grey, fontSize: 12),
-      activeTextStyle: const TextStyle(
-        color: Colors.blue,
-        fontSize: 12,
-        fontWeight: FontWeight.w600,
-      ),
+      textStyle: textStyle,
+      activeTextStyle: activeTextStyle,
+      separator: _FBBreadcrumbSeparator.arrow,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedTextStyle =
+        textStyle ??
+        TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 12);
+    final resolvedActiveStyle =
+        activeTextStyle ??
+        TextStyle(
+          color: colorScheme.primary,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        );
+    final separator = _separator == _FBBreadcrumbSeparator.arrow
+        ? Icon(
+            Icons.arrow_forward_ios,
+            size: 12,
+            color: colorScheme.onSurfaceVariant,
+          )
+        : Text(' / ', style: TextStyle(color: colorScheme.onSurfaceVariant));
+
     return Padding(
       padding: padding,
       child: SingleChildScrollView(
@@ -74,7 +91,7 @@ class FBBreadcrumb extends StatelessWidget {
                 onTap: item.onTap,
                 child: Text(
                   item.label,
-                  style: isActive ? activeTextStyle : textStyle,
+                  style: isActive ? resolvedActiveStyle : resolvedTextStyle,
                 ),
               );
             } else {

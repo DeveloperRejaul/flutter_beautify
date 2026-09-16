@@ -72,9 +72,8 @@ class FBSlider extends StatefulWidget {
       max: max,
       divisions: divisions,
       label: label,
-      activeColor: activeColor ?? Colors.blue,
-      inactiveColor: Colors.grey.shade300,
-      thumbColor: activeColor ?? Colors.blue,
+      activeColor: activeColor,
+      thumbColor: activeColor,
       height: 6.0,
       showValue: true,
     );
@@ -99,9 +98,8 @@ class FBSlider extends StatefulWidget {
       max: max,
       divisions: divisions,
       label: label,
-      activeColor: activeColor ?? Colors.blue,
-      inactiveColor: Colors.grey.shade300,
-      thumbColor: activeColor ?? Colors.blue,
+      activeColor: activeColor,
+      thumbColor: activeColor,
       height: 8.0,
       showValue: true,
       valueFormatter: (val) => val.toStringAsFixed(0),
@@ -125,7 +123,7 @@ class FBSlider extends StatefulWidget {
       min: min,
       max: max,
       activeColor: activeColor,
-      inactiveColor: inactiveColor ?? Colors.grey.shade200,
+      inactiveColor: inactiveColor,
       thumbColor: activeColor,
       height: 8.0,
       showValue: true,
@@ -162,6 +160,11 @@ class _FBSliderState extends State<FBSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedActive = widget.activeColor ?? colorScheme.primary;
+    final resolvedInactive =
+        widget.inactiveColor ?? colorScheme.surfaceContainerHighest;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -172,17 +175,15 @@ class _FBSliderState extends State<FBSlider> {
               if (widget.label != null)
                 Text(
                   widget.label!,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
               Text(
                 _formatValue(_currentValue),
-                style: const TextStyle(
-                  fontSize: 14,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: Colors.blue,
+                  color: resolvedActive,
                 ),
               ),
             ],
@@ -203,8 +204,8 @@ class _FBSliderState extends State<FBSlider> {
             max: widget.max,
             divisions: widget.divisions,
             label: widget.label ?? _formatValue(_currentValue),
-            activeColor: widget.activeColor ?? Colors.blue,
-            inactiveColor: widget.inactiveColor ?? Colors.grey.shade300,
+            activeColor: resolvedActive,
+            inactiveColor: resolvedInactive,
             onChanged: (double newValue) {
               setState(() {
                 _currentValue = newValue;

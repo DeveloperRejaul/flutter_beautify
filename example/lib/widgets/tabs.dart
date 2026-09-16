@@ -4,9 +4,9 @@ class FBTabs extends StatefulWidget {
   final List<TabItem> tabs;
   final int initialIndex;
   final TabBarPosition position;
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color backgroundColor;
+  final Color? activeColor;
+  final Color? inactiveColor;
+  final Color? backgroundColor;
   final bool isScrollable;
 
   const FBTabs._({
@@ -14,10 +14,11 @@ class FBTabs extends StatefulWidget {
     required this.tabs,
     this.initialIndex = 0,
     this.position = TabBarPosition.top,
-    this.activeColor = Colors.blue,
+    this.activeColor,
+    this.inactiveColor,
+    this.backgroundColor,
     this.isScrollable = false,
-  }) : inactiveColor = Colors.grey,
-       backgroundColor = Colors.white;
+  });
 
   // Default → standard
   factory FBTabs({
@@ -33,13 +34,17 @@ class FBTabs extends StatefulWidget {
     Key? key,
     required List<TabItem> tabs,
     int initialIndex = 0,
-    Color activeColor = Colors.blue,
+    Color? activeColor,
+    Color? inactiveColor,
+    Color? backgroundColor,
   }) {
     return FBTabs._(
       key: key,
       tabs: tabs,
       initialIndex: initialIndex,
       activeColor: activeColor,
+      inactiveColor: inactiveColor,
+      backgroundColor: backgroundColor,
       position: TabBarPosition.top,
     );
   }
@@ -49,7 +54,7 @@ class FBTabs extends StatefulWidget {
     Key? key,
     required List<TabItem> tabs,
     int initialIndex = 0,
-    Color activeColor = Colors.blue,
+    Color? activeColor,
   }) {
     return FBTabs._(
       key: key,
@@ -86,14 +91,18 @@ class _FBTabsState extends State<FBTabs> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final activeColor = widget.activeColor ?? colorScheme.primary;
+    final inactiveColor = widget.inactiveColor ?? colorScheme.onSurfaceVariant;
+
     return Column(
       children: [
         TabBar(
           controller: _tabController,
           isScrollable: widget.isScrollable,
-          labelColor: widget.activeColor,
-          unselectedLabelColor: widget.inactiveColor,
-          indicatorColor: widget.activeColor,
+          labelColor: activeColor,
+          unselectedLabelColor: inactiveColor,
+          indicatorColor: activeColor,
           tabs: widget.tabs.map((tab) => Tab(text: tab.label)).toList(),
         ),
         Expanded(

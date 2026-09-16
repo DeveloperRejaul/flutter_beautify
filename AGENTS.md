@@ -130,10 +130,46 @@ npx vitepress preview docs
   `.flutter_beautify_config.json`'s `widgetPath` rather than hardcoding
   `lib/widgets`.
 
+## Theming convention
+
+Every FBX widget must read its default colors from `Theme.of(context)`
+instead of hardcoding a `Color` (`Colors.blue`, a literal hex, etc.) as a
+constructor default — that's what makes `FBTheme.lightTheme()` /
+`FBTheme.darkTheme()` (`example/lib/widgets/theme.dart`) actually apply to
+the widget library instead of only to plain Material widgets. Concretely:
+
+- Color constructor params are `Color?` (nullable, no default value), never
+  `Color color = Colors.blue`. A `Color` default is evaluated at compile
+  time, before any `BuildContext` exists, so it can never see the ambient
+  theme.
+- Resolve the real value in `build(BuildContext context)`:
+  `final resolved = color ?? Theme.of(context).colorScheme.primary;` — pick
+  the `ColorScheme` role that matches the color's job (`primary` for the
+  brand accent, `error`/`onError` for error states, `outline` for borders,
+  `onSurfaceVariant` for secondary text, `surface`/`surfaceContainerHighest`
+  for backgrounds, `inverseSurface`/`onInverseSurface` for toasts/tooltips).
+  `FBTheme` itself also wires the matching Material component themes
+  (`elevatedButtonTheme`, `checkboxTheme`, `switchTheme`, `sliderTheme`,
+  `tabBarTheme`, `cardTheme`, etc.), so plain Flutter widgets used without
+  the CLI match too — extend those alongside a new FBX widget if it wraps a
+  Material widget with its own component theme.
+- If a widget builds a style/decoration object (`ButtonStyle`,
+  `InputDecoration`, ...) inside a `factory` constructor, that construction
+  has to move into `build()` too, since factories run before `context`
+  exists. See `button.dart`'s `_FBButtonVariant` enum (variant stored as a
+  field, style built in `build()`) or `card.dart`'s `_FBCardVariant` for the
+  pattern — don't try to keep building the final style object in the
+  factory and just swap the color literal.
+- A variant that's deliberately *not* brand-colored on purpose (e.g.
+  `FBSwitch.android`'s classic green, `FBSidebar.dark`'s fixed dark
+  chrome) is fine to keep hardcoded — call that out in a comment so it
+  doesn't get "fixed" into theme-awareness later.
+
 ## Adding a new component
 
 1. Add `example/lib/widgets/<snake_case_name>.dart` (class prefixed `FB…`,
-   Material 3, zero non-Flutter dependencies).
+   Material 3, zero non-Flutter dependencies). Follow the theming
+   convention above — no hardcoded default colors.
 2. Add the dash-case name to `validComponents` and the printed list in
    `bin/add/add.dart`.
 3. Add a demo under `example/lib/demo/` and register it in

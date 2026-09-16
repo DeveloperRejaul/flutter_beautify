@@ -36,7 +36,7 @@ One constructor, `FBAppBar(...)`.
 | --- | --- | --- |
 | `title` / `titleWidget` | `String` / `Widget?` | `''` |
 | `actions` | `List<Widget>?` | — |
-| `backgroundColor` / `foregroundColor` | `Color` | `Colors.blue` / `Colors.white` |
+| `backgroundColor` / `foregroundColor` | `Color?` / `Color?` | ambient `colorScheme.primary` / `colorScheme.onPrimary` |
 | `elevation` | `double` | `0.0` |
 | `showBackButton` | `bool` | `true` |
 | `bottom` | `PreferredSizeWidget?` | — e.g. a `TabBar` |

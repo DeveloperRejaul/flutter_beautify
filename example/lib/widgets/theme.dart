@@ -10,6 +10,14 @@ import 'package:flutter/material.dart';
 ///   themeMode: ThemeMode.system,
 /// )
 ///
+/// Every FBX widget (FBButton, FBCard, FBCheckbox, ...) reads its default
+/// colors from `Theme.of(context)` when you don't pass one explicitly, so it
+/// automatically matches whatever you set here. Plain Flutter widgets
+/// (ElevatedButton, Checkbox, TextField, TabBar, ...) do too — the component
+/// themes below (`elevatedButtonTheme`, `checkboxTheme`, etc.) wire them to
+/// the same palette, so you get a consistent look even in code that never
+/// touches the CLI.
+///
 /// Override the defaults per call instead of editing [FBColors] — useful
 /// for white-labeling or a runtime brand-color picker:
 ///
@@ -25,16 +33,18 @@ class FBTheme {
     Color errorColor = FBColors.error,
     String? fontFamily,
   }) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.light,
+      secondary: accentColor,
+      error: errorColor,
+    );
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
       fontFamily: fontFamily,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        brightness: Brightness.light,
-        secondary: accentColor,
-        error: errorColor,
-      ),
+      colorScheme: colorScheme,
       scaffoldBackgroundColor: FBColors.background,
       appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
@@ -67,6 +77,58 @@ class FBTheme {
           shape: RoundedRectangleBorder(borderRadius: FBBorderRadius.sm),
         ),
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: primaryColor,
+          side: BorderSide(color: primaryColor),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          shape: RoundedRectangleBorder(borderRadius: FBBorderRadius.sm),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: primaryColor),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) =>
+              states.contains(WidgetState.selected) ? primaryColor : null,
+        ),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) =>
+              states.contains(WidgetState.selected) ? primaryColor : null,
+        ),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith(
+          (states) =>
+              states.contains(WidgetState.selected) ? primaryColor : null,
+        ),
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? primaryColor.withValues(alpha: 0.5)
+              : null,
+        ),
+      ),
+      sliderTheme: SliderThemeData(
+        activeTrackColor: primaryColor,
+        thumbColor: primaryColor,
+        overlayColor: primaryColor.withValues(alpha: 0.12),
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: primaryColor,
+        unselectedLabelColor: FBColors.textSecondaryLight,
+        indicatorColor: primaryColor,
+      ),
+      cardTheme: const CardThemeData(color: FBColors.surface, elevation: 2),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: primaryColor,
+        unselectedItemColor: FBColors.textSecondaryLight,
+        backgroundColor: FBColors.surface,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: primaryColor),
+      dividerTheme: const DividerThemeData(color: FBColors.greyLight),
       textTheme: FBTypography.textTheme(
         color: FBColors.textPrimaryLight,
         fontFamily: fontFamily,
@@ -80,16 +142,18 @@ class FBTheme {
     Color errorColor = FBColors.error,
     String? fontFamily,
   }) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.dark,
+      secondary: accentColor,
+      error: errorColor,
+    );
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
       fontFamily: fontFamily,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        brightness: Brightness.dark,
-        secondary: accentColor,
-        error: errorColor,
-      ),
+      colorScheme: colorScheme,
       scaffoldBackgroundColor: FBColors.black,
       appBarTheme: const AppBarTheme(
         backgroundColor: FBColors.greyDark,
@@ -122,6 +186,58 @@ class FBTheme {
           shape: RoundedRectangleBorder(borderRadius: FBBorderRadius.sm),
         ),
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: primaryColor,
+          side: BorderSide(color: primaryColor),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          shape: RoundedRectangleBorder(borderRadius: FBBorderRadius.sm),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: primaryColor),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) =>
+              states.contains(WidgetState.selected) ? primaryColor : null,
+        ),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) =>
+              states.contains(WidgetState.selected) ? primaryColor : null,
+        ),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith(
+          (states) =>
+              states.contains(WidgetState.selected) ? primaryColor : null,
+        ),
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? primaryColor.withValues(alpha: 0.5)
+              : null,
+        ),
+      ),
+      sliderTheme: SliderThemeData(
+        activeTrackColor: primaryColor,
+        thumbColor: primaryColor,
+        overlayColor: primaryColor.withValues(alpha: 0.16),
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: primaryColor,
+        unselectedLabelColor: FBColors.grey,
+        indicatorColor: primaryColor,
+      ),
+      cardTheme: const CardThemeData(color: FBColors.greyDark, elevation: 2),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: primaryColor,
+        unselectedItemColor: FBColors.grey,
+        backgroundColor: FBColors.greyDark,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: primaryColor),
+      dividerTheme: const DividerThemeData(color: FBColors.greyDark),
       textTheme: FBTypography.textTheme(
         color: FBColors.white,
         fontFamily: fontFamily,

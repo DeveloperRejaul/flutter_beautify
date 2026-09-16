@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
+enum _FBButtonVariant { solid, outline, link }
+
 class FBButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
-  final ButtonStyle style;
+  final Color? color;
+  final ButtonStyle? styleOverride;
   final Icon? leading;
+  final _FBButtonVariant _variant;
 
   const FBButton._({
     super.key,
     required this.onPressed,
     required this.child,
-    required this.style,
+    required _FBButtonVariant variant,
+    this.color,
+    this.styleOverride,
     this.leading,
-  });
+  }) : _variant = variant;
 
   // Default → solid
   factory FBButton({
@@ -20,7 +26,7 @@ class FBButton extends StatelessWidget {
     required VoidCallback? onPressed,
     String? title,
     Widget? child,
-    Color color = Colors.blue,
+    Color? color,
     ButtonStyle? style,
     Icon? leading,
   }) {
@@ -41,21 +47,16 @@ class FBButton extends StatelessWidget {
     required VoidCallback? onPressed,
     String? title,
     Widget? child,
-    Color color = Colors.blue,
+    Color? color,
     ButtonStyle? style,
     Icon? leading,
   }) {
-    final base = ElevatedButton.styleFrom(
-      backgroundColor: color,
-      foregroundColor: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    );
-
     return FBButton._(
       key: key,
       onPressed: onPressed,
-      style: _resolveStyle(base, style),
+      variant: _FBButtonVariant.solid,
+      color: color,
+      styleOverride: style,
       leading: leading,
       child: child ?? Text(title ?? ""),
     );
@@ -67,23 +68,16 @@ class FBButton extends StatelessWidget {
     required VoidCallback? onPressed,
     String? title,
     Widget? child,
-    Color color = Colors.blue,
+    Color? color,
     ButtonStyle? style,
     Icon? leading,
   }) {
-    final base = ElevatedButton.styleFrom(
-      backgroundColor: Colors.transparent,
-      foregroundColor: color,
-      elevation: 0,
-      side: BorderSide(color: color),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    );
-
     return FBButton._(
       key: key,
       onPressed: onPressed,
-      style: _resolveStyle(base, style),
+      variant: _FBButtonVariant.outline,
+      color: color,
+      styleOverride: style,
       leading: leading,
       child: child ?? Text(title ?? ""),
     );
@@ -95,14 +89,47 @@ class FBButton extends StatelessWidget {
     required VoidCallback? onPressed,
     String? title,
     Widget? child,
-    Color color = Colors.blue,
+    Color? color,
     ButtonStyle? style,
     Icon? leading,
   }) {
-    final base =
-        ElevatedButton.styleFrom(
+    return FBButton._(
+      key: key,
+      onPressed: onPressed,
+      variant: _FBButtonVariant.link,
+      color: color,
+      styleOverride: style,
+      leading: leading,
+      child: child ?? Text(title ?? ""),
+    );
+  }
+
+  // -------- BASE STYLE (per variant, resolved against the ambient Theme) --------
+  ButtonStyle _baseStyle(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedColor = color ?? colorScheme.primary;
+
+    switch (_variant) {
+      case _FBButtonVariant.solid:
+        return ElevatedButton.styleFrom(
+          backgroundColor: resolvedColor,
+          foregroundColor: colorScheme.onPrimary,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        );
+      case _FBButtonVariant.outline:
+        return ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
-          foregroundColor: color,
+          foregroundColor: resolvedColor,
+          elevation: 0,
+          side: BorderSide(color: resolvedColor),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        );
+      case _FBButtonVariant.link:
+        return ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: resolvedColor,
           shadowColor: Colors.transparent,
           elevation: 0,
           padding: EdgeInsets.zero,
@@ -112,14 +139,7 @@ class FBButton extends StatelessWidget {
           overlayColor: WidgetStateProperty.all(Colors.transparent),
           elevation: WidgetStateProperty.all(0),
         );
-
-    return FBButton._(
-      key: key,
-      onPressed: onPressed,
-      style: _resolveStyle(base, style),
-      leading: leading,
-      child: child ?? Text(title ?? ""),
-    );
+    }
   }
 
   // -------- STYLE RESOLVER --------
@@ -145,7 +165,7 @@ class FBButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: style,
+      style: _resolveStyle(_baseStyle(context), styleOverride),
       child: leading != null
           ? Row(
               mainAxisSize: MainAxisSize.min,

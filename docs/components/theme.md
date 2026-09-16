@@ -68,6 +68,62 @@ class FBColors {
 }
 ```
 
+## Dark and light mode
+
+`FBTheme.lightTheme()` / `FBTheme.darkTheme()` are two separate `ThemeData`
+builds from the same tokens — hand both to `MaterialApp` and let Flutter (or
+your own toggle) pick between them:
+
+```dart
+MaterialApp(
+  theme: FBTheme.lightTheme(),
+  darkTheme: FBTheme.darkTheme(),
+  themeMode: ThemeMode.system, // .light / .dark to force one
+);
+```
+
+This isn't just a color swap on `Scaffold` — every FBX widget (`FBButton`,
+`FBCard`, `FBCheckbox`, `FBTextField`, ...) reads its default colors from
+`Theme.of(context)` rather than hardcoding them, so switching `themeMode`
+re-themes the whole component library automatically. Plain Flutter widgets
+you didn't get from the CLI (`ElevatedButton`, `Checkbox`, `TabBar`,
+`Card`, ...) do too — `FBTheme` wires `elevatedButtonTheme`,
+`checkboxTheme`, `switchTheme`, `sliderTheme`, `tabBarTheme`,
+`cardTheme`, and friends to the same palette, so a plain
+`ElevatedButton()` next to an `FBButton()` still matches.
+
+To let users toggle it at runtime, keep the mode in a `ValueNotifier` (or
+your state manager of choice) above `MaterialApp`:
+
+```dart
+final themeMode = ValueNotifier(ThemeMode.system);
+
+ValueListenableBuilder<ThemeMode>(
+  valueListenable: themeMode,
+  builder: (context, mode, _) => MaterialApp(
+    theme: FBTheme.lightTheme(),
+    darkTheme: FBTheme.darkTheme(),
+    themeMode: mode,
+    home: const HomeScreen(),
+  ),
+);
+
+// Anywhere else:
+themeMode.value = ThemeMode.dark;
+```
+
+An `FBButton` (or any other FBX widget) with an explicit `color:` still
+overrides the theme for that one instance in both modes — pass two colors
+if you want it to flip too:
+
+```dart
+FBButton.solid(
+  onPressed: save,
+  title: 'Save',
+  color: isDark ? FBColors.primaryLight : FBColors.primary,
+);
+```
+
 ## Using a custom font
 
 Register your font with Flutter under `pubspec.yaml`'s `fonts:` section as

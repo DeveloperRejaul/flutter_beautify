@@ -18,10 +18,10 @@ class FBTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final EdgeInsets contentPadding;
   final BorderRadius borderRadius;
-  final Color borderColor;
-  final Color focusedBorderColor;
-  final Color errorBorderColor;
-  final Color fillColor;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
+  final Color? errorBorderColor;
+  final Color? fillColor;
   final bool filled;
   final TextStyle? labelStyle;
   final TextStyle? hintStyle;
@@ -51,10 +51,10 @@ class FBTextField extends StatefulWidget {
       vertical: 12,
     ),
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
-    this.borderColor = Colors.grey,
-    this.focusedBorderColor = Colors.blue,
-    this.errorBorderColor = Colors.red,
-    this.fillColor = Colors.white,
+    this.borderColor,
+    this.focusedBorderColor,
+    this.errorBorderColor,
+    this.fillColor,
     this.filled = true,
     TextStyle? labelStyle,
     TextStyle? hintStyle,
@@ -89,9 +89,9 @@ class FBTextField extends StatefulWidget {
       vertical: 12,
     ),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8)),
-    Color borderColor = Colors.grey,
-    Color focusedBorderColor = Colors.blue,
-    Color errorBorderColor = Colors.red,
+    Color? borderColor,
+    Color? focusedBorderColor,
+    Color? errorBorderColor,
     List<TextInputFormatter>? inputFormatters,
     String? errorText,
     bool? isError,
@@ -143,9 +143,9 @@ class FBTextField extends StatefulWidget {
       vertical: 12,
     ),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8)),
-    Color borderColor = Colors.grey,
-    Color focusedBorderColor = Colors.blue,
-    Color errorBorderColor = Colors.red,
+    Color? borderColor,
+    Color? focusedBorderColor,
+    Color? errorBorderColor,
     List<TextInputFormatter>? inputFormatters,
     String? errorText,
     bool? isError,
@@ -198,9 +198,9 @@ class FBTextField extends StatefulWidget {
       horizontal: 16,
       vertical: 12,
     ),
-    Color fillColor = const Color(0xFFF5F5F5),
-    Color focusedBorderColor = Colors.blue,
-    Color errorBorderColor = Colors.red,
+    Color? fillColor,
+    Color? focusedBorderColor,
+    Color? errorBorderColor,
     List<TextInputFormatter>? inputFormatters,
     String? errorText,
     bool? isError,
@@ -249,9 +249,9 @@ class FBTextField extends StatefulWidget {
     Widget? prefixIcon,
     Widget? suffixIcon,
     String? Function(String?)? validator,
-    Color borderColor = Colors.grey,
-    Color focusedBorderColor = Colors.blue,
-    Color errorBorderColor = Colors.red,
+    Color? borderColor,
+    Color? focusedBorderColor,
+    Color? errorBorderColor,
     List<TextInputFormatter>? inputFormatters,
     String? errorText,
     bool? isError,
@@ -308,7 +308,15 @@ class _FBTextFieldState extends State<FBTextField> {
   @override
   Widget build(BuildContext context) {
     final isFBError = widget.isError ?? false;
-    final errorColor = widget.errorBorderColor;
+    final colorScheme = Theme.of(context).colorScheme;
+    final borderColor = widget.borderColor ?? colorScheme.outline;
+    final focusedColor = widget.focusedBorderColor ?? colorScheme.primary;
+    final errorColor = widget.errorBorderColor ?? colorScheme.error;
+    final fillColor = widget.filled
+        ? (widget.fillColor ?? colorScheme.surfaceContainerHighest)
+        : (widget.fillColor ?? Colors.transparent);
+    final hintStyle =
+        widget.hintStyle ?? TextStyle(color: colorScheme.onSurfaceVariant);
 
     // Use custom decoration if provided
     if (widget.decoration != null) {
@@ -337,18 +345,18 @@ class _FBTextFieldState extends State<FBTextField> {
         label: widget.label != null ? Text(widget.label!) : null,
         hintText: widget.hint,
         labelStyle: widget.labelStyle,
-        hintStyle: widget.hintStyle ?? TextStyle(color: Colors.grey[400]),
+        hintStyle: hintStyle,
         errorText: _errorText,
         border: const UnderlineInputBorder(),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: isFBError ? errorColor : widget.borderColor,
+            color: isFBError ? errorColor : borderColor,
             width: 1,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: isFBError ? errorColor : widget.focusedBorderColor,
+            color: isFBError ? errorColor : focusedColor,
             width: 2,
           ),
         ),
@@ -368,7 +376,7 @@ class _FBTextFieldState extends State<FBTextField> {
         label: widget.label != null ? Text(widget.label!) : null,
         hintText: widget.hint,
         labelStyle: widget.labelStyle,
-        hintStyle: widget.hintStyle ?? TextStyle(color: Colors.grey[400]),
+        hintStyle: hintStyle,
         errorText: _errorText,
         errorBorder: OutlineInputBorder(
           borderRadius: widget.borderRadius,
@@ -381,19 +389,19 @@ class _FBTextFieldState extends State<FBTextField> {
         enabledBorder: OutlineInputBorder(
           borderRadius: widget.borderRadius,
           borderSide: BorderSide(
-            color: isFBError ? errorColor : widget.borderColor,
+            color: isFBError ? errorColor : borderColor,
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: widget.borderRadius,
           borderSide: BorderSide(
-            color: isFBError ? errorColor : widget.focusedBorderColor,
+            color: isFBError ? errorColor : focusedColor,
             width: 2,
           ),
         ),
         filled: widget.filled,
-        fillColor: widget.fillColor,
+        fillColor: fillColor,
         contentPadding: widget.contentPadding,
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon,

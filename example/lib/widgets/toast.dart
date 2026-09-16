@@ -8,8 +8,8 @@ class FBToast {
     required String message,
     Duration duration = const Duration(seconds: 2),
     ToastPosition position = ToastPosition.bottom,
-    Color backgroundColor = const Color(0xFF333333),
-    Color textColor = Colors.white,
+    Color? backgroundColor,
+    Color? textColor,
     double fontSize = 14,
     EdgeInsets padding = const EdgeInsets.symmetric(
       horizontal: 16,
@@ -19,6 +19,10 @@ class FBToast {
     double? maxWidth,
   }) {
     _overlayEntry?.remove();
+
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedBackground = backgroundColor ?? colorScheme.inverseSurface;
+    final resolvedText = textColor ?? colorScheme.onInverseSurface;
 
     final overlay = Overlay.of(context);
     _overlayEntry = OverlayEntry(
@@ -38,13 +42,13 @@ class FBToast {
               ),
               padding: padding,
               decoration: BoxDecoration(
-                color: backgroundColor,
+                color: resolvedBackground,
                 borderRadius: borderRadius,
               ),
               child: Text(
                 message,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: textColor, fontSize: fontSize),
+                style: TextStyle(color: resolvedText, fontSize: fontSize),
               ),
             ),
           ),
@@ -65,6 +69,7 @@ class FBToast {
       message: message,
       duration: duration,
       backgroundColor: Colors.green,
+      textColor: Colors.white,
     );
   }
 
@@ -77,7 +82,8 @@ class FBToast {
       context,
       message: message,
       duration: duration,
-      backgroundColor: Colors.red,
+      backgroundColor: Theme.of(context).colorScheme.error,
+      textColor: Theme.of(context).colorScheme.onError,
     );
   }
 
@@ -91,6 +97,7 @@ class FBToast {
       message: message,
       duration: duration,
       backgroundColor: Colors.orange,
+      textColor: Colors.white,
     );
   }
 

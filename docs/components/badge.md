@@ -7,7 +7,8 @@ A small count/status pill in four sizes, including an outlined look.
 <ComponentPreview slug="badge" :height="160">
 
 ```dart
-FBBadge.standard(label: '5', backgroundColor: Colors.red);
+// No `backgroundColor` → defaults to the ambient Theme's error color.
+FBBadge.standard(label: '5');
 ```
 
 </ComponentPreview>
@@ -28,8 +29,8 @@ Install this component into your project:
 | Parameter | Type | Default |
 | --- | --- | --- |
 | `label` | `String` | required |
-| `backgroundColor` | `Color` | `Colors.red` |
-| `textColor` | `Color` | `Colors.white` |
+| `backgroundColor` | `Color?` | ambient `colorScheme.error` |
+| `textColor` | `Color?` | ambient `colorScheme.onError` |
 
 `.outlined()` uses `borderColor` (and `textColor`) instead of a fill.
 

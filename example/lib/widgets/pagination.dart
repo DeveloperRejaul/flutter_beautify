@@ -5,8 +5,8 @@ class FBPagination extends StatefulWidget {
   final int currentPage;
   final ValueChanged<int>? onPageChanged;
   final int visiblePages;
-  final Color activeColor;
-  final Color inactiveColor;
+  final Color? activeColor;
+  final Color? inactiveColor;
   final double pageSize;
 
   const FBPagination._({
@@ -16,8 +16,9 @@ class FBPagination extends StatefulWidget {
     this.onPageChanged,
     this.visiblePages = 5,
     this.pageSize = 40,
-  }) : activeColor = Colors.blue,
-       inactiveColor = Colors.grey;
+    this.activeColor,
+    this.inactiveColor,
+  });
 
   // Default → standard
   factory FBPagination({
@@ -40,12 +41,16 @@ class FBPagination extends StatefulWidget {
     required int totalPages,
     int currentPage = 1,
     ValueChanged<int>? onPageChanged,
+    Color? activeColor,
+    Color? inactiveColor,
   }) {
     return FBPagination._(
       key: key,
       totalPages: totalPages,
       currentPage: currentPage,
       onPageChanged: onPageChanged,
+      activeColor: activeColor,
+      inactiveColor: inactiveColor,
       visiblePages: 5,
     );
   }
@@ -82,6 +87,9 @@ class _FBPaginationState extends State<FBPagination> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final activeColor = widget.activeColor ?? colorScheme.primary;
+    final inactiveColor = widget.inactiveColor ?? colorScheme.outline;
     final List<int> pageNumbers = _getVisiblePages();
 
     return Wrap(
@@ -91,7 +99,13 @@ class _FBPaginationState extends State<FBPagination> {
       children: [
         // Previous button
         if (_currentPage > 1)
-          _buildPageButton(label: 'Prev', page: _currentPage - 1),
+          _buildPageButton(
+            label: 'Prev',
+            page: _currentPage - 1,
+            activeColor: activeColor,
+            inactiveColor: inactiveColor,
+            onPrimary: colorScheme.onPrimary,
+          ),
 
         // Page numbers
         ...pageNumbers.map(
@@ -99,12 +113,21 @@ class _FBPaginationState extends State<FBPagination> {
             label: page.toString(),
             page: page,
             isActive: page == _currentPage,
+            activeColor: activeColor,
+            inactiveColor: inactiveColor,
+            onPrimary: colorScheme.onPrimary,
           ),
         ),
 
         // Next button
         if (_currentPage < widget.totalPages)
-          _buildPageButton(label: 'Next', page: _currentPage + 1),
+          _buildPageButton(
+            label: 'Next',
+            page: _currentPage + 1,
+            activeColor: activeColor,
+            inactiveColor: inactiveColor,
+            onPrimary: colorScheme.onPrimary,
+          ),
       ],
     );
   }
@@ -112,6 +135,9 @@ class _FBPaginationState extends State<FBPagination> {
   Widget _buildPageButton({
     required String label,
     required int page,
+    required Color activeColor,
+    required Color inactiveColor,
+    required Color onPrimary,
     bool isActive = false,
   }) {
     return GestureDetector(
@@ -125,17 +151,15 @@ class _FBPaginationState extends State<FBPagination> {
         width: widget.pageSize,
         height: widget.pageSize,
         decoration: BoxDecoration(
-          color: isActive ? widget.activeColor : Colors.transparent,
-          border: Border.all(
-            color: isActive ? widget.activeColor : widget.inactiveColor,
-          ),
+          color: isActive ? activeColor : Colors.transparent,
+          border: Border.all(color: isActive ? activeColor : inactiveColor),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
-              color: isActive ? Colors.white : widget.inactiveColor,
+              color: isActive ? onPrimary : inactiveColor,
               fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
             ),
           ),

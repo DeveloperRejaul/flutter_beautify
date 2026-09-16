@@ -4,7 +4,7 @@ class FBAvatar extends StatelessWidget {
   final String? imageUrl;
   final String? initials;
   final double size;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final ShapeBorder shape;
   final VoidCallback? onTap;
 
@@ -13,7 +13,7 @@ class FBAvatar extends StatelessWidget {
     this.imageUrl,
     this.initials,
     this.size = 48,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor,
     required this.shape,
     this.onTap,
   });
@@ -24,7 +24,7 @@ class FBAvatar extends StatelessWidget {
     String? imageUrl,
     String? initials,
     double size = 48,
-    Color backgroundColor = Colors.blue,
+    Color? backgroundColor,
     VoidCallback? onTap,
   }) {
     return FBAvatar.circular(
@@ -43,7 +43,7 @@ class FBAvatar extends StatelessWidget {
     String? imageUrl,
     String? initials,
     double size = 48,
-    Color backgroundColor = Colors.blue,
+    Color? backgroundColor,
     VoidCallback? onTap,
   }) {
     return FBAvatar._(
@@ -63,7 +63,7 @@ class FBAvatar extends StatelessWidget {
     String? imageUrl,
     String? initials,
     double size = 48,
-    Color backgroundColor = Colors.blue,
+    Color? backgroundColor,
     VoidCallback? onTap,
   }) {
     return FBAvatar._(
@@ -83,7 +83,7 @@ class FBAvatar extends StatelessWidget {
     String? imageUrl,
     String? initials,
     double size = 48,
-    Color backgroundColor = Colors.blue,
+    Color? backgroundColor,
     VoidCallback? onTap,
   }) {
     return FBAvatar._(
@@ -97,7 +97,7 @@ class FBAvatar extends StatelessWidget {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     if (imageUrl != null && imageUrl!.isNotEmpty) {
       return ClipPath(
         clipper: ShapeBorderClipper(shape: shape),
@@ -105,22 +105,25 @@ class FBAvatar extends StatelessWidget {
           imageUrl!,
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            return _buildInitials();
+            return _buildInitials(context);
           },
         ),
       );
     }
-    return _buildInitials();
+    return _buildInitials(context);
   }
 
-  Widget _buildInitials() {
+  Widget _buildInitials(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedBackground = backgroundColor ?? colorScheme.primary;
+
     return Container(
-      decoration: ShapeDecoration(color: backgroundColor, shape: shape),
+      decoration: ShapeDecoration(color: resolvedBackground, shape: shape),
       child: Center(
         child: Text(
           initials ?? '?',
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: colorScheme.onPrimary,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -131,7 +134,11 @@ class FBAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widget = SizedBox(width: size, height: size, child: _buildContent());
+    final widget = SizedBox(
+      width: size,
+      height: size,
+      child: _buildContent(context),
+    );
 
     if (onTap != null) {
       return InkWell(onTap: onTap, customBorder: shape, child: widget);

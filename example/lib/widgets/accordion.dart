@@ -12,8 +12,8 @@ class FBAccordion extends StatefulWidget {
     required this.items,
     this.allowMultipleOpen = false,
     this.borderRadius = BorderRadius.zero,
-    this.backgroundColor = Colors.white,
-    this.expandedBackgroundColor = const Color(0xFFF5F5F5),
+    this.backgroundColor,
+    this.expandedBackgroundColor,
   });
 
   // Default → standard
@@ -34,13 +34,15 @@ class FBAccordion extends StatefulWidget {
     Key? key,
     required List<AccordionItem> items,
     bool allowMultipleOpen = false,
+    Color? backgroundColor,
+    Color? expandedBackgroundColor,
   }) {
     return FBAccordion._(
       key: key,
       items: items,
       allowMultipleOpen: allowMultipleOpen,
-      backgroundColor: Colors.white,
-      expandedBackgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: backgroundColor,
+      expandedBackgroundColor: expandedBackgroundColor,
       borderRadius: BorderRadius.zero,
     );
   }
@@ -50,13 +52,14 @@ class FBAccordion extends StatefulWidget {
     Key? key,
     required List<AccordionItem> items,
     bool allowMultipleOpen = false,
+    Color? expandedBackgroundColor,
   }) {
     return FBAccordion._(
       key: key,
       items: items,
       allowMultipleOpen: allowMultipleOpen,
       backgroundColor: Colors.transparent,
-      expandedBackgroundColor: Colors.blue.shade50,
+      expandedBackgroundColor: expandedBackgroundColor,
       borderRadius: BorderRadius.zero,
     );
   }
@@ -81,6 +84,11 @@ class _FBAccordionState extends State<FBAccordion> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final backgroundColor = widget.backgroundColor ?? colorScheme.surface;
+    final expandedBackgroundColor =
+        widget.expandedBackgroundColor ?? colorScheme.surfaceContainerHighest;
+
     return Column(
       children: List.generate(widget.items.length, (index) {
         final item = widget.items[index];
@@ -88,11 +96,11 @@ class _FBAccordionState extends State<FBAccordion> {
 
         return Container(
           decoration: BoxDecoration(
-            color: isExpanded
-                ? widget.expandedBackgroundColor
-                : widget.backgroundColor,
+            color: isExpanded ? expandedBackgroundColor : backgroundColor,
             borderRadius: widget.borderRadius,
-            border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+            border: Border(
+              bottom: BorderSide(color: colorScheme.outlineVariant),
+            ),
           ),
           child: Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),

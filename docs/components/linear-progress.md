@@ -30,7 +30,7 @@ percentage label) · `FBLinearProgress.striped()`
 | --- | --- | --- |
 | `value` | `double` | required — `0.0`–`1.0` |
 | `height` | `double` | `6` |
-| `valueColor` | `Color` | `Colors.blue` |
+| `valueColor` | `Color?` | ambient `colorScheme.primary` |
 
 ## Usage
 

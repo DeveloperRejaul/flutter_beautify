@@ -31,7 +31,7 @@ Install this component into your project:
 | --- | --- | --- |
 | `tabs` | `List<TabItem>` | required |
 | `initialIndex` | `int` | `0` |
-| `activeColor` | `Color` | `Colors.blue` |
+| `activeColor` | `Color?` | ambient `colorScheme.primary` |
 
 ## Usage
 

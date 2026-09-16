@@ -5,9 +5,9 @@ class FBCalendar extends StatefulWidget {
   final ValueChanged<DateTime?>? onDateChanged;
   final DateTime firstDate;
   final DateTime lastDate;
-  final Color selectedColor;
-  final Color todayColor;
-  final Color backgroundColor;
+  final Color? selectedColor;
+  final Color? todayColor;
+  final Color? backgroundColor;
   final TextStyle? selectedTextStyle;
   final bool showWeekdays;
 
@@ -17,9 +17,9 @@ class FBCalendar extends StatefulWidget {
     this.onDateChanged,
     required this.firstDate,
     required this.lastDate,
-    this.selectedColor = Colors.blue,
-    this.todayColor = Colors.green,
-    this.backgroundColor = Colors.white,
+    this.selectedColor,
+    this.todayColor,
+    this.backgroundColor,
   }) : selectedTextStyle = null,
        showWeekdays = true;
 
@@ -47,6 +47,8 @@ class FBCalendar extends StatefulWidget {
     ValueChanged<DateTime?>? onDateChanged,
     required DateTime firstDate,
     required DateTime lastDate,
+    Color? selectedColor,
+    Color? todayColor,
   }) {
     return FBCalendar._(
       key: key,
@@ -54,12 +56,12 @@ class FBCalendar extends StatefulWidget {
       onDateChanged: onDateChanged,
       firstDate: firstDate,
       lastDate: lastDate,
-      selectedColor: Colors.blue,
-      todayColor: Colors.green,
+      selectedColor: selectedColor,
+      todayColor: todayColor,
     );
   }
 
-  // -------- RANGE --------
+  // -------- RANGE (deliberately purple, distinct from the brand) --------
   factory FBCalendar.range({
     Key? key,
     DateTime? selectedDate,
@@ -107,6 +109,12 @@ class _FBCalendarState extends State<FBCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final selectedColor = widget.selectedColor ?? colorScheme.primary;
+    final todayColor = widget.todayColor ?? colorScheme.secondary;
+    final backgroundColor = widget.backgroundColor ?? colorScheme.surface;
+
     final firstDayOfMonth = DateTime(_currentDate.year, _currentDate.month, 1);
     final lastDayOfMonth = DateTime(
       _currentDate.year,
@@ -134,7 +142,7 @@ class _FBCalendarState extends State<FBCalendar> {
     final weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     return Container(
-      color: widget.backgroundColor,
+      color: backgroundColor,
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -149,10 +157,7 @@ class _FBCalendarState extends State<FBCalendar> {
               ),
               Text(
                 '${months[_currentDate.month - 1]} ${_currentDate.year}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: theme.textTheme.titleMedium,
               ),
               IconButton(
                 icon: const Icon(Icons.arrow_right),
@@ -170,9 +175,8 @@ class _FBCalendarState extends State<FBCalendar> {
                       child: Center(
                         child: Text(
                           day,
-                          style: const TextStyle(
+                          style: theme.textTheme.labelSmall?.copyWith(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
                           ),
                         ),
                       ),
@@ -212,9 +216,9 @@ class _FBCalendarState extends State<FBCalendar> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? widget.selectedColor
+                        ? selectedColor
                         : isToday
-                        ? widget.todayColor.withValues(alpha: 0.2)
+                        ? todayColor.withValues(alpha: 0.2)
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -223,14 +227,14 @@ class _FBCalendarState extends State<FBCalendar> {
                       day.toString(),
                       style: isSelected
                           ? widget.selectedTextStyle ??
-                                const TextStyle(
-                                  color: Colors.white,
+                                TextStyle(
+                                  color: colorScheme.onPrimary,
                                   fontWeight: FontWeight.bold,
                                 )
                           : TextStyle(
                               color: isToday
-                                  ? widget.todayColor
-                                  : Colors.black87,
+                                  ? todayColor
+                                  : colorScheme.onSurface,
                             ),
                     ),
                   ),

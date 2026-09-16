@@ -7,22 +7,26 @@ class FBSnackbar {
     Duration duration = const Duration(seconds: 4),
     VoidCallback? onAction,
     String? actionLabel,
-    Color backgroundColor = Colors.black87,
-    Color textColor = Colors.white,
+    Color? backgroundColor,
+    Color? textColor,
     double? elevation,
     EdgeInsets margin = const EdgeInsets.all(0),
     ShapeBorder? shape,
     SnackBarBehavior behavior = SnackBarBehavior.fixed,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedBackground = backgroundColor ?? colorScheme.inverseSurface;
+    final resolvedText = textColor ?? colorScheme.onInverseSurface;
+
     final snackBar = SnackBar(
-      content: Text(message, style: TextStyle(color: textColor)),
+      content: Text(message, style: TextStyle(color: resolvedText)),
       duration: duration,
-      backgroundColor: backgroundColor,
+      backgroundColor: resolvedBackground,
       action: actionLabel != null
           ? SnackBarAction(
               label: actionLabel,
               onPressed: onAction ?? () {},
-              textColor: Colors.white,
+              textColor: resolvedText,
             )
           : null,
       elevation: elevation,
@@ -64,7 +68,8 @@ class FBSnackbar {
       duration: duration,
       actionLabel: actionLabel,
       onAction: onAction,
-      backgroundColor: Colors.red,
+      backgroundColor: Theme.of(context).colorScheme.error,
+      textColor: Theme.of(context).colorScheme.onError,
     );
   }
 
@@ -98,7 +103,8 @@ class FBSnackbar {
       duration: duration,
       actionLabel: actionLabel,
       onAction: onAction,
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      textColor: Theme.of(context).colorScheme.onPrimary,
     );
   }
 }

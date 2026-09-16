@@ -4,9 +4,9 @@ class FBSidebar extends StatefulWidget {
   final List<SidebarItem> items;
   final int selectedIndex;
   final ValueChanged<int>? onItemSelected;
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color backgroundColor;
+  final Color? activeColor;
+  final Color? inactiveColor;
+  final Color? backgroundColor;
   final double width;
   final bool collapsible;
   final bool isCollapsed;
@@ -17,9 +17,9 @@ class FBSidebar extends StatefulWidget {
     required this.items,
     this.selectedIndex = 0,
     this.onItemSelected,
-    this.activeColor = Colors.blue,
-    this.inactiveColor = Colors.grey,
-    this.backgroundColor = Colors.white,
+    this.activeColor,
+    this.inactiveColor,
+    this.backgroundColor,
     this.width = 250,
     this.collapsible = false,
     this.isCollapsed = false,
@@ -47,7 +47,7 @@ class FBSidebar extends StatefulWidget {
     required List<SidebarItem> items,
     int selectedIndex = 0,
     ValueChanged<int>? onItemSelected,
-    Color activeColor = Colors.blue,
+    Color? activeColor,
   }) {
     return FBSidebar._(
       key: key,
@@ -67,7 +67,7 @@ class FBSidebar extends StatefulWidget {
     ValueChanged<int>? onItemSelected,
     bool isCollapsed = false,
     ValueChanged<bool>? onCollapsedChanged,
-    Color activeColor = Colors.blue,
+    Color? activeColor,
   }) {
     return FBSidebar._(
       key: key,
@@ -82,7 +82,7 @@ class FBSidebar extends StatefulWidget {
     );
   }
 
-  // -------- DARK --------
+  // -------- DARK (deliberately always-dark, regardless of app theme) --------
   factory FBSidebar.dark({
     Key? key,
     required List<SidebarItem> items,
@@ -118,11 +118,15 @@ class _FBSidebarState extends State<FBSidebar> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final activeColor = widget.activeColor ?? colorScheme.primary;
+    final inactiveColor = widget.inactiveColor ?? colorScheme.onSurfaceVariant;
+    final backgroundColor = widget.backgroundColor ?? colorScheme.surface;
     final effectiveWidth = _isCollapsed ? 80.0 : widget.width;
 
     return Container(
       width: effectiveWidth,
-      color: widget.backgroundColor,
+      color: backgroundColor,
       child: Column(
         children: [
           if (widget.collapsible)
@@ -131,7 +135,7 @@ class _FBSidebarState extends State<FBSidebar> {
               child: IconButton(
                 icon: Icon(
                   _isCollapsed ? Icons.menu : Icons.close,
-                  color: widget.activeColor,
+                  color: activeColor,
                 ),
                 onPressed: () {
                   setState(() {
@@ -157,7 +161,7 @@ class _FBSidebarState extends State<FBSidebar> {
                   },
                   child: Container(
                     color: isSelected
-                        ? widget.activeColor.withValues(alpha: 0.1)
+                        ? activeColor.withValues(alpha: 0.1)
                         : null,
                     padding: const EdgeInsets.symmetric(
                       vertical: 12,
@@ -168,18 +172,14 @@ class _FBSidebarState extends State<FBSidebar> {
                             message: item.label,
                             child: Icon(
                               item.icon,
-                              color: isSelected
-                                  ? widget.activeColor
-                                  : widget.inactiveColor,
+                              color: isSelected ? activeColor : inactiveColor,
                             ),
                           )
                         : Row(
                             children: [
                               Icon(
                                 item.icon,
-                                color: isSelected
-                                    ? widget.activeColor
-                                    : widget.inactiveColor,
+                                color: isSelected ? activeColor : inactiveColor,
                               ),
                               const SizedBox(width: 12),
                               Expanded(
@@ -187,8 +187,8 @@ class _FBSidebarState extends State<FBSidebar> {
                                   item.label,
                                   style: TextStyle(
                                     color: isSelected
-                                        ? widget.activeColor
-                                        : widget.inactiveColor,
+                                        ? activeColor
+                                        : inactiveColor,
                                     fontWeight: isSelected
                                         ? FontWeight.bold
                                         : FontWeight.normal,

@@ -67,8 +67,7 @@ class FBRadioButton<T> extends StatefulWidget {
       onChanged: onChanged,
       label: label,
       labelStyle: labelStyle,
-      activeColor: activeColor ?? Colors.blue,
-      inactiveColor: Colors.grey,
+      activeColor: activeColor,
       size: size ?? 20.0,
     );
   }
@@ -91,8 +90,7 @@ class FBRadioButton<T> extends StatefulWidget {
       onChanged: onChanged,
       label: label,
       labelStyle: labelStyle,
-      activeColor: activeColor ?? Colors.blue,
-      inactiveColor: Colors.grey.shade400,
+      activeColor: activeColor,
       size: size ?? 24.0,
       padding: const EdgeInsets.all(12.0),
     );
@@ -106,6 +104,9 @@ class _FBRadioButtonState<T> extends State<FBRadioButton<T>> {
   @override
   Widget build(BuildContext context) {
     final isSelected = widget.value == widget.groupValue;
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedActive = widget.activeColor ?? colorScheme.primary;
+    final resolvedInactive = widget.inactiveColor ?? colorScheme.outline;
 
     return Padding(
       padding: widget.padding,
@@ -123,9 +124,9 @@ class _FBRadioButtonState<T> extends State<FBRadioButton<T>> {
               onChanged: widget.onChanged,
               fillColor: WidgetStateProperty.resolveWith<Color?>((states) {
                 if (states.contains(WidgetState.selected)) {
-                  return widget.activeColor ?? Colors.blue;
+                  return resolvedActive;
                 }
-                return widget.inactiveColor ?? Colors.grey;
+                return resolvedInactive;
               }),
             ),
           ),
@@ -140,7 +141,9 @@ class _FBRadioButtonState<T> extends State<FBRadioButton<T>> {
                       widget.labelStyle ??
                       TextStyle(
                         fontSize: 14,
-                        color: isSelected ? Colors.black87 : Colors.black54,
+                        color: isSelected
+                            ? colorScheme.onSurface
+                            : colorScheme.onSurfaceVariant,
                       ),
                 ),
               ),

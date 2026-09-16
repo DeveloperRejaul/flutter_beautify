@@ -4,9 +4,9 @@ class FBBottomNavigationBar extends StatefulWidget {
   final List<BottomNavItem> items;
   final int selectedIndex;
   final ValueChanged<int>? onItemSelected;
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color backgroundColor;
+  final Color? activeColor;
+  final Color? inactiveColor;
+  final Color? backgroundColor;
   final double elevation;
 
   const FBBottomNavigationBar._({
@@ -14,10 +14,11 @@ class FBBottomNavigationBar extends StatefulWidget {
     required this.items,
     this.selectedIndex = 0,
     this.onItemSelected,
-    this.activeColor = Colors.blue,
+    this.activeColor,
+    this.inactiveColor,
+    this.backgroundColor,
     this.elevation = 8,
-  }) : inactiveColor = Colors.grey,
-       backgroundColor = Colors.white;
+  });
 
   // Default → standard
   factory FBBottomNavigationBar({
@@ -40,7 +41,9 @@ class FBBottomNavigationBar extends StatefulWidget {
     required List<BottomNavItem> items,
     int selectedIndex = 0,
     ValueChanged<int>? onItemSelected,
-    Color activeColor = Colors.blue,
+    Color? activeColor,
+    Color? inactiveColor,
+    Color? backgroundColor,
   }) {
     return FBBottomNavigationBar._(
       key: key,
@@ -48,6 +51,8 @@ class FBBottomNavigationBar extends StatefulWidget {
       selectedIndex: selectedIndex,
       onItemSelected: onItemSelected,
       activeColor: activeColor,
+      inactiveColor: inactiveColor,
+      backgroundColor: backgroundColor,
     );
   }
 
@@ -57,7 +62,7 @@ class FBBottomNavigationBar extends StatefulWidget {
     required List<BottomNavItem> items,
     int selectedIndex = 0,
     ValueChanged<int>? onItemSelected,
-    Color activeColor = Colors.blue,
+    Color? activeColor,
   }) {
     return FBBottomNavigationBar._(
       key: key,
@@ -84,6 +89,8 @@ class _FBBottomNavigationBarState extends State<FBBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BottomNavigationBar(
       items: widget.items.map((item) {
         return BottomNavigationBarItem(
@@ -93,9 +100,9 @@ class _FBBottomNavigationBarState extends State<FBBottomNavigationBar> {
         );
       }).toList(),
       currentIndex: _selectedIndex,
-      selectedItemColor: widget.activeColor,
-      unselectedItemColor: widget.inactiveColor,
-      backgroundColor: widget.backgroundColor,
+      selectedItemColor: widget.activeColor ?? colorScheme.primary,
+      unselectedItemColor: widget.inactiveColor ?? colorScheme.onSurfaceVariant,
+      backgroundColor: widget.backgroundColor ?? colorScheme.surface,
       elevation: widget.elevation,
       onTap: (index) {
         setState(() {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1
+
+* Every FBX widget now reads its default colors from the ambient `Theme.of(context)` instead of hardcoding `Colors.blue`/`Colors.red`/etc., so `FBTheme.lightTheme()`/`darkTheme()` actually re-themes the whole component library
+* `FBTheme` now also wires Material's own component themes (`checkboxTheme`, `switchTheme`, `sliderTheme`, `tabBarTheme`, `cardTheme`, and more) so plain Flutter widgets used without the CLI match too
+* Add a "Dark and light mode" section to the theme docs page
+
 ## 1.3.0
 
 * Add `theme` component: `FBTheme.lightTheme()`/`darkTheme()` with overridable primary/accent/error colors and font family, plus `FBColors`, `FBSpacing`, `FBBorderRadius`, `FBTypography`

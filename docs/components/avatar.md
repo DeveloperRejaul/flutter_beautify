@@ -38,7 +38,7 @@ plain `FBAvatar(...)` constructor forwards to `.circular()`.
 | `imageUrl` | `String?` | — |
 | `initials` | `String?` | — used when `imageUrl` is null |
 | `size` | `double` | `48` |
-| `backgroundColor` | `Color` | `Colors.blue` |
+| `backgroundColor` | `Color?` | ambient `colorScheme.primary` |
 | `onTap` | `VoidCallback?` | — |
 
 ## Usage

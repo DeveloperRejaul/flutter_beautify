@@ -4,8 +4,8 @@ class FBCircularProgress extends StatefulWidget {
   final double value; // 0.0 to 1.0, null for indeterminate
   final double size;
   final double strokeWidth;
-  final Color backgroundColor;
-  final Color valueColor;
+  final Color? backgroundColor;
+  final Color? valueColor;
   final String? label;
   final TextStyle? labelStyle;
   final bool isIndeterminate;
@@ -15,11 +15,12 @@ class FBCircularProgress extends StatefulWidget {
     required this.value,
     this.size = 80,
     this.strokeWidth = 4,
-    this.valueColor = Colors.blue,
+    this.valueColor,
+    this.backgroundColor,
     this.label,
     this.labelStyle,
     this.isIndeterminate = false,
-  }) : backgroundColor = const Color(0xFFE0E0E0);
+  });
 
   // Default → standard
   factory FBCircularProgress({
@@ -35,7 +36,8 @@ class FBCircularProgress extends StatefulWidget {
     Key? key,
     required double value,
     double size = 80,
-    Color valueColor = Colors.blue,
+    Color? valueColor,
+    Color? backgroundColor,
   }) {
     return FBCircularProgress._(
       key: key,
@@ -43,6 +45,7 @@ class FBCircularProgress extends StatefulWidget {
       size: size,
       strokeWidth: 4,
       valueColor: valueColor,
+      backgroundColor: backgroundColor,
     );
   }
 
@@ -51,7 +54,7 @@ class FBCircularProgress extends StatefulWidget {
     Key? key,
     required double value,
     double size = 100,
-    Color valueColor = Colors.blue,
+    Color? valueColor,
   }) {
     return FBCircularProgress._(
       key: key,
@@ -68,7 +71,7 @@ class FBCircularProgress extends StatefulWidget {
   factory FBCircularProgress.spinner({
     Key? key,
     double size = 80,
-    Color valueColor = Colors.blue,
+    Color? valueColor,
     double strokeWidth = 4,
   }) {
     return FBCircularProgress._(
@@ -110,6 +113,11 @@ class _FBCircularProgressState extends State<FBCircularProgress>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedValueColor = widget.valueColor ?? colorScheme.primary;
+    final resolvedBackground =
+        widget.backgroundColor ?? colorScheme.surfaceContainerHighest;
+
     if (widget.isIndeterminate) {
       return SizedBox(
         width: widget.size,
@@ -121,8 +129,8 @@ class _FBCircularProgressState extends State<FBCircularProgress>
               turns: _controller,
               child: CircularProgressIndicator(
                 strokeWidth: widget.strokeWidth,
-                backgroundColor: widget.backgroundColor,
-                valueColor: AlwaysStoppedAnimation<Color>(widget.valueColor),
+                backgroundColor: resolvedBackground,
+                valueColor: AlwaysStoppedAnimation<Color>(resolvedValueColor),
               ),
             ),
             if (widget.label != null)
@@ -146,8 +154,8 @@ class _FBCircularProgressState extends State<FBCircularProgress>
           CircularProgressIndicator(
             value: widget.value,
             strokeWidth: widget.strokeWidth,
-            backgroundColor: widget.backgroundColor,
-            valueColor: AlwaysStoppedAnimation<Color>(widget.valueColor),
+            backgroundColor: resolvedBackground,
+            valueColor: AlwaysStoppedAnimation<Color>(resolvedValueColor),
           ),
           if (widget.label != null)
             Text(

@@ -10,15 +10,17 @@ class FBBottomSheet {
     bool enableDrag = true,
     double? height,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return showModalBottomSheet<T>(
       context: context,
       isDismissible: isDismissible,
       enableDrag: enableDrag,
       builder: (context) => Container(
         height: height,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: colorScheme.surface,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
@@ -30,10 +32,7 @@ class FBBottomSheet {
                 padding: const EdgeInsets.all(16),
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               const Divider(height: 1),
@@ -53,6 +52,8 @@ class FBBottomSheet {
     bool isDismissible = true,
     double? height,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return showModalBottomSheet<T>(
       context: context,
       isDismissible: isDismissible,
@@ -63,9 +64,9 @@ class FBBottomSheet {
         maxChildSize: 0.95,
         minChildSize: 0.25,
         builder: (context, scrollController) => Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(16),
               topRight: Radius.circular(16),
             ),
@@ -77,10 +78,7 @@ class FBBottomSheet {
                   padding: const EdgeInsets.all(16),
                   child: Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 const Divider(height: 1),

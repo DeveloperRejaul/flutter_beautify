@@ -7,7 +7,10 @@ class FBDatePicker extends StatefulWidget {
   final DateTime lastDate;
   final String hintText;
   final String labelText;
-  final InputDecoration decoration;
+  final bool filled;
+  final Color? borderColor;
+  final Color? focusedBorderColor;
+  final Color? fillColor;
   final bool showTime;
   final double? width;
 
@@ -19,7 +22,10 @@ class FBDatePicker extends StatefulWidget {
     required this.lastDate,
     this.hintText = 'Select date',
     this.labelText = '',
-    required this.decoration,
+    this.filled = false,
+    this.borderColor,
+    this.focusedBorderColor,
+    this.fillColor,
     this.showTime = false,
     this.width,
   });
@@ -60,6 +66,8 @@ class FBDatePicker extends StatefulWidget {
     String labelText = '',
     bool showTime = false,
     double? width,
+    Color? borderColor,
+    Color? focusedBorderColor,
   }) {
     return FBDatePicker._(
       key: key,
@@ -69,26 +77,10 @@ class FBDatePicker extends StatefulWidget {
       lastDate: lastDate ?? DateTime.now().add(const Duration(days: 365)),
       hintText: hintText,
       labelText: labelText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText.isEmpty ? null : labelText,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.grey, width: 1),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.blue, width: 2),
-        ),
-        suffixIcon: const Icon(Icons.calendar_today),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 16,
-        ),
-      ),
       showTime: showTime,
       width: width,
+      borderColor: borderColor,
+      focusedBorderColor: focusedBorderColor,
     );
   }
 
@@ -103,6 +95,8 @@ class FBDatePicker extends StatefulWidget {
     String labelText = '',
     bool showTime = false,
     double? width,
+    Color? fillColor,
+    Color? focusedBorderColor,
   }) {
     return FBDatePicker._(
       key: key,
@@ -112,29 +106,9 @@ class FBDatePicker extends StatefulWidget {
       lastDate: lastDate ?? DateTime.now().add(const Duration(days: 365)),
       hintText: hintText,
       labelText: labelText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText.isEmpty ? null : labelText,
-        filled: true,
-        fillColor: const Color(0xFFF5F5F5),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.blue, width: 2),
-        ),
-        suffixIcon: const Icon(Icons.calendar_today),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 16,
-        ),
-      ),
+      filled: true,
+      fillColor: fillColor,
+      focusedBorderColor: focusedBorderColor,
       showTime: showTime,
       width: width,
     );
@@ -189,11 +163,43 @@ class _FBDatePickerState extends State<FBDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final borderColor = widget.borderColor ?? colorScheme.outline;
+    final focusedColor = widget.focusedBorderColor ?? colorScheme.primary;
+    final fillColor = widget.filled
+        ? (widget.fillColor ?? colorScheme.surfaceContainerHighest)
+        : null;
+
+    final decoration = InputDecoration(
+      hintText: widget.hintText,
+      labelText: widget.labelText.isEmpty ? null : widget.labelText,
+      filled: widget.filled,
+      fillColor: fillColor,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: widget.filled
+            ? BorderSide.none
+            : BorderSide(color: borderColor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: widget.filled
+            ? BorderSide.none
+            : BorderSide(color: borderColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: focusedColor, width: 2),
+      ),
+      suffixIcon: const Icon(Icons.calendar_today),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+    );
+
     return SizedBox(
       width: widget.width ?? double.infinity,
       child: TextFormField(
         controller: _controller,
-        decoration: widget.decoration,
+        decoration: decoration,
         readOnly: true,
         onTap: () => _selectDate(context),
       ),

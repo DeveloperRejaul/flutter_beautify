@@ -70,10 +70,8 @@ class FBSwitch extends StatefulWidget {
       label: label,
       subtitle: subtitle,
       labelStyle: labelStyle,
-      activeColor: activeColor ?? Colors.blue,
-      inactiveColor: Colors.grey.shade400,
-      trackActiveColor: (activeColor ?? Colors.blue).withValues(alpha: 0.5),
-      trackInactiveColor: Colors.grey.shade300,
+      activeColor: activeColor,
+      trackActiveColor: activeColor?.withValues(alpha: 0.5),
       enabled: true,
     );
   }
@@ -97,17 +95,15 @@ class FBSwitch extends StatefulWidget {
       subtitle: subtitle,
       labelStyle: labelStyle,
       subtitleStyle: subtitleStyle,
-      activeColor: activeColor ?? Colors.blue,
-      inactiveColor: Colors.grey.shade400,
-      trackActiveColor: (activeColor ?? Colors.blue).withValues(alpha: 0.5),
-      trackInactiveColor: Colors.grey.shade300,
+      activeColor: activeColor,
+      trackActiveColor: activeColor?.withValues(alpha: 0.5),
       padding: const EdgeInsets.all(12.0),
       alignment: MainAxisAlignment.spaceBetween,
       enabled: true,
     );
   }
 
-  // -------- ANDROID --------
+  // -------- ANDROID (classic green, deliberately distinct from the brand) --------
   factory FBSwitch.android({
     Key? key,
     required bool value,
@@ -115,7 +111,7 @@ class FBSwitch extends StatefulWidget {
     String label = '',
     String? subtitle,
     TextStyle? labelStyle,
-    Color? activeColor,
+    Color activeColor = Colors.green,
   }) {
     return FBSwitch._(
       key: key,
@@ -124,9 +120,9 @@ class FBSwitch extends StatefulWidget {
       label: label,
       subtitle: subtitle,
       labelStyle: labelStyle,
-      activeColor: activeColor ?? Colors.green,
+      activeColor: activeColor,
       inactiveColor: Colors.grey.shade500,
-      trackActiveColor: (activeColor ?? Colors.green).withValues(alpha: 0.6),
+      trackActiveColor: activeColor.withValues(alpha: 0.6),
       trackInactiveColor: Colors.grey.shade400,
       enabled: true,
     );
@@ -155,6 +151,11 @@ class _FBSwitchState extends State<FBSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final resolvedActive = widget.activeColor ?? colorScheme.primary;
+    final resolvedTrackActive =
+        widget.trackActiveColor ?? resolvedActive.withValues(alpha: 0.5);
+
     return Padding(
       padding: widget.padding,
       child: Row(
@@ -169,8 +170,7 @@ class _FBSwitchState extends State<FBSwitch> {
                     widget.label,
                     style:
                         widget.labelStyle ??
-                        const TextStyle(
-                          fontSize: 14,
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                   ),
@@ -180,7 +180,7 @@ class _FBSwitchState extends State<FBSwitch> {
                       widget.subtitle!,
                       style:
                           widget.subtitleStyle ??
-                          TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                          Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ],
@@ -196,8 +196,9 @@ class _FBSwitchState extends State<FBSwitch> {
                     widget.onChanged?.call(newValue);
                   }
                 : null,
-            inactiveThumbColor: widget.inactiveColor ?? Colors.grey.shade400,
-            activeTrackColor: widget.trackActiveColor,
+            activeThumbColor: resolvedActive,
+            inactiveThumbColor: widget.inactiveColor,
+            activeTrackColor: resolvedTrackActive,
             inactiveTrackColor: widget.trackInactiveColor,
           ),
         ],

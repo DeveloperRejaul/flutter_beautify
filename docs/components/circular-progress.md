@@ -31,7 +31,7 @@ no `value`)
 | --- | --- | --- |
 | `value` | `double` | required (not on `.spinner()`) |
 | `size` | `double` | `80` |
-| `valueColor` | `Color` | `Colors.blue` |
+| `valueColor` | `Color?` | ambient `colorScheme.primary` |
 | `strokeWidth` | `double` | `4` |
 
 ## Usage

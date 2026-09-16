@@ -32,7 +32,7 @@ constructor forwards to `.elevated()`.
 | Parameter | Type | Default |
 | --- | --- | --- |
 | `child` | `Widget` | required |
-| `backgroundColor` | `Color` | `Colors.white` |
+| `backgroundColor` | `Color?` | ambient `colorScheme.surface` (`surfaceContainerHighest` for `.flat`) |
 | `padding` / `margin` | `EdgeInsetsGeometry` | `all(16)` / `all(8)` |
 | `borderRadius` | `BorderRadius` | `circular(12)` |
 | `onTap` | `VoidCallback?` | — |

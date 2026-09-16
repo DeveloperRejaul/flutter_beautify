@@ -9,14 +9,15 @@ optional leading icon, and a `color` shorthand instead of hand-building a
 <ComponentPreview slug="button" :height="320">
 
 ```dart
+// No `color` → uses the ambient Theme's primary color automatically.
 FBButton.solid(
   onPressed: () {},
   title: 'Save',
-  color: Colors.deepOrange,
   leading: const Icon(Icons.save, size: 20),
 );
 
-FBButton.outline(onPressed: () {}, title: 'Cancel', color: Colors.deepOrange);
+// Pass `color` to override per-button — use FBColors to stay on-palette.
+FBButton.outline(onPressed: () {}, title: 'Cancel', color: FBColors.accent);
 FBButton.link(onPressed: () {}, title: 'Learn more');
 ```
 
@@ -39,7 +40,7 @@ Install this component into your project:
 | --- | --- | --- |
 | `onPressed` | `VoidCallback?` | — |
 | `title` / `child` | `String?` / `Widget?` | — |
-| `color` | `Color` | `Colors.blue` |
+| `color` | `Color?` | ambient `Theme.of(context).colorScheme.primary` |
 | `leading` | `Icon?` | — |
 | `style` | `ButtonStyle?` | — overrides the generated style |
 
