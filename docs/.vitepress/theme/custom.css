@@ -1,0 +1,22 @@
+/* Monochrome palette (shadcn/ui-inspired) instead of VitePress's default
+   indigo brand color — buttons, links, and accents read as near-black /
+   near-white rather than blue. */
+:root {
+  --vp-c-brand-1: #18181b;
+  --vp-c-brand-2: #27272a;
+  --vp-c-brand-3: #3f3f46;
+  --vp-c-brand-soft: rgba(24, 24, 27, 0.14);
+}
+
+.dark {
+  --vp-c-brand-1: #e4e4e7;
+  --vp-c-brand-2: #d4d4d8;
+  --vp-c-brand-3: #a1a1aa;
+  --vp-c-brand-soft: rgba(228, 228, 231, 0.16);
+}
+
+/* Brand-colored text (e.g. "Get started" button label) needs to flip to
+   dark text on the light near-white brand button in dark mode. */
+.dark .VPButton.brand {
+  color: #18181b;
+}

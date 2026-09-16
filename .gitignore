@@ -1,15 +1,8 @@
 # https://dart.dev/guides/libraries/private-files
 # Created by `dart pub`
 .dart_tool/
-# Jekyll local build files
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-*.gem
-*.gemspec
-Gemfile.lock
 
-# Bundler
-bundle/
-vendor/
+# Node / docs site
+node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/

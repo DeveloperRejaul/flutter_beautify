@@ -1,0 +1,13 @@
+# Docs site (VitePress) and its tooling — not needed to run the CLI.
+# example/ is intentionally NOT listed here: bin/utils/create.dart reads
+# component templates from example/lib/widgets/ at runtime.
+/docs/
+/package.json
+/package-lock.json
+/node_modules/
+
+/.github/
+/AGENTS.md
+/CLAUDE.md
+/CODE_OF_CONDUCT.md
+/note.txt

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0
+
+* Add `theme` component: `FBTheme.lightTheme()`/`darkTheme()` with overridable primary/accent/error colors and font family, plus `FBColors`, `FBSpacing`, `FBBorderRadius`, `FBTypography`
+* Add `responsive` component: `FBBreakpoints`, `FBScreenType`, a `BuildContext` extension (`screenWidth`, `screenType`, `isMobile`/`isTablet`/`isDesktop`), `FBResponsiveValue<T>`, and the `FBResponsive` widget
+* Rebuild the documentation site on VitePress with a live, interactive Flutter Web component gallery embedded in every component page
+* Add a project structure guide recommending a feature-based `lib/{core,shared,features/<name>}` layout
+
 ## 1.2.9
 
 * Apply `dart format` to fix the CI format-check step

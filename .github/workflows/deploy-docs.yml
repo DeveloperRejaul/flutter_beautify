@@ -1,0 +1,63 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'example/**'
+      - 'package.json'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Docs site (VitePress) ---
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run docs:build
+
+      # --- Live widget gallery (Flutter Web) ---
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - working-directory: example
+        run: flutter pub get
+      - working-directory: example
+        run: flutter build web --release --base-href /flutter_beautify/demo/
+
+      # Merge the compiled gallery into the docs output so one Pages
+      # deployment serves both: / for the docs, /demo/ for the gallery.
+      - run: |
+          mkdir -p docs/.vitepress/dist/demo
+          cp -r example/build/web/. docs/.vitepress/dist/demo/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

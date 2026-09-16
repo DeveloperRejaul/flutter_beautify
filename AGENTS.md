@@ -32,8 +32,87 @@ in mind for every change to `bin/` or `lib/`.
   published to pub.dev as part of the package, so these files ship with it.
 - `example/lib/demo/*.dart` — usage demos for the example app; not used by
   the CLI itself.
-- `doc/`, `index.md`, `_config.yml`, `Gemfile` — Jekyll source for the
-  GitHub Pages docs site.
+- `example/lib/gallery.dart` — the example app's home screen: a categorized
+  list of all components that navigates into each demo screen. This is
+  what gets compiled to Flutter Web and deployed as the docs site's live
+  gallery. Two entries (`theme`, `responsive`) aren't rendered widgets —
+  their demo screens visualize design tokens / breakpoint behavior instead.
+- `docs/` — the documentation site, built with [VitePress](https://vitepress.dev)
+  (`docs/guide/`, `docs/components/`, `docs/.vitepress/config.mts`). Not
+  published to pub.dev (see `.pubignore`). Deployed by
+  `.github/workflows/deploy-docs.yml`, which also builds `example/` for
+  Flutter Web and merges it into the same deployment under `/demo/`.
+
+## Docs site
+
+- Run locally: `npm install && npm run docs:dev`. To see the `<ComponentPreview>`
+  iframes actually render (not just the code tab), also run
+  `cd example && flutter run -d chrome --web-port 5174` and treat that as the
+  local stand-in for the deployed `/demo/` gallery — see the preview note
+  below.
+- One page per component under `docs/components/<slug>.md` (`slug` matches
+  the `add` command, e.g. `date-picker.md`). Each embeds
+  `<ComponentPreview slug="...">` (defined in
+  `docs/.vitepress/theme/ComponentPreview.vue`), which renders a Preview/Code
+  tab pair: Preview is an iframe onto `/flutter_beautify/demo/#/<slug>`,
+  Code is whatever markdown/code-fence you put inside the component tag.
+  The iframe's `#/<slug>` route only exists if that slug is registered in
+  `example/lib/gallery.dart`'s `galleryPreviewRoutes` — add it there first,
+  or the preview tab will 404 inside the iframe.
+- Documented factory constructors, static methods, and parameters must be
+  *real*, read directly from `example/lib/widgets/*.dart` — don't invent a
+  variant that isn't in the code. Cross-check with
+  `grep -n "factory \|static " example/lib/widgets/<name>.dart` before
+  writing or editing an entry.
+- Each component page's "CLI" section uses `<CliBlock slug="...">`
+  (`docs/.vitepress/theme/CliBlock.vue`), which renders the labeled tab +
+  `flutter_beautify add <slug>` command. Both it and `<ComponentPreview>`'s
+  code tab display their command via the shared `CommandBox.vue`. Reuse
+  `CommandBox` for any new command display rather than a plain `<code>`
+  block, to keep every command box visually identical.
+- New pages need a sidebar entry in `docs/.vitepress/config.mts` (grouped by
+  category, matching `example/lib/gallery.dart`'s categories) — they aren't
+  picked up automatically.
+- The site uses a monochrome (near-black/white) brand palette instead of
+  VitePress's default indigo — set via `:root`/`.dark` overrides of
+  `--vp-c-brand-1/2/3` in `docs/.vitepress/theme/custom.css`. Any new
+  "dark accent" color in a theme component should reference
+  `var(--vp-c-brand-1)` rather than `var(--vp-c-text-1)` or a hardcoded
+  value — mixing those was a real bug reported once already (visibly
+  different "blacks" sitting next to each other). All theme components,
+  `CommandBox` included, use `--vp-c-*` tokens rather than fixed colors —
+  a fixed-dark "terminal" box was tried for `CommandBox` and looked wrong
+  in light mode, so don't reintroduce hardcoded dark colors there.
+- `<ComponentPreview>`'s preview iframe rounds its own bottom corners
+  (`border-radius` set directly on the `<iframe>`, not just the ancestor
+  `.cp` container) — browsers don't reliably clip an iframe via an
+  ancestor's `overflow: hidden` + `border-radius` alone, so without this
+  the light Flutter content inside squares off against the panel's rounded
+  corners.
+- The homepage (`docs/index.md`) embeds `<HeroShowcase>`
+  (`docs/.vitepress/theme/HeroShowcase.vue`): a tab row that swaps an
+  iframe's `#/<slug>` hash to preview a few components inline in the hero,
+  shadcn/ui-style. Because it's a hash-only change on an already-loaded
+  Flutter SPA, the iframe's `load` event does **not** refire on tab switch
+  — don't reintroduce a `loaded = false` reset in the tab-click handler, or
+  the loading spinner gets stuck forever after the first switch.
+
+**Local preview caveat:** the deployed `<ComponentPreview>` iframe points at
+`/flutter_beautify/demo/#/<slug>`, which only exists after CI merges the
+Flutter Web build into the VitePress output (see `deploy-docs.yml` below).
+Running `npm run docs:dev` alone will show a broken/empty iframe in local
+dev unless something is also being served at that exact path — running the
+Flutter app with `flutter run -d chrome` on a different port does **not**
+match that path, so it's only useful for eyeballing the widget itself, not
+for verifying the embed end-to-end. To verify the real embed locally, build
+both and serve them together:
+
+```bash
+npm run docs:build
+(cd example && flutter build web --release --base-href /flutter_beautify/demo/)
+mkdir -p docs/.vitepress/dist/demo && cp -r example/build/web/. docs/.vitepress/dist/demo/
+npx vitepress preview docs
+```
 
 ## Conventions worth knowing
 
@@ -57,8 +136,13 @@ in mind for every change to `bin/` or `lib/`.
    Material 3, zero non-Flutter dependencies).
 2. Add the dash-case name to `validComponents` and the printed list in
    `bin/add/add.dart`.
-3. Optionally add a demo under `example/lib/demo/`.
-4. Optionally document it under `doc/widgets/`.
+3. Add a demo under `example/lib/demo/` and register it in
+   `example/lib/gallery.dart`'s `galleryCategories` — this both adds it to
+   the gallery list and (via `galleryPreviewRoutes`) makes its `/demo/#/<slug>`
+   deep link work.
+4. Add `docs/components/<dash-case-slug>.md` (copy an existing page's
+   structure), add its sidebar entry in `docs/.vitepress/config.mts`, and
+   add it to the table in `README.md`.
 
 ## Testing changes to the CLI
 
