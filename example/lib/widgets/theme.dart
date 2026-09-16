@@ -33,12 +33,27 @@ class FBTheme {
     Color errorColor = FBColors.error,
     String? fontFamily,
   }) {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: primaryColor,
-      brightness: Brightness.light,
-      secondary: accentColor,
-      error: errorColor,
-    );
+    // ColorScheme.fromSeed() regenerates a whole M3 tonal palette from the
+    // seed color, so colorScheme.primary usually comes out as a *different*
+    // shade than the seed itself. Override it back to the exact colors you
+    // passed in so `Theme.of(context).colorScheme.primary` really is
+    // `primaryColor` (FBColors.primary by default) — only the *other*
+    // auto-derived roles (primaryContainer, surface tints, ...) keep the
+    // seed-generated harmony.
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: primaryColor,
+          brightness: Brightness.light,
+          secondary: accentColor,
+          error: errorColor,
+        ).copyWith(
+          primary: primaryColor,
+          onPrimary: _onColorFor(primaryColor),
+          secondary: accentColor,
+          onSecondary: _onColorFor(accentColor),
+          error: errorColor,
+          onError: _onColorFor(errorColor),
+        );
 
     return ThemeData(
       useMaterial3: true,
@@ -142,12 +157,20 @@ class FBTheme {
     Color errorColor = FBColors.error,
     String? fontFamily,
   }) {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: primaryColor,
-      brightness: Brightness.dark,
-      secondary: accentColor,
-      error: errorColor,
-    );
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: primaryColor,
+          brightness: Brightness.dark,
+          secondary: accentColor,
+          error: errorColor,
+        ).copyWith(
+          primary: primaryColor,
+          onPrimary: _onColorFor(primaryColor),
+          secondary: accentColor,
+          onSecondary: _onColorFor(accentColor),
+          error: errorColor,
+          onError: _onColorFor(errorColor),
+        );
 
     return ThemeData(
       useMaterial3: true,
@@ -243,6 +266,15 @@ class FBTheme {
         fontFamily: fontFamily,
       ),
     );
+  }
+
+  /// Picks a readable foreground (white or near-black) for [color] by its
+  /// luminance — used to keep `onPrimary`/`onSecondary`/`onError` legible
+  /// after overriding the seed-generated tone back to the exact brand color.
+  static Color _onColorFor(Color color) {
+    return color.computeLuminance() > 0.5
+        ? FBColors.textPrimaryLight
+        : FBColors.white;
   }
 }
 

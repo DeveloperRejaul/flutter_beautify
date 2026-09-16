@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+* Fix `FBTheme.lightTheme()`/`darkTheme()` so `Theme.of(context).colorScheme.primary` (and `.secondary`/`.error`) exactly match the `primaryColor`/`accentColor`/`errorColor` you passed in (or `FBColors.primary`/etc. by default) — `ColorScheme.fromSeed()` was regenerating a different M3 tonal shade instead of keeping the exact color
+
 ## 1.3.1
 
 * Every FBX widget now reads its default colors from the ambient `Theme.of(context)` instead of hardcoding `Colors.blue`/`Colors.red`/etc., so `FBTheme.lightTheme()`/`darkTheme()` actually re-themes the whole component library
